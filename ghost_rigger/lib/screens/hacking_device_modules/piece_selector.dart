@@ -4,18 +4,24 @@ import 'package:flutter/gestures.dart';
 
 import '../hacking_device.dart';
 import 'device_module_base.dart';
-import 'pieces/piece_base.dart';
-import 'pieces/piece_test.dart';
+import 'pieces/piece.dart';
 
 class PieceSelector extends DeviceModuleBase {
   Sprite sprite;
-  List<PieceBase> pieces;
+  List<Piece> pieces;
 
   PieceSelector(HackingDevice hackingDevice) : super(hackingDevice) {
     sprite = Sprite('module_selection_area.png');
-    pieces = [
-      PieceTest(hackingDevice),
-    ];
+    pieces = [];
+  }
+
+  void tryToAddPiece(Piece piece) {
+    if (area.contains(piece.dragPosition) && !pieces.contains(piece)) {
+      hackingDevice.board.pieces.forEach((boardPieces) { boardPieces.remove(piece); });
+      pieces.add(piece);
+      piece.positionInBoardRow = -1;
+      piece.positionInBoardColumn = -1;
+    }
   }
 
   @override
@@ -26,46 +32,13 @@ class PieceSelector extends DeviceModuleBase {
     var offsetY = hackingDevice.gameHeight * 0.19;
     area = Rect.fromLTWH(offsetX, offsetY, width, height);
     sprite.renderRect(canvas, area);
-    pieces.forEach((piece) { piece.render(canvas); });
+    pieces.toList().forEach((piece) {
+      piece.offset = Offset(hackingDevice.gameWidth * 0.846, hackingDevice.gameHeight * 0.19);
+    });
   }
 
   @override
   void update(double t) {
-    pieces.forEach((piece) { piece.update(t); });
-  }
-
-  @override
-  void onTapDown(double dX, double dY) {
-    pieces.forEach((piece) { piece.onTapDown(dX, dY); });
-  }
-
-  @override
-  void onTapUp(double dX, double dY) {
-    pieces.forEach((piece) { piece.onTapUp(dX, dY); });
-  }
-
-  @override
-  void onTap() {
-    pieces.forEach((piece) { piece.onTap(); });
-  }
-
-  @override
-  void onTapCancel() {
-    pieces.forEach((piece) { piece.onTapCancel(); });
-  }
-
-  @override
-  void onDragUpdate(double dX, double dY) {
-    pieces.forEach((piece) { piece.onDragUpdate(dX, dY); });
-  }
-
-  @override
-  void onDragEnd(Velocity velocity) {
-    pieces.forEach((piece) { piece.onDragEnd(velocity); });
-  }
-
-  @override
-  void onDragCancel() {
-    pieces.forEach((piece) { piece.onDragCancel(); });
+    // Nothing to do here
   }
 }

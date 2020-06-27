@@ -4,16 +4,24 @@ import 'package:flutter/gestures.dart';
 
 import '../../hacking_device.dart';
 import '../device_module_base.dart';
+import 'piece_model.dart';
 
-abstract class PieceBase extends DeviceModuleBase {
+class Piece extends DeviceModuleBase {
   Sprite sprite;
-  Offset dragPosition;
   bool isDraggable;
+  int positionInBoardColumn;
+  int positionInBoardRow;
+  Offset dragPosition;
+  Offset offset;
 
-  PieceBase(HackingDevice hackingDevice, String spriteName) : super(hackingDevice) {
-    sprite = Sprite(spriteName);
+  static Piece draggedPiece = null;
+
+  Piece(HackingDevice hackingDevice, PieceModel pieceModel) : super(hackingDevice) {
+    sprite = Sprite(pieceModel.spriteName);
+    isDraggable = pieceModel.isDraggable;
+    positionInBoardColumn = pieceModel.positionInBoardColumn;
+    positionInBoardRow = pieceModel.positionInBoardRow;
     dragPosition = null;
-    isDraggable = true;
   }
 
   @override
@@ -21,8 +29,8 @@ abstract class PieceBase extends DeviceModuleBase {
     var width = hackingDevice.gameWidth * 0.082;
     var height = width;
     var halfWidth = width * 0.5;
-    var offsetX = dragPosition == null ? hackingDevice.gameWidth * 0.846 : dragPosition.dx - halfWidth;
-    var offsetY = dragPosition == null ? hackingDevice.gameHeight * 0.19 : dragPosition.dy - halfWidth;
+    var offsetX = dragPosition == null ? offset.dx : dragPosition.dx - halfWidth;
+    var offsetY = dragPosition == null ? offset.dy : dragPosition.dy - halfWidth;
     area = Rect.fromLTWH(offsetX, offsetY, width, height);
     sprite.renderRect(canvas, area);
   }
@@ -48,20 +56,24 @@ abstract class PieceBase extends DeviceModuleBase {
   }
 
   void executeDragging(double dX, double dY) {
-    if (!isDraggable)
+    if (!isDraggable || (draggedPiece != null && draggedPiece != this))
       return;
 
-    if (area.contains(Offset(dX, dY)))
+    if (area?.contains(Offset(dX, dY)) == true) {
+      draggedPiece = this;
       dragPosition = Offset(dX, dY);
+    }
     else
       stopDraggingIfNecessary();
   }
 
   void stopDraggingIfNecessary() {
-    if (!isDraggable)
+    if (!isDraggable || dragPosition == null)
       return;
 
-    if (!hackingDevice.board.tryToAddPiece(this))
-      dragPosition = null;
+    hackingDevice.board.tryToAddPiece(this);
+    hackingDevice.pieceSelector.tryToAddPiece(this);
+    dragPosition = null;
+    draggedPiece = null;
   }
 }

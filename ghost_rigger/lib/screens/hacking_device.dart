@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 
 import 'hacking_device_modules/background.dart';
 import 'hacking_device_modules/board.dart';
@@ -17,6 +18,8 @@ import 'hacking_device_modules/display_goal.dart';
 import 'hacking_device_modules/display_output.dart';
 import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
+import 'hacking_device_modules/pieces/piece.dart';
+import 'hacking_device_modules/pieces/piece_model.dart';
 
 class HackingDevice extends Game
     with MultiTouchTapDetector, MultiTouchDragDetector {
@@ -47,6 +50,30 @@ class HackingDevice extends Game
       board,
       pieceSelector,
     ];
+
+    // TODO This will have to be provided from somewhere to set up the puzzle
+    var pieceModels = [
+      PieceModel('cable_out.png'),
+      PieceModel('cable_out.png'),
+      PieceModel('cable_out.png', positionInBoardRow: 1, positionInBoardColumn: 3),
+      PieceModel('cable_out.png', positionInBoardRow: 3, positionInBoardColumn: 4),
+    ];
+
+    var piecesForPieceSelector = pieceModels
+        .where((piece) => piece.positionInBoardColumn == -1)
+        .map((pieceModel) => Piece(this, pieceModel)).toList();
+    piecesForPieceSelector.forEach((piece) {
+      pieceSelector.pieces.add(piece);
+      deviceModules.add(piece);
+    });
+
+    var piecesForBoard = pieceModels
+        .where((pieceModel) => pieceModel.positionInBoardRow != -1)
+        .map((pieceModel) => Piece(this, pieceModel)).toList();
+    piecesForBoard.forEach((piece) {
+      board.pieces[piece.positionInBoardRow][piece.positionInBoardColumn] = piece;
+      deviceModules.add(piece);
+    });
   }
 
   @override
