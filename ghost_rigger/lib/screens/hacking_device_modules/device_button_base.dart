@@ -40,6 +40,8 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
   void onTapDown(double dX, double dY) {
     if (area.contains(Offset(dX, dY)))
       pressed = true;
+    else
+      pressed = false;
   }
 
   @override

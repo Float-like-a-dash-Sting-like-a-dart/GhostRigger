@@ -8,14 +8,15 @@ import 'package:flame/flame.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   HackingDevice game = HackingDevice();
-  TapGestureRecognizer tapper = TapGestureRecognizer();
-  tapper.onTapDown = game.onTapDown;
-  tapper.onTapUp = game.onTapUp;
   runApp(game.widget);
 
   Util flameUtil = Util();
   flameUtil.fullScreen();
   flameUtil.setOrientation(DeviceOrientation.portraitUp);
+  TapGestureRecognizer tapper = TapGestureRecognizer();
+  tapper.onTapDown = game.onTapDown;
+  tapper.onTapUp = game.onTapUp;
+  flameUtil.addGestureRecognizer(tapper);
   Flame.images.loadAll(<String>[
     'main.png',
     'left.png',
