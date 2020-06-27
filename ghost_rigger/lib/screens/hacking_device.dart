@@ -15,21 +15,23 @@ import 'hacking_device_modules/button_run.dart';
 import 'hacking_device_modules/device_module_base.dart';
 import 'hacking_device_modules/display_goal.dart';
 import 'hacking_device_modules/display_output.dart';
-import 'hacking_device_modules/module_selector.dart';
+import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
 
-class HackingDevice extends Game with TapDetector {
+class HackingDevice extends Game with MultiTouchTapDetector, MultiTouchDragDetector {
   Size screenSize;
   double gameHeight;
   double gameWidth;
+  Board board;
+  PieceSelector pieceSelector;
 
   List<DeviceModuleBase> deviceModules;
 
   HackingDevice() {
+    board = Board(this);
+    pieceSelector = PieceSelector(this);
     deviceModules = [
       Background(this),
-      Board(this),
-      ModuleSelector(this),
       DisplayStatus(this),
       ButtonInfo(this),
       ButtonRun(this),
@@ -39,6 +41,8 @@ class HackingDevice extends Game with TapDetector {
       ButtonExit(this),
       DisplayGoal(this),
       DisplayOutput(this),
+      board,
+      pieceSelector,
     ];
   }
 
@@ -67,7 +71,7 @@ class HackingDevice extends Game with TapDetector {
   }
 
   @override
-  void onTapUp(TapUpDetails details) {
+  void onTapUp(int pointerId, TapUpDetails details) {
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
@@ -75,7 +79,7 @@ class HackingDevice extends Game with TapDetector {
   }
 
   @override
-  void onTapDown(TapDownDetails details) {
+  void onTapDown(int pointerId, TapDownDetails details) {
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
@@ -83,13 +87,35 @@ class HackingDevice extends Game with TapDetector {
   }
 
   @override
-  void onTap() {
+  void onTap(int pointerId) {
     deviceModules.forEach((module) { module.onTap(); });
   }
 
   @override
-  void onTapCancel() {
+  void onTapCancel(int pointerId) {
     deviceModules.forEach((module) { module.onTapCancel(); });
+  }
+
+  @override
+  void onReceiveDrag(DragEvent drag) {
+    drag.onUpdate = _onDragUpdated;
+    drag.onEnd = _onDragEnded;
+    drag.onCancel = _onDragCancelled;
+  }
+
+  void _onDragUpdated(DragUpdateDetails details) {
+    var mainOffsetX = (screenSize.width - gameWidth) / 2;
+    var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
+    var tapCorrectedY = details.globalPosition.dy;
+    deviceModules.forEach((module) { module.onDragUpdate(tapCorrectedX, tapCorrectedY); });
+  }
+
+  void _onDragEnded(DragEndDetails details) {
+    deviceModules.forEach((module) { module.onDragEnd(details.velocity); });
+  }
+
+  void _onDragCancelled() {
+    deviceModules.forEach((module) { module.onDragCancel(); });
   }
 
   @override

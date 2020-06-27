@@ -1,5 +1,4 @@
 import 'package:flame/util.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'audio.dart';
@@ -40,11 +39,7 @@ void main() {
   Util flameUtil = Util();
   flameUtil.fullScreen();
   flameUtil.setOrientation(DeviceOrientation.landscapeLeft);
-  TapGestureRecognizer tapper = TapGestureRecognizer();
-  tapper.onTapDown = game.onTapDown;
-  tapper.onTapUp = game.onTapUp;
-  tapper.onTap = game.onTap;
-  tapper.onTapCancel = game.onTapCancel;
+
   Flame.images.loadAll(<String>[
     'main.png',
     'left.png',
@@ -67,6 +62,7 @@ void main() {
     'button_exit_pressed.png',
     'display_steps_and_status.png',
     'module_selection_area.png',
+    'cable_out.png',
   ]);
   Flame.audio.loadAll([
     'bgm/menu.mp3',
