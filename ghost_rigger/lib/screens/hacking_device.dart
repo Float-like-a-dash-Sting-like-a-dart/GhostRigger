@@ -4,6 +4,7 @@ import 'package:flame/game.dart';
 
 import 'hacking_device_modules/background.dart';
 import 'hacking_device_modules/board.dart';
+import 'hacking_device_modules/device_module_base.dart';
 import 'hacking_device_modules/module_selector.dart';
 import 'hacking_device_modules/status_display.dart';
 
@@ -12,26 +13,21 @@ class HackingDevice extends Game {
   double gameHeight;
   double gameWidth;
 
-  Background background;
-  Board board;
-  ModuleSelector moduleSelector;
-  StatusDisplay statusDisplay;
+  List<DeviceModuleBase> deviceModules;
 
   HackingDevice() {
-    background = Background(this);
-    board = Board(this);
-    moduleSelector = ModuleSelector(this);
-    statusDisplay = StatusDisplay(this);
+    deviceModules = [
+      Background(this),
+      Board(this),
+      ModuleSelector(this),
+      StatusDisplay(this),
+    ];
   }
 
+  @override
   void render(Canvas canvas) {
     preRender(canvas);
-
-    background.render(canvas);
-    board.render(canvas);
-    moduleSelector.render(canvas);
-    statusDisplay.render(canvas);
-
+    deviceModules.forEach((module) { module.render(canvas); });
     postRender(canvas);
   }
 
@@ -48,10 +44,12 @@ class HackingDevice extends Game {
     canvas.restore();
   }
 
+  @override
   void update(double t) {
     // TODO: implement update
   }
 
+  @override
   void resize(Size size) {
     screenSize = size;
     super.resize(size);

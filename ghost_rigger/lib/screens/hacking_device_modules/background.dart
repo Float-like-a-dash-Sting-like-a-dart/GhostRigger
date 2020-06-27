@@ -2,19 +2,20 @@ import 'dart:ui';
 import 'package:flame/sprite.dart';
 
 import '../hacking_device.dart';
+import 'device_module_base.dart';
 
-class Background {
-  final HackingDevice hackingDevice;
+class Background extends DeviceModuleBase {
   Sprite mainSprite;
   Sprite leftSprite;
   Sprite rightSprite;
 
-  Background(this.hackingDevice) {
+  Background(HackingDevice hackingDevice) : super(hackingDevice) {
     mainSprite = Sprite('main.png');
     leftSprite = Sprite('left.png');
     rightSprite = Sprite('right.png');
   }
 
+  @override
   void render(Canvas canvas) {
     mainSprite.renderRect(canvas, Rect.fromLTWH(0, 0, hackingDevice.gameWidth, hackingDevice.gameHeight));
 
@@ -23,5 +24,10 @@ class Background {
 
     var rightWidth = hackingDevice.gameHeight * 0.383;
     leftSprite.renderRect(canvas, Rect.fromLTWH(hackingDevice.gameWidth - 1, 0, rightWidth, hackingDevice.gameHeight));
+  }
+
+  @override
+  void update(double t) {
+    // Nothing to update here
   }
 }
