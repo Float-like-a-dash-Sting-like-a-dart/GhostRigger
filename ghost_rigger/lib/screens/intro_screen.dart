@@ -1,5 +1,5 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import '../animation/typewroter.dart';
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -9,19 +9,21 @@ class IntroScreen extends StatelessWidget {
         Container(
           child: SizedBox(
             width: 250.0,
-            child: TypewriterAnimatedTextKit(
+            child: TypewriterAnimatedTextKit2(
                 onTap: () {
                   print("Tap Event");
                 },
+                displayFullTextOnTap: true,
                 text: [
-                  "Thanks for playing our game prototype until the end.",
-                  "If you liked it, please give us your vote!",
-                  "Created by:",
-                  "Iain Smith (Development)",
-                  "Julio Ernesto Rodríguez Cabañas (Development)",
-                  "Richard Kinsella (Design)",
+                  "In the year 2078,"
+                      "the megacorporation *Native Development Initiative*, aka NDI,",
+                  "rules the Earth.",
                 ],
-                textStyle: TextStyle(fontSize: 30.0, fontFamily: "Agne"),
+                onFinished: () {},
+                textStyle: TextStyle(
+                  fontSize: 30.0,
+                  fontFamily: "Agne",
+                ),
                 textAlign: TextAlign.start,
                 alignment: AlignmentDirectional.topStart // or Alignment.topLeft
                 ),

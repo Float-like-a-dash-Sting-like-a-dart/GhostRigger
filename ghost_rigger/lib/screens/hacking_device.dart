@@ -18,7 +18,8 @@ import 'hacking_device_modules/display_output.dart';
 import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
 
-class HackingDevice extends Game with MultiTouchTapDetector, MultiTouchDragDetector {
+class HackingDevice extends Game
+    with MultiTouchTapDetector, MultiTouchDragDetector {
   Size screenSize;
   double gameHeight;
   double gameWidth;
@@ -27,18 +28,20 @@ class HackingDevice extends Game with MultiTouchTapDetector, MultiTouchDragDetec
 
   List<DeviceModuleBase> deviceModules;
 
-  HackingDevice() {
+  void Function() _onExit;
+
+  HackingDevice(this._onExit) {
     board = Board(this);
     pieceSelector = PieceSelector(this);
     deviceModules = [
       Background(this),
       DisplayStatus(this),
-      ButtonInfo(this),
-      ButtonRun(this),
-      ButtonNextStep(this),
-      ButtonRestart(this),
-      ButtonDone(this),
-      ButtonExit(this),
+      ButtonInfo(this, null),
+      ButtonRun(this, null),
+      ButtonNextStep(this, null),
+      ButtonRestart(this, null),
+      ButtonDone(this, null),
+      ButtonExit(this, _onExit),
       DisplayGoal(this),
       DisplayOutput(this),
       board,
@@ -49,7 +52,9 @@ class HackingDevice extends Game with MultiTouchTapDetector, MultiTouchDragDetec
   @override
   void render(Canvas canvas) {
     preRender(canvas);
-    deviceModules.forEach((module) { module.render(canvas); });
+    deviceModules.forEach((module) {
+      module.render(canvas);
+    });
     postRender(canvas);
   }
 
@@ -75,7 +80,9 @@ class HackingDevice extends Game with MultiTouchTapDetector, MultiTouchDragDetec
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
-    deviceModules.forEach((module) { module.onTapUp(tapCorrectedX, tapCorrectedY); });
+    deviceModules.forEach((module) {
+      module.onTapUp(tapCorrectedX, tapCorrectedY);
+    });
   }
 
   @override
@@ -83,17 +90,23 @@ class HackingDevice extends Game with MultiTouchTapDetector, MultiTouchDragDetec
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
-    deviceModules.forEach((module) { module.onTapDown(tapCorrectedX, tapCorrectedY); });
+    deviceModules.forEach((module) {
+      module.onTapDown(tapCorrectedX, tapCorrectedY);
+    });
   }
 
   @override
   void onTap(int pointerId) {
-    deviceModules.forEach((module) { module.onTap(); });
+    deviceModules.forEach((module) {
+      module.onTap();
+    });
   }
 
   @override
   void onTapCancel(int pointerId) {
-    deviceModules.forEach((module) { module.onTapCancel(); });
+    deviceModules.forEach((module) {
+      module.onTapCancel();
+    });
   }
 
   @override
@@ -107,15 +120,21 @@ class HackingDevice extends Game with MultiTouchTapDetector, MultiTouchDragDetec
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
-    deviceModules.forEach((module) { module.onDragUpdate(tapCorrectedX, tapCorrectedY); });
+    deviceModules.forEach((module) {
+      module.onDragUpdate(tapCorrectedX, tapCorrectedY);
+    });
   }
 
   void _onDragEnded(DragEndDetails details) {
-    deviceModules.forEach((module) { module.onDragEnd(details.velocity); });
+    deviceModules.forEach((module) {
+      module.onDragEnd(details.velocity);
+    });
   }
 
   void _onDragCancelled() {
-    deviceModules.forEach((module) { module.onDragCancel(); });
+    deviceModules.forEach((module) {
+      module.onDragCancel();
+    });
   }
 
   @override

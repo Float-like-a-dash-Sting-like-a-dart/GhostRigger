@@ -11,7 +11,10 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
   bool pressed;
   bool enabled;
 
-  DeviceButtonBase(HackingDevice hackingDevice, String buttonSpriteName, String buttonPressedSpriteName)
+  void Function() _onPressed;
+
+  DeviceButtonBase(HackingDevice hackingDevice, String buttonSpriteName,
+      String buttonPressedSpriteName, this._onPressed)
       : super(hackingDevice) {
     buttonSprite = Sprite(buttonSpriteName);
     buttonPressedSprite = Sprite(buttonPressedSpriteName);
@@ -46,10 +49,12 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
 
   @override
   void onTapDown(double dX, double dY) {
-    if (area.contains(Offset(dX, dY)))
+    if (area.contains(Offset(dX, dY))) {
       pressed = true;
-    else
+      _onPressed?.call();
+    } else {
       pressed = false;
+    }
   }
 
   @override

@@ -4,9 +4,9 @@ import '../hacking_device.dart';
 import 'device_button_base.dart';
 
 class ButtonExit extends DeviceButtonBase {
-
-  ButtonExit(HackingDevice hackingDevice)
-      : super(hackingDevice, 'button_exit.png', 'button_exit_pressed.png');
+  ButtonExit(HackingDevice hackingDevice, Function onPressed)
+      : super(hackingDevice, 'button_exit.png', 'button_exit_pressed.png',
+            onPressed);
 
   @override
   Rect getArea() {

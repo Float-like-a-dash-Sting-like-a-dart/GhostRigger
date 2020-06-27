@@ -11,19 +11,28 @@ class MenuScreen extends StatelessWidget {
           Text('HELLO'),
           FlatButton(
             child: Text('Start New Game'),
-            onPressed: () => Navigator.of(context).pushNamed('/start'),
+            onPressed: () {
+              Audio.playSfx("menu.aac");
+              Navigator.of(context).pushNamed('/start');
+            },
           ),
           FlatButton(
             child: Text('Resume Game'),
-            onPressed: () => Navigator.of(context).pushNamed('/resume'),
+            onPressed: () {
+              Audio.playSfx("menu.aac");
+              Navigator.of(context).pushNamed('/resume');
+            },
           ),
           FlatButton(
             child: Text('Sound On/Off'),
-            onPressed: () => Audio.pause(),
+            onPressed: () => Audio.flipMusicOnOff(),
           ),
           FlatButton(
             child: Text('Credits'),
-            onPressed: () => Navigator.of(context).pushNamed('/credits'),
+            onPressed: () {
+              Audio.playSfx("menu.aac");
+              Navigator.of(context).pushNamed('/credits');
+            },
           ),
         ],
       ),

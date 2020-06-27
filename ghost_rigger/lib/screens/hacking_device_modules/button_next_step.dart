@@ -4,9 +4,9 @@ import '../hacking_device.dart';
 import 'device_button_base.dart';
 
 class ButtonNextStep extends DeviceButtonBase {
-
-  ButtonNextStep(HackingDevice hackingDevice)
-      : super(hackingDevice, 'button_next_step.png', 'button_next_step_pressed.png');
+  ButtonNextStep(HackingDevice hackingDevice, Function onPressed)
+      : super(hackingDevice, 'button_next_step.png',
+            'button_next_step_pressed.png', onPressed);
 
   @override
   Rect getArea() {

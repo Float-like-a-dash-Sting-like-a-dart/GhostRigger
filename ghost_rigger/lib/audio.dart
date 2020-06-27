@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/audio_pool.dart';
@@ -21,11 +23,12 @@ class Audio {
 
   static Future init() async {
     musicPlayer = AudioCache(prefix: 'audio/bgm/', fixedPlayer: AudioPlayer());
-    await musicPlayer.loadAll(['menu.mp3']);
+    await musicPlayer.loadAll(['menu.mp3', 'music.mp3']);
     await musicPlayer.fixedPlayer.setReleaseMode(ReleaseMode.LOOP);
 
     final sounds = [
       'block.wav',
+      'menu.aac',
     ];
     final ps = sounds.map((s) {
       return loadSfx(s).then((value) => sfx[s] = value);
@@ -62,6 +65,14 @@ class Audio {
   static void pause() {
     isPaused = true;
     _updatePlayer();
+  }
+
+  static void flipMusicOnOff() {
+    if (isPaused) {
+      resume();
+    } else {
+      pause();
+    }
   }
 
   static Future _updatePlayer() async {

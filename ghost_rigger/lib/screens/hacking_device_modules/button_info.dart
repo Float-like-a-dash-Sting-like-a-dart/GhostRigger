@@ -4,9 +4,9 @@ import '../hacking_device.dart';
 import 'device_button_base.dart';
 
 class ButtonInfo extends DeviceButtonBase {
-
-  ButtonInfo(HackingDevice hackingDevice)
-      : super(hackingDevice, 'button_info.png', 'button_info_pressed.png');
+  ButtonInfo(HackingDevice hackingDevice, Function onPressed)
+      : super(hackingDevice, 'button_info.png', 'button_info_pressed.png',
+            onPressed);
 
   @override
   Rect getArea() {

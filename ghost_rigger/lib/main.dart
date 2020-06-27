@@ -27,12 +27,11 @@ class _Handler extends WidgetsBindingObserver {
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  HackingDevice game = HackingDevice();
   runApp(MaterialApp(
     home: Scaffold(body: MenuScreen()),
     routes: {
       '/start': (BuildContext ctx) => Scaffold(body: IntroScreen()),
-      '/resume': (BuildContext ctx) => Scaffold(body: game.widget),
+      '/resume': (BuildContext ctx) => Scaffold(body: GameScreen()),
       '/credits': (BuildContext ctx) => Scaffold(body: CreditScreen()),
     },
   ));

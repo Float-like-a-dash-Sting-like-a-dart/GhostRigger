@@ -39,4 +39,6 @@ flutter:
   assets:
     - assets/images/
     - assets/audio/bgm/menu.mp3
+    - assets/audio/bgm/music.mp3
     - assets/audio/sfx/block.wav
+    - assets/audio/sfx/menu.aac
