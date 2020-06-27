@@ -10,8 +10,16 @@ class MenuScreen extends StatelessWidget {
         children: [
           Text('HELLO'),
           FlatButton(
-            child: Text('Game'),
+            child: Text('Start New Game'),
             onPressed: () => Navigator.of(context).pushNamed('/start'),
+          ),
+          FlatButton(
+            child: Text('Resume Game'),
+            onPressed: () => Navigator.of(context).pushNamed('/resume'),
+          ),
+          FlatButton(
+            child: Text('Sound On/Off'),
+            onPressed: () => Audio.pause(),
           ),
           FlatButton(
             child: Text('Credits'),

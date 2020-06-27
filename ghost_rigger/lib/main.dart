@@ -1,12 +1,14 @@
+import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'audio.dart';
+import 'screens/intro_screen.dart';
+import 'screens/credits_screen.dart';
 import 'screens/game_screen.dart';
 import 'screens/menu_screen.dart';
 import 'screens/hacking_device.dart';
-import 'package:flame/flame.dart';
 
 class Main {
   static HackingDevice game;
@@ -27,13 +29,12 @@ class _Handler extends WidgetsBindingObserver {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   HackingDevice game = HackingDevice();
-  runApp(game.widget);
-
   runApp(MaterialApp(
     home: Scaffold(body: MenuScreen()),
     routes: {
-      '/start': (BuildContext ctx) => Scaffold(body: game.widget),
-      '/credits': (BuildContext ctx) => Scaffold(body: GameScreen()),
+      '/start': (BuildContext ctx) => Scaffold(body: IntroScreen()),
+      '/resume': (BuildContext ctx) => Scaffold(body: game.widget),
+      '/credits': (BuildContext ctx) => Scaffold(body: CreditScreen()),
     },
   ));
 
