@@ -11,7 +11,6 @@ class GameScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                flex: 3,
                 child: Image.asset(
                   'assets/images/left.png',
                   fit: BoxFit.cover,
@@ -22,7 +21,6 @@ class GameScreen extends StatelessWidget {
                 child: Image.asset('assets/images/main.png'),
               ),
               Expanded(
-                flex: 3,
                 child: Image.asset(
                   'assets/images/right.png',
                   fit: BoxFit.cover,
