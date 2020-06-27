@@ -25,14 +25,4 @@ class DisplayStatus extends DeviceModuleBase {
   void update(double t) {
     // TODO: implement update
   }
-
-  @override
-  void onTapDown(double dX, double dY) {
-    // Nothing to do here
-  }
-
-  @override
-  void onTapUp(double dX, double dY) {
-    // Nothing to do here
-  }
 }

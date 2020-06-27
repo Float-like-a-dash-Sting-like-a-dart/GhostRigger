@@ -12,7 +12,11 @@ abstract class DeviceModuleBase {
 
   void update(double t);
 
-  void onTapDown(double dX, double dY);
+  void onTapDown(double dX, double dY) {}
 
-  void onTapUp(double dX, double dY);
+  void onTapUp(double dX, double dY) {}
+
+  void onTap() {}
+
+  void onTapCancel() {}
 }

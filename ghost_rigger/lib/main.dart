@@ -12,11 +12,12 @@ void main() {
 
   Util flameUtil = Util();
   flameUtil.fullScreen();
-  flameUtil.setOrientation(DeviceOrientation.portraitUp);
+  flameUtil.setOrientation(DeviceOrientation.landscapeLeft);
   TapGestureRecognizer tapper = TapGestureRecognizer();
   tapper.onTapDown = game.onTapDown;
   tapper.onTapUp = game.onTapUp;
-  flameUtil.addGestureRecognizer(tapper);
+  tapper.onTap = game.onTap;
+  tapper.onTapCancel = game.onTapCancel;
   Flame.images.loadAll(<String>[
     'main.png',
     'left.png',

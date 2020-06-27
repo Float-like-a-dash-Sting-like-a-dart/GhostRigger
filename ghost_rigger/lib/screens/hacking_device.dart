@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
 
 import 'hacking_device_modules/background.dart';
@@ -17,7 +18,7 @@ import 'hacking_device_modules/display_output.dart';
 import 'hacking_device_modules/module_selector.dart';
 import 'hacking_device_modules/display_status.dart';
 
-class HackingDevice extends Game {
+class HackingDevice extends Game with TapDetector {
   Size screenSize;
   double gameHeight;
   double gameWidth;
@@ -49,12 +50,11 @@ class HackingDevice extends Game {
   }
 
   void preRender(Canvas canvas) {
-    gameHeight = screenSize.width;
+    gameHeight = screenSize.height;
     gameWidth = gameHeight * 1.753;
-    var mainOffsetX = (screenSize.height - gameWidth) / 2;
+    var mainOffsetX = (screenSize.width - gameWidth) / 2;
     canvas.save();
-    canvas.rotate(1.5708);
-    canvas.translate(mainOffsetX, -screenSize.width);
+    canvas.translate(mainOffsetX, 0);
   }
 
   void postRender(Canvas canvas) {
@@ -66,18 +66,30 @@ class HackingDevice extends Game {
     // TODO: implement update
   }
 
-  void onTapDown(TapDownDetails tapDownDetails) {
-    var mainOffsetX = (screenSize.height - gameWidth) / 2;
-    var tapCorrectedX = tapDownDetails.globalPosition.dy - mainOffsetX;
-    var tapCorrectedY = screenSize.width - tapDownDetails.globalPosition.dx;
+  @override
+  void onTapUp(TapUpDetails details) {
+    var mainOffsetX = (screenSize.width - gameWidth) / 2;
+    var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
+    var tapCorrectedY = details.globalPosition.dy;
+    deviceModules.forEach((module) { module.onTapUp(tapCorrectedX, tapCorrectedY); });
+  }
+
+  @override
+  void onTapDown(TapDownDetails details) {
+    var mainOffsetX = (screenSize.width - gameWidth) / 2;
+    var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
+    var tapCorrectedY = details.globalPosition.dy;
     deviceModules.forEach((module) { module.onTapDown(tapCorrectedX, tapCorrectedY); });
   }
 
-  void onTapUp(TapUpDetails tapUpDetails) {
-    var mainOffsetX = (screenSize.height - gameWidth) / 2;
-    var tapCorrectedX = tapUpDetails.globalPosition.dy - mainOffsetX;
-    var tapCorrectedY = screenSize.width - tapUpDetails.globalPosition.dx;
-    deviceModules.forEach((module) { module.onTapUp(tapCorrectedX, tapCorrectedY); });
+  @override
+  void onTap() {
+    deviceModules.forEach((module) { module.onTap(); });
+  }
+
+  @override
+  void onTapCancel() {
+    deviceModules.forEach((module) { module.onTapCancel(); });
   }
 
   @override

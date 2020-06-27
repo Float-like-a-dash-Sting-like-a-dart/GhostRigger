@@ -56,4 +56,9 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
   void onTapUp(double dX, double dY) {
     pressed = false;
   }
+
+  @override
+  void onTapCancel() {
+    pressed = false;
+  }
 }
