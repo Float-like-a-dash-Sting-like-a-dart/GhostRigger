@@ -7,25 +7,34 @@ class GameScreen extends StatelessWidget {
       child: new Stack(
         children: <Widget>[
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/left.png',
-                fit: BoxFit.fill,
+              Expanded(
+                flex: 3,
+                child: Image.asset(
+                  'assets/images/left.png',
+                  fit: BoxFit.cover,
+                ),
               ),
               AspectRatio(
-                aspectRatio: 1.6,
+                aspectRatio: 1.75333,
                 child: Image.asset('assets/images/main.png'),
               ),
-              Image.asset(
-                'assets/images/right.png',
-                fit: BoxFit.fill,
+              Expanded(
+                flex: 3,
+                child: Image.asset(
+                  'assets/images/right.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ],
           ),
           new Center(
-            child: new Text("Hello "),
+            child: new Text(
+              "Hello",
+              style: TextStyle(color: Colors.white),
+            ),
           )
         ],
       ),
