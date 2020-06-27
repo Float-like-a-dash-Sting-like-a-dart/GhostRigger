@@ -22,11 +22,19 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
 
   @override
   void render(Canvas canvas) {
+    setAlphaFromStatus();
     area = getArea();
     if (pressed)
-      buttonPressedSprite.renderRect(canvas, area);
+      buttonPressedSprite.renderRect(canvas, area, overridePaint: paint);
     else
-      buttonSprite.renderRect(canvas, area);
+      buttonSprite.renderRect(canvas, area, overridePaint: paint);
+  }
+
+  void setAlphaFromStatus() {
+    if (enabled)
+      paint.color = Color.fromRGBO(0, 0, 0, 1.0);
+    else
+      paint.color = Color.fromRGBO(0, 0, 0, 0.3);
   }
 
   Rect getArea();
