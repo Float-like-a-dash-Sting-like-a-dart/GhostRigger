@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../audio.dart';
 
 class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Audio.play(Song.MENU);
     return Center(
       child: Column(
         children: [

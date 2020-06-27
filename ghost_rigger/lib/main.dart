@@ -69,8 +69,10 @@ void main() {
     'module_selection_area.png',
   ]);
   Flame.audio.loadAll([
-    'bgm/titlescreen.mp3',
+    'bgm/menu.mp3',
   ]);
+
+  Audio.init();
 
   WidgetsBinding.instance.addObserver(_Handler());
 }
