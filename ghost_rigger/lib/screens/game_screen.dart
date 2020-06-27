@@ -45,20 +45,18 @@ class GameScreen extends StatelessWidget {
                         FlatButton(
                           onPressed: () => {},
                           padding: EdgeInsets.all(0.0),
+                          child: Image.asset('assets/images/button_info.png'),
+                        ),
+                        FlatButton(
+                          onPressed: () => {},
+                          padding: EdgeInsets.all(0.0),
                           child: Image.asset(
-                            'assets/images/button_info.png',
-                            fit: BoxFit.fitHeight,
-                          ),
+                              'assets/images/display_steps_and_status.png'),
                         ),
                         FlatButton(
                           onPressed: () => {},
                           padding: EdgeInsets.all(0.0),
-                          child: Image.asset('assets/images/button_info.png'),
-                        ),
-                        FlatButton(
-                          onPressed: () => {},
-                          padding: EdgeInsets.all(0.0),
-                          child: Image.asset('assets/images/button_info.png'),
+                          child: Image.asset('assets/images/button_done.png'),
                         ),
                       ],
                     ),
@@ -72,37 +70,37 @@ class GameScreen extends StatelessWidget {
                               onPressed: () => {},
                               padding: EdgeInsets.all(0.0),
                               child:
-                                  Image.asset('assets/images/button_info.png'),
+                                  Image.asset('assets/images/button_run.png'),
+                            ),
+                            FlatButton(
+                              onPressed: () => {},
+                              padding: EdgeInsets.all(0.0),
+                              child: Image.asset(
+                                  'assets/images/button_next_step.png'),
+                            ),
+                            FlatButton(
+                              onPressed: () => {},
+                              padding: EdgeInsets.all(0.0),
+                              child: Image.asset(
+                                  'assets/images/button_restart.png'),
                             ),
                             FlatButton(
                               onPressed: () => {},
                               padding: EdgeInsets.all(0.0),
                               child:
-                                  Image.asset('assets/images/button_info.png'),
+                                  Image.asset('assets/images/display_goal.png'),
                             ),
                             FlatButton(
                               onPressed: () => {},
                               padding: EdgeInsets.all(0.0),
-                              child:
-                                  Image.asset('assets/images/button_info.png'),
-                            ),
-                            FlatButton(
-                              onPressed: () => {},
-                              padding: EdgeInsets.all(0.0),
-                              child:
-                                  Image.asset('assets/images/button_info.png'),
-                            ),
-                            FlatButton(
-                              onPressed: () => {},
-                              padding: EdgeInsets.all(0.0),
-                              child:
-                                  Image.asset('assets/images/button_info.png'),
+                              child: Image.asset(
+                                  'assets/images/display_output.png'),
                             ),
                           ],
                         ),
                         Expanded(
                           child: AspectRatio(
-                            aspectRatio: 1.5,
+                            aspectRatio: 1.56,
                             child: Image.asset('assets/images/board.png'),
                           ),
                         ),
@@ -115,7 +113,7 @@ class GameScreen extends StatelessWidget {
                         FlatButton(
                           onPressed: () => {},
                           padding: EdgeInsets.all(0.0),
-                          child: Image.asset('assets/images/button_info.png'),
+                          child: Image.asset('assets/images/button_exit.png'),
                         ),
                         FlatButton(
                           onPressed: () => {},
