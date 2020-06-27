@@ -5,30 +5,59 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Audio.play(Song.MENU);
-    return Center(
+    return Container(
+      constraints: BoxConstraints.expand(),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/menu_background_image.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text('HELLO'),
+          Image.asset(
+            'assets/images/logo5.jpg',
+            fit: BoxFit.contain,
+            width: 120,
+          ),
           FlatButton(
-            child: Text('Start New Game'),
+            child: Image.asset('assets/images/menu_button_start.png'),
             onPressed: () {
               Audio.playSfx("menu.aac");
               Navigator.of(context).pushNamed('/start');
             },
           ),
           FlatButton(
-            child: Text('Resume Game'),
+            child: Text(
+              'Resume Game',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
               Audio.playSfx("menu.aac");
               Navigator.of(context).pushNamed('/resume');
             },
           ),
           FlatButton(
-            child: Text('Sound On/Off'),
+            child: Text(
+              'Sound On/Off',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () => Audio.flipMusicOnOff(),
           ),
           FlatButton(
-            child: Text('Credits'),
+            child: Image.asset('assets/images/menu_button_about.png'),
+            onPressed: () {
+              Audio.playSfx("menu.aac");
+              Navigator.of(context).pushNamed('/credits');
+            },
+          ),
+          FlatButton(
+            child: Text(
+              'Credits',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
               Audio.playSfx("menu.aac");
               Navigator.of(context).pushNamed('/credits');

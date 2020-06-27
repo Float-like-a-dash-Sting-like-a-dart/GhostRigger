@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import '../animation/typewroter.dart';
 
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
+  @override
+  _IntroScreenState createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  bool _showContinue = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
+          decoration: new BoxDecoration(color: Colors.black),
           child: SizedBox(
             width: 250.0,
             child: TypewriterAnimatedTextKit2(
@@ -15,11 +28,15 @@ class IntroScreen extends StatelessWidget {
                 },
                 displayFullTextOnTap: true,
                 text: [
-                  "In the year 2078,"
-                      "the megacorporation *Native Development Initiative*, aka NDI,",
+                  "In the year 2078,",
+                  "the megacorporation *Native Development Initiative*, aka NDI,",
                   "rules the Earth.",
                 ],
-                onFinished: () {},
+                onFinished: () {
+                  setState(() {
+                    _showContinue = true;
+                  });
+                },
                 textStyle: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Agne",
@@ -29,10 +46,12 @@ class IntroScreen extends StatelessWidget {
                 ),
           ),
         ),
-        FlatButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text('Continue'),
-        ),
+        _showContinue
+            ? FlatButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Continue'),
+              )
+            : Container(),
         FlatButton(
           onPressed: () => Navigator.pop(context),
           child: Text('Exit'),

@@ -79,7 +79,7 @@ class TypewriterAnimatedTextKit2 extends StatefulWidget {
       this.textStyle,
       this.speed,
       this.pause,
-      this.displayFullTextOnTap = false,
+      this.displayFullTextOnTap = true,
       this.stopPauseOnTap = false,
       this.onTap,
       this.onNext,
@@ -89,7 +89,7 @@ class TypewriterAnimatedTextKit2 extends StatefulWidget {
       this.alignment = AlignmentDirectional.topStart,
       this.textAlign = TextAlign.start,
       this.repeatForever = false,
-      this.isRepeatingAnimation = true})
+      this.isRepeatingAnimation = false})
       : assert(text != null, 'You must specify the list of text'),
         super(key: key);
 
@@ -110,12 +110,10 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit2>
   List<Map<String, dynamic>> _texts = [];
 
   int _index;
-
   bool _isCurrentlyPausing = false;
-
   Timer _timer;
-
   int _currentRepeatCount;
+  String _currentString = '';
 
   @override
   void initState() {
@@ -125,7 +123,6 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit2>
     _pause = widget.pause ?? const Duration(milliseconds: 1000);
 
     _index = -1;
-
     _currentRepeatCount = 0;
 
     widget.text.forEach((text) {
@@ -165,7 +162,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit2>
                   String visibleString = _texts[_index]['text'];
                   Color suffixColor = Colors.transparent;
                   if (_typewriterText.value == 0) {
-                    visibleString = "";
+                    visibleString = _currentString;
                   } else if (_typewriterText.value >
                       _texts[_index]['text'].length) {
                     visibleString = _texts[_index]['text']
@@ -184,9 +181,10 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit2>
                     suffixColor = widget.textStyle.color;
                   }
 
+                  _currentString = visibleString;
                   return RichText(
                     text: TextSpan(children: [
-                      TextSpan(text: visibleString),
+                      TextSpan(text: _currentString),
                       TextSpan(
                           text: '_',
                           style: widget.textStyle.copyWith(color: suffixColor))
