@@ -16,11 +16,13 @@ void main() {
   TapGestureRecognizer tapper = TapGestureRecognizer();
   tapper.onTapDown = game.onTapDown;
   tapper.onTapUp = game.onTapUp;
-  flameUtil.addGestureRecognizer(tapper);
   Flame.images.loadAll(<String>[
     'main.png',
     'left.png',
     'right.png',
+    'board.png',
+    'display_goal.png',
+    'display_output.png',
     'board.png',
     'button_info.png',
     'button_info_pressed.png',

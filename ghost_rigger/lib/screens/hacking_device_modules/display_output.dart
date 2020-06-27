@@ -4,21 +4,21 @@ import 'package:flame/sprite.dart';
 import '../hacking_device.dart';
 import 'device_module_base.dart';
 
-class StatusDisplay extends DeviceModuleBase {
-  Sprite statusDisplaySprite;
+class DisplayOutput extends DeviceModuleBase {
+  Sprite sprite;
 
-  StatusDisplay(HackingDevice hackingDevice) : super(hackingDevice) {
-    statusDisplaySprite = Sprite('display_steps_and_status.png');
+  DisplayOutput(HackingDevice hackingDevice) : super(hackingDevice) {
+    sprite = Sprite('display_output.png');
   }
 
   @override
   void render(Canvas canvas) {
-    var width = hackingDevice.gameWidth * 0.089;
-    var height = hackingDevice.gameHeight * 0.274;
-    var offsetX = hackingDevice.gameWidth * 0.043;
-    var offsetY = hackingDevice.gameHeight * 0.19;
+    var width = hackingDevice.gameWidth * 0.187;
+    var height = hackingDevice.gameHeight * 0.125;
+    var offsetX = hackingDevice.gameWidth * 0.639;
+    var offsetY = hackingDevice.gameHeight * 0.038;
     area = Rect.fromLTWH(offsetX, offsetY, width, height);
-    statusDisplaySprite.renderRect(canvas, area);
+    sprite.renderRect(canvas, area);
   }
 
   @override

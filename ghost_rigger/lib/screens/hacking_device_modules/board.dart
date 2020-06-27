@@ -5,10 +5,10 @@ import '../hacking_device.dart';
 import 'device_module_base.dart';
 
 class Board extends DeviceModuleBase {
-  Sprite boardSprite;
+  Sprite sprite;
 
   Board(HackingDevice hackingDevice) : super(hackingDevice) {
-    boardSprite = Sprite('board.png');
+    sprite = Sprite('board.png');
   }
 
   @override
@@ -18,7 +18,7 @@ class Board extends DeviceModuleBase {
     var offsetX = hackingDevice.gameWidth * 0.143;
     var offsetY = hackingDevice.gameHeight * 0.19;
     area = Rect.fromLTWH(offsetX, offsetY, width, height);
-    boardSprite.renderRect(canvas, area);
+    sprite.renderRect(canvas, area);
   }
 
   @override

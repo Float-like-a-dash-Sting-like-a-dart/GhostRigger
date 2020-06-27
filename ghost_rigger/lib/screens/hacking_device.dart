@@ -12,8 +12,10 @@ import 'hacking_device_modules/button_next_step.dart';
 import 'hacking_device_modules/button_restart.dart';
 import 'hacking_device_modules/button_run.dart';
 import 'hacking_device_modules/device_module_base.dart';
+import 'hacking_device_modules/display_goal.dart';
+import 'hacking_device_modules/display_output.dart';
 import 'hacking_device_modules/module_selector.dart';
-import 'hacking_device_modules/status_display.dart';
+import 'hacking_device_modules/display_status.dart';
 
 class HackingDevice extends Game {
   Size screenSize;
@@ -27,13 +29,15 @@ class HackingDevice extends Game {
       Background(this),
       Board(this),
       ModuleSelector(this),
-      StatusDisplay(this),
+      DisplayStatus(this),
       ButtonInfo(this),
       ButtonRun(this),
       ButtonNextStep(this),
       ButtonRestart(this),
       ButtonDone(this),
       ButtonExit(this),
+      DisplayGoal(this),
+      DisplayOutput(this),
     ];
   }
 

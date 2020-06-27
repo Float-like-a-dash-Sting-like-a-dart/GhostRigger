@@ -4,19 +4,19 @@ import 'package:flame/sprite.dart';
 import '../hacking_device.dart';
 import 'device_module_base.dart';
 
-class ModuleSelector extends DeviceModuleBase {
+class DisplayGoal extends DeviceModuleBase {
   Sprite sprite;
 
-  ModuleSelector(HackingDevice hackingDevice) : super(hackingDevice) {
-    sprite = Sprite('module_selection_area.png');
+  DisplayGoal(HackingDevice hackingDevice) : super(hackingDevice) {
+    sprite = Sprite('display_goal.png');
   }
 
   @override
   void render(Canvas canvas) {
-    var width = hackingDevice.gameWidth * 0.111;
-    var height = hackingDevice.gameHeight * 0.768;
-    var offsetX = hackingDevice.gameWidth * 0.846;
-    var offsetY = hackingDevice.gameHeight * 0.19;
+    var width = hackingDevice.gameWidth * 0.187;
+    var height = hackingDevice.gameHeight * 0.125;
+    var offsetX = hackingDevice.gameWidth * 0.441;
+    var offsetY = hackingDevice.gameHeight * 0.038;
     area = Rect.fromLTWH(offsetX, offsetY, width, height);
     sprite.renderRect(canvas, area);
   }
