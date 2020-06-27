@@ -13,15 +13,26 @@ class StatusDisplay extends DeviceModuleBase {
 
   @override
   void render(Canvas canvas) {
-    var boardWidth = hackingDevice.gameWidth * 0.089;
-    var boardHeight = hackingDevice.gameHeight * 0.274;
-    var boardOffsetX = hackingDevice.gameWidth * 0.043;
-    var boardOffsetY = hackingDevice.gameHeight * 0.19;
-    statusDisplaySprite.renderRect(canvas, Rect.fromLTWH(boardOffsetX, boardOffsetY, boardWidth, boardHeight));
+    var width = hackingDevice.gameWidth * 0.089;
+    var height = hackingDevice.gameHeight * 0.274;
+    var offsetX = hackingDevice.gameWidth * 0.043;
+    var offsetY = hackingDevice.gameHeight * 0.19;
+    area = Rect.fromLTWH(offsetX, offsetY, width, height);
+    statusDisplaySprite.renderRect(canvas, area);
   }
 
   @override
   void update(double t) {
     // TODO: implement update
+  }
+
+  @override
+  void onTapDown(double dX, double dY) {
+    // Nothing to do here
+  }
+
+  @override
+  void onTapUp(double dX, double dY) {
+    // Nothing to do here
   }
 }

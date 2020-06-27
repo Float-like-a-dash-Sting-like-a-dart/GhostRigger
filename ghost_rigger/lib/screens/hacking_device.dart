@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flame/game.dart';
+import 'package:flutter/gestures.dart';
 
 import 'hacking_device_modules/background.dart';
 import 'hacking_device_modules/board.dart';
+import 'hacking_device_modules/button_info.dart';
 import 'hacking_device_modules/device_module_base.dart';
 import 'hacking_device_modules/module_selector.dart';
 import 'hacking_device_modules/status_display.dart';
@@ -21,6 +23,7 @@ class HackingDevice extends Game {
       Board(this),
       ModuleSelector(this),
       StatusDisplay(this),
+      ButtonInfo(this),
     ];
   }
 
@@ -47,6 +50,20 @@ class HackingDevice extends Game {
   @override
   void update(double t) {
     // TODO: implement update
+  }
+
+  void onTapDown(TapDownDetails tapDownDetails) {
+    var mainOffsetX = (screenSize.height - gameWidth) / 2;
+    var tapCorrectedX = tapDownDetails.globalPosition.dy - mainOffsetX;
+    var tapCorrectedY = screenSize.width - tapDownDetails.globalPosition.dx;
+    deviceModules.forEach((module) { module.onTapDown(tapCorrectedX, tapCorrectedY); });
+  }
+
+  void onTapUp(TapUpDetails tapUpDetails) {
+    var mainOffsetX = (screenSize.height - gameWidth) / 2;
+    var tapCorrectedX = tapUpDetails.globalPosition.dy - mainOffsetX;
+    var tapCorrectedY = screenSize.width - tapUpDetails.globalPosition.dx;
+    deviceModules.forEach((module) { module.onTapUp(tapCorrectedX, tapCorrectedY); });
   }
 
   @override

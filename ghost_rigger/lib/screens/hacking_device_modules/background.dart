@@ -30,4 +30,14 @@ class Background extends DeviceModuleBase {
   void update(double t) {
     // Nothing to update here
   }
+
+  @override
+  void onTapDown(double dX, double dY) {
+    // Nothing to do here
+  }
+
+  @override
+  void onTapUp(double dX, double dY) {
+    // Nothing to do here
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flame/util.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'screens/hacking_device.dart';
@@ -7,6 +8,9 @@ import 'package:flame/flame.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   HackingDevice game = HackingDevice();
+  TapGestureRecognizer tapper = TapGestureRecognizer();
+  tapper.onTapDown = game.onTapDown;
+  tapper.onTapUp = game.onTapUp;
   runApp(game.widget);
 
   Util flameUtil = Util();
@@ -17,6 +21,8 @@ void main() {
     'left.png',
     'right.png',
     'board.png',
+    'button_info.png',
+    'button_info_pressed.png',
     'display_steps_and_status.png',
     'module_selection_area.png',
   ]);

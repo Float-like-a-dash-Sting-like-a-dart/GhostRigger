@@ -13,15 +13,26 @@ class Board extends DeviceModuleBase {
 
   @override
   void render(Canvas canvas) {
-    var boardWidth = hackingDevice.gameWidth * 0.683;
-    var boardHeight = hackingDevice.gameHeight * 0.768;
-    var boardOffsetX = hackingDevice.gameWidth * 0.143;
-    var boardOffsetY = hackingDevice.gameHeight * 0.19;
-    boardSprite.renderRect(canvas, Rect.fromLTWH(boardOffsetX, boardOffsetY, boardWidth, boardHeight));
+    var width = hackingDevice.gameWidth * 0.683;
+    var height = hackingDevice.gameHeight * 0.768;
+    var offsetX = hackingDevice.gameWidth * 0.143;
+    var offsetY = hackingDevice.gameHeight * 0.19;
+    area = Rect.fromLTWH(offsetX, offsetY, width, height);
+    boardSprite.renderRect(canvas, area);
   }
 
   @override
   void update(double t) {
     // TODO: implement update
+  }
+
+  @override
+  void onTapDown(double dX, double dY) {
+    // Nothing to do here
+  }
+
+  @override
+  void onTapUp(double dX, double dY) {
+    // Nothing to do here
   }
 }
