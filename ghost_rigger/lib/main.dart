@@ -1,7 +1,7 @@
 import 'package:flame/util.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'file:///D:/Code/GhostRigger/ghost_rigger/lib/screens/hacking_device.dart';
+import 'screens/hacking_device.dart';
 import 'package:flame/flame.dart';
 
 void main() {
