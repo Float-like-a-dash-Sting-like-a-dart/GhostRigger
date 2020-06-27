@@ -20,4 +20,7 @@ void main() {
     'display_steps_and_status.png',
     'module_selection_area.png',
   ]);
+  Flame.audio.loadAll([
+    'bgm/titlescreen.mp3',
+  ]);
 }
