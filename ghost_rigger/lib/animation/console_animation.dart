@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
 
-class TypewriterAnimatedTextKit2 extends StatefulWidget {
+class ConsoleAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
   final List<String> text;
 
@@ -73,7 +73,7 @@ class TypewriterAnimatedTextKit2 extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
-  TypewriterAnimatedTextKit2(
+  ConsoleAnimatedTextKit(
       {Key key,
       @required this.text,
       this.textStyle,
@@ -88,16 +88,16 @@ class TypewriterAnimatedTextKit2 extends StatefulWidget {
       this.totalRepeatCount = 3,
       this.alignment = AlignmentDirectional.topStart,
       this.textAlign = TextAlign.start,
-      this.repeatForever = false,
-      this.isRepeatingAnimation = false})
+      this.repeatForever = true,
+      this.isRepeatingAnimation = true})
       : assert(text != null, 'You must specify the list of text'),
         super(key: key);
 
   @override
-  _TypewriterState createState() => _TypewriterState();
+  _ConsoleState createState() => _ConsoleState();
 }
 
-class _TypewriterState extends State<TypewriterAnimatedTextKit2>
+class _ConsoleState extends State<ConsoleAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
@@ -161,8 +161,9 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit2>
                 builder: (BuildContext context, Widget child) {
                   String visibleString = _texts[_index]['text'];
                   Color suffixColor = Colors.transparent;
+
                   if (_typewriterText.value == 0) {
-                    visibleString = _currentString;
+                    visibleString = "";
                   } else if (_typewriterText.value >
                       _texts[_index]['text'].length) {
                     visibleString = _texts[_index]['text']
@@ -206,6 +207,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit2>
     }
 
     if (isLast) {
+      _currentString = '';
       if (widget.isRepeatingAnimation &&
           (widget.repeatForever ||
               _currentRepeatCount != (widget.totalRepeatCount - 1))) {

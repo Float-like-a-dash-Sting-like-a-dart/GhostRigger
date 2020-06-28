@@ -40,5 +40,17 @@ flutter:
     - assets/images/
     - assets/audio/bgm/menu.mp3
     - assets/audio/bgm/music.mp3
+    - assets/audio/bgm/ingame.mp3
+    - assets/audio/bgm/intro.mp3
     - assets/audio/sfx/block.wav
     - assets/audio/sfx/menu.aac
+
+    
+  fonts:
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono-Regular.ttf
+        - asset: assets/fonts/JetBrainsMono-Italic.ttf
+          style: italic
+        - asset: assets/fonts/JetBrainsMono-Bold.ttf
+          weight: 700

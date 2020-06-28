@@ -4,7 +4,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/audio_pool.dart';
 
-enum Song { GAME, MENU }
+enum Song { GAME, MENU, INTRO }
 
 Future<AudioPool> loadSfx(String file) async {
   final audio =
@@ -23,7 +23,8 @@ class Audio {
 
   static Future init() async {
     musicPlayer = AudioCache(prefix: 'audio/bgm/', fixedPlayer: AudioPlayer());
-    await musicPlayer.loadAll(['menu.mp3', 'music.mp3']);
+    await musicPlayer
+        .loadAll(['menu.mp3', 'music.mp3', 'ingame.mp3', 'intro.mp3']);
     await musicPlayer.fixedPlayer.setReleaseMode(ReleaseMode.LOOP);
 
     final sounds = [
@@ -48,10 +49,13 @@ class Audio {
     Audio.song = song;
     switch (song) {
       case Song.GAME:
-        await musicPlayer.loop('music.mp3');
+        await musicPlayer.loop('ingame.mp3');
         break;
       case Song.MENU:
         await musicPlayer.loop('menu.mp3');
+        break;
+      case Song.INTRO:
+        await musicPlayer.loop('intro.mp3');
         break;
     }
     await _updatePlayer();

@@ -25,7 +25,7 @@ class _Handler extends WidgetsBindingObserver {
   }
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     home: Scaffold(body: MenuScreen()),
@@ -36,9 +36,8 @@ void main() {
     },
   ));
 
-  Util flameUtil = Util();
-  flameUtil.fullScreen();
-  flameUtil.setOrientation(DeviceOrientation.landscapeLeft);
+  await Flame.init(
+      fullScreen: true, orientation: DeviceOrientation.landscapeLeft);
 
   Flame.images.loadAll(<String>[
     'main.png',
@@ -63,9 +62,6 @@ void main() {
     'display_steps_and_status.png',
     'module_selection_area.png',
     'cable_out.png',
-  ]);
-  Flame.audio.loadAll([
-    'bgm/menu.mp3',
   ]);
 
   Audio.init();
