@@ -11,18 +11,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _controller = ScrollController();
-
   var _messageText = '';
   var _showSendButton = false;
 
   @override
   Widget build(BuildContext context) {
     Audio.stop();
-    Timer(
-      Duration(milliseconds: 250),
-      () => _controller.jumpTo(_controller.position.maxScrollExtent),
-    );
     return Container(
       decoration: BoxDecoration(
           color: Colors.black, border: Border.all(color: Colors.cyanAccent)),
@@ -73,6 +67,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       padding: EdgeInsets.symmetric(
                           vertical: 12.0, horizontal: 15.0),
                       onPressed: () => {},
+                      color: Colors.purpleAccent,
+                      highlightedBorderColor: Colors.purpleAccent,
                       borderSide:
                           BorderSide(color: Colors.purpleAccent, width: 2.0),
                       shape: new RoundedRectangleBorder(
@@ -94,8 +90,8 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             flex: 7,
             child: SingleChildScrollView(
+              reverse: true,
               padding: EdgeInsets.all(15.0),
-              controller: _controller,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,8 +112,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     onFinished: () => setState(
                       () {
                         _messageText = "Leave it to me!";
-                        _controller
-                            .jumpTo(_controller.position.maxScrollExtent);
                       },
                     ),
                     textStyle: TextStyle(

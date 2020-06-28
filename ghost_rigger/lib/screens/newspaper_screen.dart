@@ -13,10 +13,9 @@ class NewspaperScreen extends StatelessWidget {
       ),
       child: OutlineButton(
         padding: EdgeInsets.all(0.0),
-        onPressed: () => Navigator.pop(context),
-        borderSide: BorderSide(color: Colors.cyanAccent),
-        shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(0.0)),
+        color: Colors.transparent,
+        highlightedBorderColor: Colors.transparent,
+        onPressed: () => Navigator.pushReplacementNamed(context, '/credits'),
         child: null,
       ),
     );
