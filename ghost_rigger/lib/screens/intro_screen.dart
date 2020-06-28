@@ -19,7 +19,6 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     Audio.play(Song.INTRO);
     return Container(
-      margin: EdgeInsets.all(20.0),
       decoration: new BoxDecoration(color: Colors.black),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
