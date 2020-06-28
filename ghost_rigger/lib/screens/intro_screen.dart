@@ -123,9 +123,9 @@ class _IntroScreenState extends State<IntroScreen> {
       default:
         return [
           "In the year 2078,\n\n".toUpperCase(),
-          "the mega-corporation Native Development Initiative, aka NDI,\n\n"
+          "the mega-corporation Native Development Initiative, aka NDI...\n\n"
               .toUpperCase(),
-          "rules the Earth...\n\n".toUpperCase(),
+          "rules the Earth.\n\n".toUpperCase(),
         ];
     }
   }
