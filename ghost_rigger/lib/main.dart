@@ -113,15 +113,15 @@ void main() async {
             backgroundColor: Colors.black,
           ),
       '/level2': (BuildContext ctx) => Scaffold(
-            body: GameScreen(1),
+            body: GameScreen(2),
             backgroundColor: Colors.black,
           ),
       '/level3': (BuildContext ctx) => Scaffold(
-            body: GameScreen(1),
+            body: GameScreen(3),
             backgroundColor: Colors.black,
           ),
       '/resume': (BuildContext ctx) => Scaffold(
-            body: GameScreen(),
+            body: GameScreen(1), //TODO save the level
             backgroundColor: Colors.black,
           ),
       '/credits': (BuildContext ctx) => Scaffold(
