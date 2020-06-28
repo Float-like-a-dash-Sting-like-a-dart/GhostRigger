@@ -20,6 +20,7 @@ class _GameScreenState extends State<GameScreen> {
           getPuzzle1(),
           getPuzzle2(),
           getPuzzle3(),
+          getPuzzle4(),
         ],
         'Tuning in',
         'It seems like your radio receptor isn\'t tuned correctly to intercept the messages sent by the NDI (Native Development Initiative). Try placing some modules on the board of this hacking device to get your output to match the goal. Once you have a solution, click on the Play button on the top left to try it.');
@@ -93,6 +94,44 @@ class _GameScreenState extends State<GameScreen> {
       PieceModel(hastLeftCable: true, hastBottomCable: true),
       PieceModel(hastTopCable: true, hastBottomCable: true, arithmeticValue: 3, arithmeticOperation: ArithmeticOperation.add),
       PieceModel(hastLeftCable: true, hastTopCable: true),
+    ];
+    return PuzzleModel(validCellPositions, pieceModels, 9);
+  }
+
+  PuzzleModel getPuzzle4() {
+    var validCellPositions = [
+      [0, 3], [0, 4], [0, 5], [0, 6], [0, 7],
+      [1, 3], [1, 4], [1, 5], [1, 6], [1, 7],
+      [2, 3],                         [2, 7],
+      [3, 3], [3, 4], [3, 5], [3, 6], [3, 7],
+      [4, 3], [4, 4], [4, 5], [4, 6], [4, 7],
+    ];
+    var pieceModels = [
+      PieceModel(isInOrOut: true, arithmeticValue: 6, positionInBoardRow: 0, positionInBoardColumn: 2),
+      PieceModel(isInOrOut: true, positionInBoardRow: 4, positionInBoardColumn: 2),
+      PieceModel(hastTopCable: true, hastBottomCable: true, positionInBoardRow: 2, positionInBoardColumn: 4, arithmeticValue: 2, arithmeticOperation: ArithmeticOperation.add),
+      PieceModel(hastTopCable: true, hastBottomCable: true, positionInBoardRow: 2, positionInBoardColumn: 5, arithmeticValue: 3, arithmeticOperation: ArithmeticOperation.multiply),
+      PieceModel(hastTopCable: true, hastBottomCable: true, positionInBoardRow: 2, positionInBoardColumn: 6, arithmeticValue: 5, arithmeticOperation: ArithmeticOperation.subtract),
+      PieceModel(hastLeftCable: true, hastBottomCable: true),
+      PieceModel(hastLeftCable: true, hastBottomCable: true),
+      PieceModel(hastLeftCable: true, hastBottomCable: true),
+      PieceModel(hastRightCable: true, hastBottomCable: true),
+      PieceModel(hastRightCable: true, hastBottomCable: true),
+      PieceModel(hastRightCable: true, hastTopCable: true),
+      PieceModel(hastRightCable: true, hastTopCable: true),
+      PieceModel(hastLeftCable: true, hastTopCable: true),
+      PieceModel(hastLeftCable: true, hastTopCable: true),
+      PieceModel(hastLeftCable: true, hastTopCable: true),
+      PieceModel(hastTopCable: true, hastBottomCable: true),
+      PieceModel(hastTopCable: true, hastBottomCable: true),
+      PieceModel(hastTopCable: true, hastBottomCable: true),
+      PieceModel(hastTopCable: true, hastBottomCable: true),
+      PieceModel(hastTopCable: true, hastBottomCable: true),
+      PieceModel(hastTopCable: true, hastBottomCable: true),
+      PieceModel(hastLeftCable: true, hastRightCable: true),
+      PieceModel(hastLeftCable: true, hastRightCable: true),
+      PieceModel(hastLeftCable: true, hastRightCable: true),
+      PieceModel(hastLeftCable: true, hastRightCable: true),
     ];
     return PuzzleModel(validCellPositions, pieceModels, 9);
   }
