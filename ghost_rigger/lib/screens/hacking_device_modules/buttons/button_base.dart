@@ -1,10 +1,10 @@
 import 'dart:ui';
 import 'package:flame/sprite.dart';
 
-import '../hacking_device.dart';
-import 'device_module_base.dart';
+import '../../hacking_device.dart';
+import '../device_module_base.dart';
 
-abstract class DeviceButtonBase extends DeviceModuleBase {
+abstract class ButtonBase extends DeviceModuleBase {
   Sprite buttonSprite;
   Sprite buttonPressedSprite;
   Paint paint;
@@ -13,7 +13,7 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
 
   void Function() _onPressed;
 
-  DeviceButtonBase(HackingDevice hackingDevice, String buttonSpriteName,
+  ButtonBase(HackingDevice hackingDevice, String buttonSpriteName,
       String buttonPressedSpriteName, this._onPressed)
       : super(hackingDevice) {
     buttonSprite = Sprite(buttonSpriteName);
@@ -64,3 +64,4 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
     pressed = false;
   }
 }
+

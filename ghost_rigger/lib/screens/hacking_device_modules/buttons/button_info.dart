@@ -1,12 +1,11 @@
 import 'dart:ui';
 
-import '../hacking_device.dart';
-import 'device_button_base.dart';
+import '../../hacking_device.dart';
+import 'button_base.dart';
 
-class ButtonInfo extends DeviceButtonBase {
+class ButtonInfo extends ButtonBase {
   ButtonInfo(HackingDevice hackingDevice, Function onPressed)
-      : super(hackingDevice, 'button_info.png', 'button_info_pressed.png',
-            onPressed);
+      : super(hackingDevice, 'button_info.png', 'button_info_pressed.png', onPressed);
 
   @override
   Rect getArea() {

@@ -1,12 +1,11 @@
 import 'dart:ui';
 
-import '../hacking_device.dart';
-import 'device_button_base.dart';
+import '../../hacking_device.dart';
+import 'button_base.dart';
 
-class ButtonRestart extends DeviceButtonBase {
+class ButtonRestart extends ButtonBase {
   ButtonRestart(HackingDevice hackingDevice, Function onPressed)
-      : super(hackingDevice, 'button_restart.png', 'button_restart_pressed.png',
-            onPressed);
+      : super(hackingDevice, 'button_restart.png', 'button_restart_pressed.png', onPressed);
 
   @override
   Rect getArea() {

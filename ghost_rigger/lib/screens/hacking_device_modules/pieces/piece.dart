@@ -13,6 +13,7 @@ class Piece extends DeviceModuleBase {
   int positionInBoardRow;
   Offset dragPosition;
   Offset offset;
+  Rect boundaries;
 
   static Piece draggedPiece;
 
@@ -32,7 +33,13 @@ class Piece extends DeviceModuleBase {
     var offsetX = dragPosition == null ? offset.dx : dragPosition.dx - halfWidth;
     var offsetY = dragPosition == null ? offset.dy : dragPosition.dy - halfWidth;
     area = Rect.fromLTWH(offsetX - 1, offsetY - 1, width + 2, height + 2);
-    sprite.renderRect(canvas, area);
+    if (boundaries != null && draggedPiece != this) {
+      canvas.save();
+      canvas.clipRect(boundaries);
+      sprite.renderRect(canvas, area);
+      canvas.restore();
+    } else
+      sprite.renderRect(canvas, area);
   }
 
   @override

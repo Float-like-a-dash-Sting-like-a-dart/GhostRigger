@@ -11,6 +11,7 @@ class Board extends DeviceModuleBase {
   Sprite blockedCellSprite;
   List<List<Piece>> pieces;
   List<List<bool>> validCells;
+  double cellSize;
 
   Board(HackingDevice hackingDevice) : super(hackingDevice) {
     boardBackgroundSprite = Sprite('board.png');
@@ -29,7 +30,7 @@ class Board extends DeviceModuleBase {
     boardBackgroundSprite.renderRect(canvas, area);
 
     var widthUsableArea = hackingDevice.gameWidth * 0.647;
-    var cellSize = widthUsableArea / 8;
+    cellSize = widthUsableArea / 8;
     var offsetUsableAreaX = area.left + (hackingDevice.gameWidth * 0.016);
     var offsetUsableAreaY = area.top + (hackingDevice.gameHeight * 0.028);
       for (int i = 0; i < 5; i++)
@@ -43,6 +44,7 @@ class Board extends DeviceModuleBase {
     pieces.toList().forEach((piecesRow) {
       piecesRow.toList().where((piece) => piece != null).forEach((piece) {
         _setBoardPieceOffset(piece);
+        piece.boundaries = null;
       });
     });
   }
@@ -51,7 +53,7 @@ class Board extends DeviceModuleBase {
     var width = hackingDevice.gameWidth * 0.647;
     var offsetX = area.left + (hackingDevice.gameWidth * 0.016);
     var offsetY = area.top + (hackingDevice.gameHeight * 0.028);
-    var cellSize = width / 8;
+    cellSize = width / 8;
     var cellArea = Rect.fromLTWH(offsetX + (piece.positionInBoardColumn * cellSize), offsetY + (piece.positionInBoardRow * cellSize), cellSize, cellSize);
     piece.offset = Offset(cellArea.left, cellArea.top);
   }
@@ -63,7 +65,7 @@ class Board extends DeviceModuleBase {
     var offsetY = area.top + (hackingDevice.gameHeight * 0.028);
     var usableArea = Rect.fromLTWH(offsetX, offsetY, width, height);
     if (usableArea.contains(piece.dragPosition)) {
-      var cellSize = width / 8;
+      cellSize = width / 8;
       for (int i = 0; i < 5; i++)
         for (int j = 0; j < 8; j++) {
           var cellArea = Rect.fromLTWH(offsetX + (j * cellSize), offsetY + (i * cellSize), cellSize, cellSize);

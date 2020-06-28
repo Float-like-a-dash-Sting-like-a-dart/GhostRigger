@@ -6,12 +6,14 @@ import 'package:flutter/gestures.dart';
 
 import 'hacking_device_modules/background.dart';
 import 'hacking_device_modules/board.dart';
-import 'hacking_device_modules/button_done.dart';
-import 'hacking_device_modules/button_exit.dart';
-import 'hacking_device_modules/button_info.dart';
-import 'hacking_device_modules/button_next_step.dart';
-import 'hacking_device_modules/button_restart.dart';
-import 'hacking_device_modules/button_run.dart';
+import 'hacking_device_modules/buttons/button_arrow_down.dart';
+import 'hacking_device_modules/buttons/button_arrow_up.dart';
+import 'hacking_device_modules/buttons/button_done.dart';
+import 'hacking_device_modules/buttons/button_exit.dart';
+import 'hacking_device_modules/buttons/button_info.dart';
+import 'hacking_device_modules/buttons/button_next_step.dart';
+import 'hacking_device_modules/buttons/button_restart.dart';
+import 'hacking_device_modules/buttons/button_run.dart';
 import 'hacking_device_modules/device_module_base.dart';
 import 'hacking_device_modules/display_goal.dart';
 import 'hacking_device_modules/display_output.dart';
@@ -44,6 +46,8 @@ class HackingDevice extends Game
       ButtonNextStep(this, null),
       ButtonRestart(this, null),
       ButtonDone(this, null),
+      ButtonArrowUp(this, null),
+      ButtonArrowDown(this, null),
       ButtonExit(this, _onExit),
       DisplayGoal(this),
       DisplayOutput(this),
@@ -54,6 +58,12 @@ class HackingDevice extends Game
 
     // TODO This will have to be provided from somewhere to set up the puzzle
     var pieceModels = [
+      PieceModel('cable_out.png'),
+      PieceModel('cable_out.png'),
+      PieceModel('cable_out.png'),
+      PieceModel('cable_out.png'),
+      PieceModel('cable_out.png'),
+      PieceModel('cable_out.png'),
       PieceModel('cable_out.png'),
       PieceModel('cable_out.png'),
       PieceModel('cable_out.png', positionInBoardRow: 1, positionInBoardColumn: 3),
