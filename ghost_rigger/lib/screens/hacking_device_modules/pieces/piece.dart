@@ -32,7 +32,7 @@ class Piece extends DeviceModuleBase {
     var halfWidth = width * 0.5;
     var offsetX = dragPosition == null ? offset.dx : dragPosition.dx - halfWidth;
     var offsetY = dragPosition == null ? offset.dy : dragPosition.dy - halfWidth;
-    area = Rect.fromLTWH(offsetX - 1, offsetY - 1, width + 2, height + 2);
+    area = Rect.fromLTWH(offsetX, offsetY, width, height);
     if (boundaries != null && draggedPiece != this) {
       canvas.save();
       canvas.clipRect(boundaries);

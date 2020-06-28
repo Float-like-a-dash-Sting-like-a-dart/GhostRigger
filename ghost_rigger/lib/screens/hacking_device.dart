@@ -59,16 +59,16 @@ class HackingDevice extends Game
 
     // TODO This will have to be provided from somewhere to set up the puzzle
     var pieceModels = [
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png'),
-      PieceModel('cable_out.png', positionInBoardRow: 1, positionInBoardColumn: 3),
-      PieceModel('cable_out.png', positionInBoardRow: 3, positionInBoardColumn: 4),
+      PieceModel('line_number_bent.png'),
+      PieceModel('line_horizontal.png'),
+      PieceModel('line_number_bent.png'),
+      PieceModel('line_number_horizontal.png'),
+      PieceModel('line_number_bent.png'),
+      PieceModel('line_horizontal.png'),
+      PieceModel('line_bent.png'),
+      PieceModel('line_number_horizontal.png'),
+      PieceModel('line_number_bent.png', positionInBoardRow: 1, positionInBoardColumn: 3),
+      PieceModel('line_bent.png', positionInBoardRow: 3, positionInBoardColumn: 4),
     ];
 
     // TODO This will have to be provided from somewhere to set up the puzzle
