@@ -35,7 +35,7 @@ class _GameScreenState extends State<GameScreen> {
           puzzle, // TODO Use a different puzzle
         ],
         'Tuning in',
-        'It seems like your radio receptor isn\'t tuned correctly to intercept the messages sent by the NDI (Native Development Initiative). Try placing some modules on the board of this hacking device to get the desired output.');
+        'It seems like your radio receptor isn\'t tuned correctly to intercept the messages sent by the NDI (Native Development Initiative). Try placing some modules on the board of this hacking device to get your output to match the goal. Once you have a solution, click on the Play button on the top left to try it.');
 
 
     Main.game = HackingDevice(

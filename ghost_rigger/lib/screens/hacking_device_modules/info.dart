@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
@@ -55,7 +54,7 @@ class Info extends DeviceModuleBase {
 
   void setText(Canvas canvas) {
     var textStyle = TextStyle(
-        color: Colors.white, fontFamily: 'Rajdhani', fontSize: 18);
+        color: Colors.white, fontFamily: 'Rajdhani', fontSize: 17);
     var textSpan = TextSpan(text: text, style: textStyle);
     var textPainter = TextPainter(
         text: textSpan, textDirection: TextDirection.ltr, textAlign: TextAlign.left);
