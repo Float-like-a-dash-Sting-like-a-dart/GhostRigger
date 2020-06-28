@@ -72,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: OutlineButton(
                       padding: EdgeInsets.symmetric(
                           vertical: 12.0, horizontal: 15.0),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => {},
                       borderSide:
                           BorderSide(color: Colors.purpleAccent, width: 2.0),
                       shape: new RoundedRectangleBorder(
@@ -198,7 +198,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: Flexible(
                       flex: 2,
                       child: _showSendButton
-                          ? BlinkingButton()
+                          ? BlinkingButton(
+                              () {
+                                Navigator.pushNamed(context, '/game');
+                              },
+                            )
                           : OutlineButton(
                               padding: EdgeInsets.all(8.0),
                               onPressed: null,

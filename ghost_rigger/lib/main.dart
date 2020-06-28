@@ -107,6 +107,10 @@ void main() async {
             body: IntroScreen(),
             backgroundColor: Colors.black,
           ),
+      '/game': (BuildContext ctx) => Scaffold(
+            body: GameScreen(),
+            backgroundColor: Colors.black,
+          ),
       '/resume': (BuildContext ctx) => Scaffold(
             body: GameScreen(),
             backgroundColor: Colors.black,

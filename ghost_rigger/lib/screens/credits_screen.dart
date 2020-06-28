@@ -13,7 +13,7 @@ class CreditScreen extends StatelessWidget {
           child: FlatButton(
             padding: EdgeInsets.all(20.0),
             onPressed: () {
-              Navigator.popUntil(context, ModalRoute.withName('menu'));
+              Navigator.pop(context);
             },
             child: Image.asset(
               'assets/images/intro_icon_exit.png',
