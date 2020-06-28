@@ -156,8 +156,7 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
                           visibleString.substring(0, _lastAnimationValue);
                     }
                   } catch (e) {
-                    visibleString =
-                        visibleString.substring(0, _lastAnimationValue);
+                    visibleString = visibleString;
                   }
 
                   return RichText(

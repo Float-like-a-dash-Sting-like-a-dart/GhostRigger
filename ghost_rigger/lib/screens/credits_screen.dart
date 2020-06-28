@@ -25,6 +25,7 @@ class CreditScreen extends StatelessWidget {
         Flexible(
           flex: 5,
           child: SingleChildScrollView(
+            reverse: true,
             child: ConsoleAnimatedTextKit(
                 onTap: () {
                   print("Tap Event");
@@ -33,9 +34,16 @@ class CreditScreen extends StatelessWidget {
                   "Thanks for playing our game prototype until the end.\n\n",
                   "If you liked it, please give us your vote!\n\n",
                   "Created by:\n\n",
-                  "Iain Smith (Development)\n\n",
-                  "Julio Ernesto Rodríguez Cabañas (Development)\n\n",
-                  "Richard Kinsella (Design)\n\n",
+                  "### Development ###\n\n",
+                  "Iain Smith @b099l3 \n\n",
+                  "Julio Ernesto Rodríguez Cabañas @ernestoyaquello\n\n",
+                  "### Design ###\n\n",
+                  "Richard Kinsella @RKTypeDesign\n\n",
+                  "\n\n",
+                  "### Music ###\n\n",
+                  "Ryan Andersen - Synthwave\n\n",
+                  "Bensound - SciFi\n\n",
+                  "Bensound - Evolution\n\n",
                 ],
                 textStyle: TextStyle(
                     fontSize: 20.0,
