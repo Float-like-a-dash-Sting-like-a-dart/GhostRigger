@@ -134,23 +134,28 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
                 builder: (BuildContext context, Widget child) {
                   String visibleString = _lines.join('');
                   var cursorColor = Colors.transparent;
-                  if (_consoleAnimation.value == 0) {
-                    visibleString = "";
-                  } else if (cursorBlinking(_consoleAnimation.value)) {
-                    cursorColor = _consoleAnimation.value % 2 == 0
-                        ? widget.textStyle.color
-                        : Colors.transparent;
+                  try {
+                    if (_consoleAnimation.value == 0) {
+                      visibleString = "";
+                    } else if (cursorBlinking(_consoleAnimation.value)) {
+                      cursorColor = _consoleAnimation.value % 2 == 0
+                          ? widget.textStyle.color
+                          : Colors.transparent;
 
-                    visibleString =
-                        visibleString.substring(0, _lastAnimationValue);
-                    _blinkCursorCount =
-                        _consoleAnimation.value - _lastAnimationValue;
-                  } else {
-                    _lastAnimationValue =
-                        _consoleAnimation.value - _blinkCursorCount;
-                    cursorColor = _lastAnimationValue % 2 == 0
-                        ? widget.textStyle.color
-                        : Colors.transparent;
+                      visibleString =
+                          visibleString.substring(0, _lastAnimationValue);
+                      _blinkCursorCount =
+                          _consoleAnimation.value - _lastAnimationValue;
+                    } else {
+                      _lastAnimationValue =
+                          _consoleAnimation.value - _blinkCursorCount;
+                      cursorColor = _lastAnimationValue % 2 == 0
+                          ? widget.textStyle.color
+                          : Colors.transparent;
+                      visibleString =
+                          visibleString.substring(0, _lastAnimationValue);
+                    }
+                  } catch (e) {
                     visibleString =
                         visibleString.substring(0, _lastAnimationValue);
                   }
