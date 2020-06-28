@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:math';
+import 'dart:developer';
 
 class ConsoleAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
@@ -27,16 +27,6 @@ class ConsoleAnimatedTextKit extends StatefulWidget {
   /// This method will run only if [isRepeatingAnimation] is set to false.
   final VoidCallback onFinished;
 
-  /// Adds the onNext [VoidCallback] to the animated widget.
-  ///
-  /// Will be called right before the next text, after the pause parameter
-  final void Function(int, bool) onNext;
-
-  /// Adds the onNextBeforePause [VoidCallback] to the animated widget.
-  ///
-  /// Will be called at the end of n-1 animation, before the pause parameter
-  final void Function(int, bool) onNextBeforePause;
-
   /// Adds [AlignmentGeometry] property to the text in the widget.
   ///
   /// By default it is set to [AlignmentDirectional.topStart]
@@ -47,50 +37,23 @@ class ConsoleAnimatedTextKit extends StatefulWidget {
   /// By default it is set to [TextAlign.start]
   final TextAlign textAlign;
 
-  /// Sets the number of times animation should repeat
-  ///
-  /// By default it is set to 3
-  final int totalRepeatCount;
-
-  /// Sets if the animation should repeat forever. [isRepeatingAnimation] also
-  /// needs to be set to true if you want to repeat forever.
-  ///
-  /// By default it is set to false, if set to true, [totalRepeatCount] is ignored.
-  final bool repeatForever;
-
-  /// Set if the animation should not repeat by changing the value of it to false.
-  ///
-  /// By default it is set to true.
-  final bool isRepeatingAnimation;
-
   /// Should the animation ends up early and display full text if you tap on it ?
   ///
   /// By default it is set to false.
   final bool displayFullTextOnTap;
 
-  /// If on pause, should a tap remove the remaining pause time ?
-  ///
-  /// By default it is set to false.
-  final bool stopPauseOnTap;
-
-  ConsoleAnimatedTextKit(
-      {Key key,
-      @required this.text,
-      this.textStyle,
-      this.speed,
-      this.pause,
-      this.displayFullTextOnTap = true,
-      this.stopPauseOnTap = false,
-      this.onTap,
-      this.onNext,
-      this.onNextBeforePause,
-      this.onFinished,
-      this.totalRepeatCount = 3,
-      this.alignment = AlignmentDirectional.topStart,
-      this.textAlign = TextAlign.start,
-      this.repeatForever = true,
-      this.isRepeatingAnimation = true})
-      : assert(text != null, 'You must specify the list of text'),
+  ConsoleAnimatedTextKit({
+    Key key,
+    @required this.text,
+    this.textStyle,
+    this.speed,
+    this.pause,
+    this.displayFullTextOnTap = true,
+    this.onTap,
+    this.onFinished,
+    this.alignment = AlignmentDirectional.topStart,
+    this.textAlign = TextAlign.start,
+  })  : assert(text != null, 'You must specify the list of text'),
         super(key: key);
 
   @override
@@ -101,33 +64,30 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
-  Animation _typewriterText;
+  Animation _consoleAnimation;
   List<Widget> textWidgetList = [];
 
   Duration _speed;
   Duration _pause;
 
-  List<Map<String, dynamic>> _texts = [];
+  List<String> _lines = [];
 
-  int _index;
   bool _isCurrentlyPausing = false;
+  bool _isFirstRun = true;
+  int _blinkTime = 20;
+  int _lastAnimationValue = 0;
+  int _blinkCursorCount = 0;
   Timer _timer;
-  int _currentRepeatCount;
-  String _currentString = '';
+
+  int _endValue;
 
   @override
   void initState() {
     super.initState();
 
-    _speed = widget.speed ?? const Duration(milliseconds: 30);
-    _pause = widget.pause ?? const Duration(milliseconds: 1000);
-
-    _index = -1;
-    _currentRepeatCount = 0;
-
-    widget.text.forEach((text) {
-      _texts.add({'text': text, 'speed': _speed, 'pause': _pause});
-    });
+    _speed = widget.speed ?? const Duration(milliseconds: 120);
+    _pause = widget.pause ?? const Duration(milliseconds: 2000);
+    _lines = widget.text;
 
     _nextAnimation();
   }
@@ -147,7 +107,8 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
             ? RichText(
                 text: TextSpan(children: [
                   TextSpan(
-                    text: _texts[_index]['text'],
+                    text: _lines.reduce((a, b) => '$a\n\n$b'),
+                    style: widget.textStyle,
                   ),
                   TextSpan(
                       text: '_',
@@ -159,36 +120,37 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
             : AnimatedBuilder(
                 animation: _controller,
                 builder: (BuildContext context, Widget child) {
-                  String visibleString = _texts[_index]['text'];
-                  Color suffixColor = Colors.transparent;
+                  String visibleString = _lines.join('\n\n');
+                  var cursorColor = Colors.transparent;
+                  log('${_consoleAnimation.value}');
 
-                  if (_typewriterText.value == 0) {
+                  if (_consoleAnimation.value == 0) {
                     visibleString = "";
-                  } else if (_typewriterText.value >
-                      _texts[_index]['text'].length) {
-                    visibleString = _texts[_index]['text']
-                        .substring(0, _texts[_index]['text'].length);
-                    if ((_typewriterText.value -
-                                _texts[_index]['text'].length) %
-                            2 ==
-                        0) {
-                      suffixColor = widget.textStyle.color;
-                    } else {
-                      suffixColor = Colors.transparent;
-                    }
+                  } else if (cursorBlinking(_consoleAnimation.value)) {
+                    cursorColor = _consoleAnimation.value % 3 == 0
+                        ? widget.textStyle.color
+                        : Colors.transparent;
+
+                    visibleString =
+                        visibleString.substring(0, _lastAnimationValue);
+                    _blinkCursorCount =
+                        _consoleAnimation.value - _lastAnimationValue;
                   } else {
-                    visibleString = _texts[_index]['text']
-                        .substring(0, _typewriterText.value);
-                    suffixColor = widget.textStyle.color;
+                    _lastAnimationValue =
+                        _consoleAnimation.value - _blinkCursorCount;
+                    cursorColor = _lastAnimationValue % 2 == 0
+                        ? widget.textStyle.color
+                        : Colors.transparent;
+                    visibleString =
+                        visibleString.substring(0, _lastAnimationValue);
                   }
 
-                  _currentString = visibleString;
                   return RichText(
                     text: TextSpan(children: [
-                      TextSpan(text: _currentString),
+                      TextSpan(text: visibleString),
                       TextSpan(
                           text: '_',
-                          style: widget.textStyle.copyWith(color: suffixColor))
+                          style: widget.textStyle.copyWith(color: cursorColor))
                     ], style: widget.textStyle),
                     textAlign: widget.textAlign,
                   );
@@ -196,87 +158,72 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
               ));
   }
 
-  void _nextAnimation() {
-    final bool isLast = _index == widget.text.length - 1;
+  bool cursorBlinking(int value) {
+    var offset = 0;
+    if (value < _lines[0].length + 2) {
+      return false;
+    }
+    for (var line in _lines) {
+      if (inRange(value, offset + line.length + 2,
+          offset + line.length + 2 + _blinkTime)) {
+        return true;
+      }
+      offset = line.length + 2 + _blinkTime;
+    }
 
+    if (value > _endValue - _blinkTime - 1) {
+      return true;
+    }
+    return false;
+  }
+
+  bool inRange(int value, int min, int max) => value > min && value < max;
+
+  void _nextAnimation() {
     _isCurrentlyPausing = false;
 
-    // Handling onNext callback
-    if (_index > -1) {
-      widget.onNext?.call(_index, isLast);
+    if (!_isFirstRun) {
+      widget.onFinished?.call();
+      return;
     }
 
-    if (isLast) {
-      _currentString = '';
-      if (widget.isRepeatingAnimation &&
-          (widget.repeatForever ||
-              _currentRepeatCount != (widget.totalRepeatCount - 1))) {
-        _index = 0;
-        if (!widget.repeatForever) {
-          _currentRepeatCount++;
-        }
-      } else {
-        widget.onFinished?.call();
-        return;
-      }
-    } else {
-      _index++;
-    }
+    var duration = _lines.fold(
+        Duration(), (prev, next) => (_speed * next.length) + _pause + prev);
 
     if (mounted) setState(() {});
 
     _controller = AnimationController(
-      duration: _texts[_index]['speed'] * _texts[_index]['text'].length,
+      duration: duration,
       vsync: this,
     );
 
-    _typewriterText =
-        StepTween(begin: 0, end: _texts[_index]['text'].length + 8)
-            .animate(_controller)
-              ..addStatusListener(_animationEndCallback);
+    _endValue =
+        _lines.fold(0, (prev, next) => prev + next.length + _blinkTime) +
+            (_lines.length - 1) * 2;
+
+    _consoleAnimation = StepTween(begin: 0, end: _endValue).animate(_controller)
+      ..addStatusListener(_animationEndCallback);
 
     _controller.forward();
   }
 
   void _setPause() {
-    final bool isLast = _index == widget.text.length - 1;
-
     _isCurrentlyPausing = true;
     if (mounted) setState(() {});
-
-    // Handle onNextBeforePause callback
-    if (widget.onNextBeforePause != null)
-      widget.onNextBeforePause(_index, isLast);
   }
 
   void _animationEndCallback(state) {
     if (state == AnimationStatus.completed) {
       _setPause();
-      _timer = Timer(_texts[_index]['pause'], _nextAnimation);
+      _isFirstRun = false;
+      _timer = Timer(Duration(), _nextAnimation);
     }
   }
 
   void _onTap() {
     if (widget.displayFullTextOnTap) {
-      if (_isCurrentlyPausing) {
-        if (widget.stopPauseOnTap) {
-          _timer?.cancel();
-          _nextAnimation();
-        }
-      } else {
-        final int pause = _texts[_index]['pause'].inMilliseconds;
-        final int left = _texts[_index]['speed'].inMilliseconds *
-            (_texts[_index]['text'].length - _typewriterText.value);
-
-        _controller.stop();
-
-        _setPause();
-
-        _timer =
-            Timer(Duration(milliseconds: max(pause, left)), _nextAnimation);
-      }
+      _controller.stop();
+      _setPause();
     }
-
-    widget.onTap?.call();
   }
 }

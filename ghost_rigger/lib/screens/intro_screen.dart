@@ -19,10 +19,11 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     Audio.play(Song.INTRO);
     return Container(
+      margin: EdgeInsets.all(20.0),
       decoration: new BoxDecoration(color: Colors.black),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           ConsoleAnimatedTextKit(
               onTap: () {
@@ -46,21 +47,33 @@ class _IntroScreenState extends State<IntroScreen> {
               textAlign: TextAlign.center,
               alignment: AlignmentDirectional.topStart // or Alignment.topLeft
               ),
-          _showContinue
-              ? FlatButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(color: Colors.white),
+          Row(
+            children: <Widget>[
+              _showContinue
+                  ? FlatButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.cyanAccent,
+                          fontSize: 20.0,
+                          fontFamily: 'JetBrainsMono',
+                        ),
+                      ),
+                    )
+                  : Container(),
+              FlatButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  'Exit',
+                  style: TextStyle(
+                    color: Colors.purpleAccent,
+                    fontSize: 20.0,
+                    fontFamily: 'JetBrainsMono',
                   ),
-                )
-              : Container(),
-          FlatButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              'Exit',
-              style: TextStyle(color: Colors.white),
-            ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
