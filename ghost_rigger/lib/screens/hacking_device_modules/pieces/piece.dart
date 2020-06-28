@@ -202,7 +202,8 @@ class Piece extends DeviceModuleBase {
     if (hackingDevice.pieceSelector.scrollDirection != 0 ||
         (positionInBoardRow != -1 && !hackingDevice.board.validCells[positionInBoardRow][positionInBoardColumn]) ||
         (draggedPiece != null && draggedPiece != this) ||
-        hackingDevice.puzzle.simulationRunning)
+        hackingDevice.puzzle.simulationRunning ||
+        hackingDevice.isShowingInfo)
       return;
 
     if (draggedPiece == this || area?.contains(Offset(dX, dY)) == true) {

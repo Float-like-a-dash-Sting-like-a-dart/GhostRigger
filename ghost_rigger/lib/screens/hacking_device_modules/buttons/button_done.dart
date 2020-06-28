@@ -19,7 +19,7 @@ class ButtonDone extends ButtonBase {
   @override
   void setAlphaFromStatus() {
     var puzzle = hackingDevice.puzzle;
-    paint.color = Color.fromRGBO(0, 0, 0, puzzle.simulationFinished && puzzle.goal == puzzle.output ? 1.0 : 0.0);
+    paint.color = Color.fromRGBO(0, 0, 0, puzzle.simulationFinished && puzzle.goal == puzzle.output && enabled ? 1.0 : 0.0);
   }
 
   @override

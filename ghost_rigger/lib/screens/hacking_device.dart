@@ -13,15 +13,18 @@ import 'hacking_device_modules/buttons/button_done.dart';
 import 'hacking_device_modules/buttons/button_exit.dart';
 import 'hacking_device_modules/buttons/button_info.dart';
 import 'hacking_device_modules/buttons/button_next_step.dart';
+import 'hacking_device_modules/buttons/button_ok.dart';
 import 'hacking_device_modules/buttons/button_restart.dart';
 import 'hacking_device_modules/buttons/button_run.dart';
 import 'hacking_device_modules/device_module_base.dart';
 import 'hacking_device_modules/display_goal.dart';
 import 'hacking_device_modules/display_output.dart';
+import 'hacking_device_modules/info.dart';
 import 'hacking_device_modules/light_animation.dart';
 import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
 import 'hacking_device_modules/pieces/piece.dart';
+import 'models/level_model.dart';
 import 'models/piece_model.dart';
 import 'models/puzzle_model.dart';
 
@@ -35,45 +38,55 @@ class HackingDevice extends Game
   PieceSelector pieceSelector;
   ButtonRun buttonRun;
   ButtonNextStep buttonNextStep;
+  ButtonRestart buttonRestart;
+  ButtonDone buttonDone;
+  ButtonOK buttonOk;
+  Info info;
   List<DeviceModuleBase> deviceModules;
 
-  List<PuzzleModel> puzzles;
+  LevelModel level;
   PuzzleModel puzzle;
   int puzzleNumber;
   int numberOfPuzzles;
+  bool isShowingInfo;
 
   void Function() _onExit;
   void Function() _onCompleted;
 
-  HackingDevice(this.puzzles, this._onExit, this._onCompleted) {
+  HackingDevice(this.level, this._onExit, this._onCompleted) {
     puzzleNumber = 0;
-    numberOfPuzzles = puzzles.length;
+    numberOfPuzzles = level.puzzles.length;
     setUpPuzzle();
   }
 
   void setUpPuzzle() {
-    if (puzzles.isEmpty) {
+    if (level.puzzles.isEmpty) {
       _onCompleted.call();
       return;
     }
 
     puzzleNumber++;
 
-    puzzle = puzzles.first;
-    puzzles.remove(puzzle);
+    puzzle = level.puzzles.first;
+    level.puzzles.remove(puzzle);
+    puzzle.clearSolution();
 
     board = Board(this);
     pieceSelector = PieceSelector(this);
     buttonRun = ButtonRun(this, null);
     buttonNextStep = ButtonNextStep(this, null);
+    buttonRestart = ButtonRestart(this, null);
+    buttonDone = ButtonDone(this, null);
+    buttonOk = ButtonOK(this, null);
+    info = Info(this);
     deviceModules = [
       Background(this),
       DisplayStatus(this),
       ButtonInfo(this, null),
       buttonRun,
       buttonNextStep,
-      ButtonRestart(this, null),
-      ButtonDone(this, null),
+      buttonRestart,
+      buttonDone,
       ButtonArrowUp(this, null),
       ButtonArrowDown(this, null),
       ButtonExit(this, _onExit),
@@ -106,8 +119,14 @@ class HackingDevice extends Game
       deviceModules.add(piece);
     });
 
-    if (puzzleNumber == 1)
+    deviceModules.add(info);
+    deviceModules.add(buttonOk);
+
+    if (puzzleNumber == 1) {
+      showInfo();
       deviceModules.add(DoorsAnimation(this));
+    } else
+      hideInfo();
   }
 
   @override
@@ -245,6 +264,28 @@ class HackingDevice extends Game
       board.pieces[visitedPiece.positionInBoardRow][visitedPiece.positionInBoardColumn].isLit = true;
     });
     buttonNextStep.enabled = !puzzle.simulationFinished;
+  }
+
+  void showInfo() {
+    isShowingInfo = true;
+    buttonRun.enabled = false;
+    buttonNextStep.enabled = false;
+    buttonRestart.enabled = false;
+    buttonDone.enabled = false;
+    buttonOk.enabled = true;
+    info.title = level.infoTitle;
+    info.text = level.infoDescription;
+    info.show = true;
+  }
+
+  void hideInfo() {
+    isShowingInfo = false;
+    buttonRun.enabled = true;
+    buttonNextStep.enabled = true;
+    buttonRestart.enabled = true;
+    buttonDone.enabled = true;
+    buttonOk.enabled = false;
+    info.show = false;
   }
 
   PieceModel _fromPieceToPieceModel(Piece piece) {
