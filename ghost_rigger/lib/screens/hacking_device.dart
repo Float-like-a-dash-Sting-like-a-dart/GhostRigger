@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
+import 'package:ghost_rigger/screens/hacking_device_modules/buttons/button_skip_level.dart';
 import 'package:ghost_rigger/screens/hacking_device_modules/doors_animation.dart';
 
 import 'hacking_device_modules/background.dart';
@@ -51,13 +52,13 @@ class HackingDevice extends Game
   HackingDevice(this.level, this._onExit, this._onCompleted) {
     puzzleNumber = 0;
     numberOfPuzzles = level.puzzles.length;
-    setUpPuzzle();
+    setUpNextPuzzle();
   }
 
-  void setUpPuzzle() {
+  bool setUpNextPuzzle() {
     if (level.puzzles.isEmpty) {
       _onCompleted.call();
-      return;
+      return true;
     }
 
     puzzleNumber++;
@@ -111,12 +112,15 @@ class HackingDevice extends Game
 
     deviceModules.add(info);
     deviceModules.add(ButtonOK(this, null));
+    deviceModules.add(ButtonSkipLevel(this, null));
 
     if (puzzleNumber == 1) {
       showInfo();
       deviceModules.add(DoorsAnimation(this));
     } else
       hideInfo();
+
+    return false;
   }
 
   @override

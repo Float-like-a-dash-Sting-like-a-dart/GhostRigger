@@ -24,6 +24,6 @@ class ButtonDone extends ButtonBase {
 
   @override
   void onPressed() {
-    hackingDevice.setUpPuzzle();
+    hackingDevice.setUpNextPuzzle();
   }
 }

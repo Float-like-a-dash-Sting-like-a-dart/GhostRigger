@@ -45,6 +45,8 @@ void main() async {
     'board.png',
     'button_ok.png',
     'button_ok_pressed.png',
+    'button_skip_level.png',
+    'button_skip_level_pressed.png',
     'button_info.png',
     'button_info_pressed.png',
     'button_run.png',
