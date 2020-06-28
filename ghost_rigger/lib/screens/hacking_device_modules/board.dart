@@ -68,12 +68,18 @@ class Board extends DeviceModuleBase {
       for (int i = 0; i < 5; i++)
         for (int j = 0; j < 8; j++) {
           var cellArea = Rect.fromLTWH(offsetX + (j * cellSize), offsetY + (i * cellSize), cellSize, cellSize);
-          if (cellArea.contains(dragPosition) && validCells[i][j] && (pieces[i][j] == null || pieces[i][j] == piece)) {
+          if (cellArea.contains(dragPosition) && validCells[i][j] && (pieces[i][j] == null || pieces[i][j] == piece || piece.positionInBoardRow != -1)) {
             hackingDevice.pieceSelector.pieces.remove(piece);
             pieces.forEach((boardPieces) {
               var pieceIndex = boardPieces.indexOf(piece);
-              if (pieceIndex != -1)
-                boardPieces[pieceIndex] = null;
+              if (pieceIndex != -1) {
+                if (pieces[i][j] != null && pieces[i][j] != piece) {
+                  boardPieces[pieceIndex] = pieces[i][j];
+                  boardPieces[pieceIndex].positionInBoardRow = piece.positionInBoardRow;
+                  boardPieces[pieceIndex].positionInBoardColumn = piece.positionInBoardColumn;
+                } else
+                 boardPieces[pieceIndex] = null;
+              }
             });
             pieces[i][j] = piece;
             piece.isInPieceSelector = false;
