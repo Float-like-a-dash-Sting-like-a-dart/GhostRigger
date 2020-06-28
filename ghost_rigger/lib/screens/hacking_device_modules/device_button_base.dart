@@ -49,17 +49,14 @@ abstract class DeviceButtonBase extends DeviceModuleBase {
 
   @override
   void onTapDown(double dX, double dY) {
-    if (area.contains(Offset(dX, dY))) {
-      pressed = true;
-      _onPressed?.call();
-    } else {
-      pressed = false;
-    }
+    pressed = area.contains(Offset(dX, dY));
   }
 
   @override
   void onTapUp(double dX, double dY) {
     pressed = false;
+    if (area.contains(Offset(dX, dY)))
+      _onPressed?.call();
   }
 
   @override

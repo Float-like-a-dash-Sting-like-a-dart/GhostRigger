@@ -14,7 +14,7 @@ class Piece extends DeviceModuleBase {
   Offset dragPosition;
   Offset offset;
 
-  static Piece draggedPiece = null;
+  static Piece draggedPiece;
 
   Piece(HackingDevice hackingDevice, PieceModel pieceModel) : super(hackingDevice) {
     sprite = Sprite(pieceModel.spriteName);
@@ -31,7 +31,7 @@ class Piece extends DeviceModuleBase {
     var halfWidth = width * 0.5;
     var offsetX = dragPosition == null ? offset.dx : dragPosition.dx - halfWidth;
     var offsetY = dragPosition == null ? offset.dy : dragPosition.dy - halfWidth;
-    area = Rect.fromLTWH(offsetX, offsetY, width, height);
+    area = Rect.fromLTWH(offsetX - 1, offsetY - 1, width + 2, height + 2);
     sprite.renderRect(canvas, area);
   }
 

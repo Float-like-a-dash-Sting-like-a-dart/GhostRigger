@@ -61,6 +61,7 @@ void main() async {
     'button_exit_pressed.png',
     'display_steps_and_status.png',
     'module_selection_area.png',
+    'blocked_cell.png',
     'cable_out.png',
   ]);
 
