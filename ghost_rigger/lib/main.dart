@@ -14,6 +14,7 @@ import 'screens/hacking_device.dart';
 
 class Main {
   static HackingDevice game;
+  static int currentLevel = 1;
 }
 
 class _Handler extends WidgetsBindingObserver {
@@ -107,10 +108,13 @@ void main() async {
       backgroundColor: Colors.black,
     ),
     routes: {
-      '/start': (BuildContext ctx) => Scaffold(
-            body: IntroScreen(),
-            backgroundColor: Colors.black,
-          ),
+      '/start': (BuildContext ctx) {
+        Main.currentLevel = 1; //TODO save the level
+        return Scaffold(
+          body: IntroScreen(),
+          backgroundColor: Colors.black,
+        );
+      },
       '/level1': (BuildContext ctx) => Scaffold(
             body: GameScreen(1),
             backgroundColor: Colors.black,
@@ -124,7 +128,7 @@ void main() async {
             backgroundColor: Colors.black,
           ),
       '/resume': (BuildContext ctx) => Scaffold(
-            body: GameScreen(1), //TODO save the level
+            body: GameScreen(Main.currentLevel), //TODO save the level
             backgroundColor: Colors.black,
           ),
       '/credits': (BuildContext ctx) => Scaffold(
