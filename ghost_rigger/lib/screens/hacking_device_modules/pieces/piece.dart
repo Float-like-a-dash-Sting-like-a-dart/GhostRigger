@@ -99,10 +99,12 @@ class Piece extends DeviceModuleBase {
       borderHighlightedSprite.renderRect(canvas, area);
 
     if (arithmeticValue != 0) {
+      var text = arithmeticValue > 0 ? '+$arithmeticValue' : '-${-arithmeticValue}';
       var textStyle = TextStyle(color: Colors.white, fontFamily: 'Rajdhani', fontSize: 18);
-      var textSpan = TextSpan(text: '+5', style: textStyle);
+      var textSpan = TextSpan(text: text, style: textStyle);
       var textPainter = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
-      var offset = Offset(area.left + (area.width * 0.32), area.top + (area.width * 0.32));
+      var extraOffsetX = arithmeticValue < 0 ? area.width * 0.05 : 0;
+      var offset = Offset(area.left + (area.width * 0.32) + extraOffsetX, area.top + (area.width * 0.32));
       textPainter.layout(minWidth: area.width * 0.34, maxWidth: area.width * 0.34);
       textPainter.paint(canvas, offset);
     }
