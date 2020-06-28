@@ -107,7 +107,7 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
             ? RichText(
                 text: TextSpan(children: [
                   TextSpan(
-                    text: _lines.reduce((a, b) => '$a\n\n$b'),
+                    text: _lines.join(''),
                     style: widget.textStyle,
                   ),
                   TextSpan(
@@ -120,14 +120,14 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
             : AnimatedBuilder(
                 animation: _controller,
                 builder: (BuildContext context, Widget child) {
-                  String visibleString = _lines.join('\n\n');
+                  String visibleString = _lines.join('');
                   var cursorColor = Colors.transparent;
-                  log('${_consoleAnimation.value}');
+                  log('${_consoleAnimation.value} ${cursorBlinking(_consoleAnimation.value)} $_lastAnimationValue $_blinkCursorCount');
 
                   if (_consoleAnimation.value == 0) {
                     visibleString = "";
                   } else if (cursorBlinking(_consoleAnimation.value)) {
-                    cursorColor = _consoleAnimation.value % 3 == 0
+                    cursorColor = _consoleAnimation.value % 2 == 0
                         ? widget.textStyle.color
                         : Colors.transparent;
 
@@ -160,24 +160,31 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
 
   bool cursorBlinking(int value) {
     var offset = 0;
-    if (value < _lines[0].length + 2) {
+    if (value < _lines[0].length + 1) {
+      log('the start');
       return false;
     }
     for (var line in _lines) {
-      if (inRange(value, offset + line.length + 2,
-          offset + line.length + 2 + _blinkTime)) {
+      var minVal = offset + line.length;
+      var maxVal = offset + line.length + _blinkTime;
+      if (inRange(value, minVal, maxVal)) {
+        log('the middle with $line - $value ($minVal - $maxVal)');
         return true;
       }
-      offset = line.length + 2 + _blinkTime;
+
+      log('skipped $line - $value ($minVal - $maxVal)');
+      offset = offset + line.length + _blinkTime;
     }
 
     if (value > _endValue - _blinkTime - 1) {
+      log('end bit');
       return true;
     }
+    log('non of the above');
     return false;
   }
 
-  bool inRange(int value, int min, int max) => value > min && value < max;
+  bool inRange(int value, int min, int max) => value >= min && value < max;
 
   void _nextAnimation() {
     _isCurrentlyPausing = false;
@@ -197,9 +204,7 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
       vsync: this,
     );
 
-    _endValue =
-        _lines.fold(0, (prev, next) => prev + next.length + _blinkTime) +
-            (_lines.length - 1) * 2;
+    _endValue = _lines.fold(0, (prev, next) => prev + next.length + _blinkTime);
 
     _consoleAnimation = StepTween(begin: 0, end: _endValue).animate(_controller)
       ..addStatusListener(_animationEndCallback);
