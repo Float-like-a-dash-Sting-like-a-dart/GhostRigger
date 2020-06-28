@@ -58,28 +58,30 @@ class HackingDevice extends Game
       pieceSelector,
     ];
 
-    puzzle.validCellPositions.forEach((validPosition) {
-      board.validCells[validPosition[0]][validPosition[1]] = true;
-    });
+    puzzles.forEach((puzzle) {
+      puzzle.validCellPositions.forEach((validPosition) {
+        board.validCells[validPosition[0]][validPosition[1]] = true;
+      });
 
-    var piecesForPieceSelector = puzzle.pieces
-        .where((piece) => piece.positionInBoardColumn == -1)
-        .map((pieceModel) => Piece(this, pieceModel)).toList();
-    piecesForPieceSelector.forEach((piece) {
-      pieceSelector.pieces.add(piece);
-      piece.isInPieceSelector = true;
-      deviceModules.add(piece);
-    });
+      var piecesForPieceSelector = puzzle.pieces
+          .where((piece) => piece.positionInBoardColumn == -1)
+          .map((pieceModel) => Piece(this, pieceModel)).toList();
+      piecesForPieceSelector.forEach((piece) {
+        pieceSelector.pieces.add(piece);
+        piece.isInPieceSelector = true;
+        deviceModules.add(piece);
+      });
 
-    var piecesForBoard = puzzle.pieces
-        .where((pieceModel) => pieceModel.positionInBoardRow != -1)
-        .map((pieceModel) => Piece(this, pieceModel)).toList();
-    piecesForBoard.forEach((piece) {
-      board.pieces[piece.positionInBoardRow][piece.positionInBoardColumn] = piece;
-      piece.isInPieceSelector = false;
-      deviceModules.add(piece);
+      var piecesForBoard = puzzle.pieces
+          .where((pieceModel) => pieceModel.positionInBoardRow != -1)
+          .map((pieceModel) => Piece(this, pieceModel)).toList();
+      piecesForBoard.forEach((piece) {
+        board.pieces[piece.positionInBoardRow][piece.positionInBoardColumn] = piece;
+        piece.isInPieceSelector = false;
+        deviceModules.add(piece);
+      });
     });
-
+    
     deviceModules.add(DoorsAnimation(this));
   }
 
