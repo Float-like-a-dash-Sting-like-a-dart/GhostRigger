@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ghost_rigger/screens/newspaper_screen.dart';
 import 'audio.dart';
 import 'screens/chat_screen.dart';
+import 'screens/decyrpt_screen.dart';
 import 'screens/intro_screen.dart';
 import 'screens/credits_screen.dart';
 import 'screens/game_screen.dart';
@@ -134,6 +135,10 @@ void main() async {
           ),
       '/newspaper': (BuildContext ctx) => Scaffold(
             body: NewspaperScreen(),
+            backgroundColor: Colors.black,
+          ),
+      '/decrypt': (BuildContext ctx) => Scaffold(
+            body: DecryptScreen(),
             backgroundColor: Colors.black,
           ),
     },
