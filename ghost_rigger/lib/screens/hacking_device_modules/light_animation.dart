@@ -32,10 +32,10 @@ class LightAnimation extends DeviceModuleBase {
 
   @override
   void update(double t) {
-    if (hackingDevice.puzzle.simulationFinished)
+    if (hackingDevice.puzzle.simulationRunning)
       return;
 
-    accumulator += t * (hackingDevice.puzzle.simulationRunning ? 2 : 1);
+    accumulator += t;
     if (accumulator > 0.15) {
       accumulator %= 0.15;
       if ((animationIndex + 1) < sprites.length)
