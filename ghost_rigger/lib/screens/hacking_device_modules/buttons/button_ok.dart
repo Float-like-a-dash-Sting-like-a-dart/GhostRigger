@@ -24,6 +24,11 @@ class ButtonOK extends ButtonBase {
   }
 
   @override
+  void update(double t) {
+    enabled = hackingDevice.isShowingInfo;
+  }
+
+  @override
   void onPressed() {
     hackingDevice.hideInfo();
   }

@@ -20,4 +20,9 @@ class ButtonNextStep extends ButtonBase {
   void onPressed() {
     hackingDevice.solveNextStep();
   }
+
+  @override
+  void update(double t) {
+    enabled = !hackingDevice.isShowingInfo && !hackingDevice.puzzle.simulationFinished;
+  }
 }

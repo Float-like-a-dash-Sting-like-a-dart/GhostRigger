@@ -1,8 +1,6 @@
 import 'dart:ui';
 
 import '../../hacking_device.dart';
-import '../../models/piece_model.dart';
-import '../../hacking_device_modules/pieces/piece.dart';
 import 'button_base.dart';
 
 class ButtonRun extends ButtonBase {
@@ -21,5 +19,10 @@ class ButtonRun extends ButtonBase {
   @override
   void onPressed() {
     hackingDevice.solvePuzzle();
+  }
+
+  @override
+  void update(double t) {
+    enabled = !hackingDevice.isShowingInfo && !hackingDevice.puzzle.simulationRunning;
   }
 }

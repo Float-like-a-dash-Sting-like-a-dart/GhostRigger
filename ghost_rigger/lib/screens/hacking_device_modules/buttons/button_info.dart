@@ -17,6 +17,11 @@ class ButtonInfo extends ButtonBase {
   }
 
   @override
+  void update(double t) {
+    enabled = !hackingDevice.isShowingInfo;
+  }
+
+  @override
   void onPressed() {
     hackingDevice.showInfo();
   }

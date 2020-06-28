@@ -79,7 +79,7 @@ class PuzzleModel {
     var neighbourPieceRight = ((piece.positionInBoardColumn + 1) < 8)
         ? piecesOnBoard[piece.positionInBoardRow][piece.positionInBoardColumn + 1]
         : null;
-    var neighbourPieceBottom = ((piece.positionInBoardRow + 1) < 8)
+    var neighbourPieceBottom = ((piece.positionInBoardRow + 1) < 5)
         ? piecesOnBoard[piece.positionInBoardRow + 1][piece.positionInBoardColumn]
         : null;
 

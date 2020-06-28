@@ -36,11 +36,6 @@ class HackingDevice extends Game
   double gameWidth;
   Board board;
   PieceSelector pieceSelector;
-  ButtonRun buttonRun;
-  ButtonNextStep buttonNextStep;
-  ButtonRestart buttonRestart;
-  ButtonDone buttonDone;
-  ButtonOK buttonOk;
   Info info;
   List<DeviceModuleBase> deviceModules;
 
@@ -73,20 +68,15 @@ class HackingDevice extends Game
 
     board = Board(this);
     pieceSelector = PieceSelector(this);
-    buttonRun = ButtonRun(this, null);
-    buttonNextStep = ButtonNextStep(this, null);
-    buttonRestart = ButtonRestart(this, null);
-    buttonDone = ButtonDone(this, null);
-    buttonOk = ButtonOK(this, null);
     info = Info(this);
     deviceModules = [
       Background(this),
       DisplayStatus(this),
       ButtonInfo(this, null),
-      buttonRun,
-      buttonNextStep,
-      buttonRestart,
-      buttonDone,
+      ButtonRun(this, null),
+      ButtonNextStep(this, null),
+      ButtonRestart(this, null),
+      ButtonDone(this, null),
       ButtonArrowUp(this, null),
       ButtonArrowDown(this, null),
       ButtonExit(this, _onExit),
@@ -120,7 +110,7 @@ class HackingDevice extends Game
     });
 
     deviceModules.add(info);
-    deviceModules.add(buttonOk);
+    deviceModules.add(ButtonOK(this, null));
 
     if (puzzleNumber == 1) {
       showInfo();
@@ -240,15 +230,11 @@ class HackingDevice extends Game
   }
 
   void clearPuzzleSolution() {
-    buttonRun.enabled = true;
-    buttonNextStep.enabled = true;
     puzzle.clearSolution();
     board.pieces.forEach((piecesRow) { piecesRow.forEach((piece) { piece?.isLit = false; }); });
   }
 
   void solvePuzzle() {
-    buttonRun.enabled = false;
-    buttonNextStep.enabled = false;
     var pieceModelRows = board.pieces.map((piecesRow) => piecesRow.map((piece) => _fromPieceToPieceModel(piece)).toList());
     puzzle.solvePuzzle(pieceModelRows.toList());
     puzzle.visitedPieces.forEach((visitedPiece) {
@@ -257,22 +243,15 @@ class HackingDevice extends Game
   }
 
   void solveNextStep() {
-    buttonRun.enabled = false;
     var pieceModelRows = board.pieces.map((piecesRow) => piecesRow.map((piece) => _fromPieceToPieceModel(piece)).toList());
     puzzle.solveNextStep(pieceModelRows.toList());
     puzzle.visitedPieces.forEach((visitedPiece) {
       board.pieces[visitedPiece.positionInBoardRow][visitedPiece.positionInBoardColumn].isLit = true;
     });
-    buttonNextStep.enabled = !puzzle.simulationFinished;
   }
 
   void showInfo() {
     isShowingInfo = true;
-    buttonRun.enabled = false;
-    buttonNextStep.enabled = false;
-    buttonRestart.enabled = false;
-    buttonDone.enabled = false;
-    buttonOk.enabled = true;
     info.title = level.infoTitle;
     info.text = level.infoDescription;
     info.show = true;
@@ -280,11 +259,6 @@ class HackingDevice extends Game
 
   void hideInfo() {
     isShowingInfo = false;
-    buttonRun.enabled = true;
-    buttonNextStep.enabled = true;
-    buttonRestart.enabled = true;
-    buttonDone.enabled = true;
-    buttonOk.enabled = false;
     info.show = false;
   }
 

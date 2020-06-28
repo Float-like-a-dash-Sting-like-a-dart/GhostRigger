@@ -17,6 +17,11 @@ class ButtonRestart extends ButtonBase {
   }
 
   @override
+  void update(double t) {
+    enabled = !hackingDevice.isShowingInfo && hackingDevice.puzzle.simulationRunning;
+  }
+
+  @override
   void onPressed() {
     hackingDevice.clearPuzzleSolution();
   }
