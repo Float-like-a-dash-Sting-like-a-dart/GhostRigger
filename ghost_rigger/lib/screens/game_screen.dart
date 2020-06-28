@@ -10,27 +10,55 @@ import 'models/puzzle_model.dart';
 class GameScreen extends StatefulWidget {
   @override
   _GameScreenState createState() => _GameScreenState();
+
+  int level;
+  GameScreen(this.level)
 }
 
 class _GameScreenState extends State<GameScreen> {
   Widget build(context) {
-    // TODO This level, as all of them, should have only two puzzles, but all the puzzles are here for the time being
-    var level = LevelModel(
+
+    LevelModel levels;
+
+    switch (widget.level) {
+      case 1:
+        levels = LevelModel(
         [
           getPuzzle1(),
-          getPuzzle2(),
-          getPuzzle3(),
-          getPuzzle4(),
         ],
         'Tuning in',
         'It seems like your radio receptor isn\'t tuned correctly to intercept the messages sent by the NDI (Native Development Initiative). Try placing some modules on the board of this hacking device to get your output to match the goal. Once you have a solution, click on the Play button on the top left to try it.');
+        break; 
+        case 2:
+        levels = LevelModel(
+        [
+          getPuzzle2(),
+          getPuzzle3(),
+        ],
+        'What\'s Going on?',
+        'The messages from NDI that you have intercepted have several layers of encryption, but you are determined to decrypt them. Time to do some more hacking...');
+        break;
+        case 3:
+        levels = LevelModel(
+        [
+          getPuzzle4(),
+        ],
+        'Not on my watch!',
+        'It seems like NDI are trying to replace their clean power plants with very pollutant ones. Wouldn\'t it be nice if you could hack those plants to render them unusable?');
+        break;
+      default:
+    }
+
+
 
     Main.game = HackingDevice(
-        level, () {
+        levels, () {
           Main.game = null;
           Audio.play(Song.MENU);
           Navigator.pop(context);
-        }, () { });
+        }, () {
+          
+         });
     Audio.play(Song.GAME);
     return Main.game.widget;
   }

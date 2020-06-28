@@ -98,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   ConsoleAnimatedTextKit(
-                    speed: Duration(milliseconds: 5),
+                    speed: Duration(milliseconds: 10),
                     displayFullTextOnTap: true,
                     text: [
                       "> C1ph3r: Zer0 came back with some news, it seems like NDI are up to something.\n\n",
@@ -194,7 +194,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: _showSendButton
                           ? BlinkingButton(
                               () {
-                                Navigator.pushNamed(context, '/game');
+                                Navigator.pushNamed(context, '/level1');
                               },
                             )
                           : OutlineButton(

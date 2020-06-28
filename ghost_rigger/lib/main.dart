@@ -108,8 +108,16 @@ void main() async {
             body: IntroScreen(),
             backgroundColor: Colors.black,
           ),
-      '/game': (BuildContext ctx) => Scaffold(
-            body: GameScreen(),
+      '/level1': (BuildContext ctx) => Scaffold(
+            body: GameScreen(1),
+            backgroundColor: Colors.black,
+          ),
+      '/level2': (BuildContext ctx) => Scaffold(
+            body: GameScreen(1),
+            backgroundColor: Colors.black,
+          ),
+      '/level3': (BuildContext ctx) => Scaffold(
+            body: GameScreen(1),
             backgroundColor: Colors.black,
           ),
       '/resume': (BuildContext ctx) => Scaffold(
