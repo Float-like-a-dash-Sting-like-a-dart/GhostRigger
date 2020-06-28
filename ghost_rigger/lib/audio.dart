@@ -19,6 +19,8 @@ class Audio {
   static bool isPaused = false;
   static bool inited = false;
 
+  static AudioPlayer _audioPlayer;
+
   static Map<String, AudioPool> sfx = {};
 
   static Future init() async {
@@ -49,16 +51,20 @@ class Audio {
     Audio.song = song;
     switch (song) {
       case Song.GAME:
-        await musicPlayer.loop('ingame.mp3');
+        _audioPlayer = await musicPlayer.loop('ingame.mp3');
         break;
       case Song.MENU:
-        await musicPlayer.loop('menu.mp3');
+        _audioPlayer = await musicPlayer.loop('menu.mp3');
         break;
       case Song.INTRO:
-        await musicPlayer.loop('intro.mp3');
+        _audioPlayer = await musicPlayer.loop('intro.mp3');
         break;
     }
     await _updatePlayer();
+  }
+
+  static void stop() {
+    _audioPlayer.stop();
   }
 
   static void resume() {

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../audio.dart';
+import '../controls/blinking_button.dart';
 import '../animation/console_animation.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -11,10 +13,14 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _controller = ScrollController();
 
+  var _messageText = '';
+  var _showSendButton = false;
+
   @override
   Widget build(BuildContext context) {
+    Audio.stop();
     Timer(
-      Duration(milliseconds: 500),
+      Duration(milliseconds: 250),
       () => _controller.jumpTo(_controller.position.maxScrollExtent),
     );
     return Container(
@@ -34,15 +40,14 @@ class _ChatScreenState extends State<ChatScreen> {
                   Flexible(
                     flex: 1,
                     child: OutlineButton(
-                      padding: EdgeInsets.all(8.0),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 15.0),
+                      onPressed: () => Navigator.pop(context),
                       borderSide: BorderSide(color: Colors.cyanAccent),
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(0.0)),
                       child: Text(
-                        'close',
+                        'Close',
                         style: TextStyle(
                           color: Colors.cyanAccent,
                           fontFamily: 'JetBrainsMono',
@@ -85,9 +90,10 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   ConsoleAnimatedTextKit(
+                    speed: Duration(milliseconds: 5),
                     displayFullTextOnTap: true,
                     text: [
                       "> C1ph3r: Zer0 came back with some news, it seems like NDI are up to something.\n\n",
@@ -98,9 +104,13 @@ class _ChatScreenState extends State<ChatScreen> {
                       "> Mr. V1rus: LOL, none taken. In all fairness, only one of us has what this task takes...\n\n",
                       "> R00t: You are absolutely right. Flutt3r, I know you are reading. Are you up for the challenge?\n\n",
                     ],
-                    onFinished: () {
-                      var _showContinue = true;
-                    },
+                    onFinished: () => setState(
+                      () {
+                        _messageText = "Leave it to me!";
+                        _controller
+                            .jumpTo(_controller.position.maxScrollExtent);
+                      },
+                    ),
                     textStyle: TextStyle(
                       fontSize: 20.0,
                       fontFamily: 'JetBrainsMono',
@@ -122,51 +132,79 @@ class _ChatScreenState extends State<ChatScreen> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'close',
-                        style: TextStyle(
-                          color: Colors.cyanAccent,
-                          fontFamily: 'JetBrainsMono',
-                          fontSize: 20.0,
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(color: Colors.cyan)),
+                    child: Flexible(
+                      flex: 2,
+                      child: OutlineButton(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 15.0),
+                        onPressed: null,
+                        borderSide: BorderSide(color: Colors.cyanAccent),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(0.0)),
+                        child: Text(
+                          'Message:',
+                          style: TextStyle(
+                            color: Colors.cyanAccent,
+                            fontFamily: 'JetBrainsMono',
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Expanded(
-                    flex: 5,
-                    child: Text(
-                      'User@Flutt3r',
-                      style: TextStyle(
-                        color: Colors.cyanAccent,
-                        fontFamily: 'JetBrainsMono',
-                        fontSize: 20.0,
+                    flex: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ConsoleAnimatedTextKit(
+                        displayFullTextOnTap: false,
+                        text: [
+                          _messageText,
+                        ],
+                        onFinished: () => setState(
+                          () {
+                            if (_messageText.isNotEmpty) {
+                              _showSendButton = true;
+                            }
+                          },
+                        ),
+                        textStyle: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'JetBrainsMono',
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.left,
+                        alignment: Alignment.topLeft,
                       ),
                     ),
                   ),
-                  Flexible(
-                    flex: 1,
-                    child: OutlineButton(
-                      padding: EdgeInsets.all(8.0),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      borderSide: BorderSide(color: Colors.cyanAccent),
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(0.0)),
-                      child: Text(
-                        'Send',
-                        style: TextStyle(
-                          color: Colors.cyanAccent,
-                          fontFamily: 'JetBrainsMono',
-                          fontSize: 20.0,
-                        ),
-                      ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(color: Colors.cyanAccent)),
+                    child: Flexible(
+                      flex: 2,
+                      child: _showSendButton
+                          ? BlinkingButton()
+                          : OutlineButton(
+                              padding: EdgeInsets.all(8.0),
+                              onPressed: null,
+                              borderSide: BorderSide(color: Colors.cyanAccent),
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(0.0)),
+                              child: Text(
+                                'Send',
+                                style: TextStyle(
+                                  color: Colors.cyanAccent,
+                                  fontFamily: 'JetBrainsMono',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
                     ),
                   ),
                 ],

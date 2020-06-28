@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyBlinkingButton extends StatefulWidget {
+class BlinkingButton extends StatefulWidget {
   @override
-  _MyBlinkingButtonState createState() => _MyBlinkingButtonState();
+  _BlinkingButtonState createState() => _BlinkingButtonState();
 }
 
-class _MyBlinkingButtonState extends State<MyBlinkingButton>
+class _BlinkingButtonState extends State<BlinkingButton>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
 
@@ -21,10 +21,22 @@ class _MyBlinkingButtonState extends State<MyBlinkingButton>
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _animationController,
-      child: MaterialButton(
-        onPressed: () => null,
-        child: Text("Text button"),
-        color: Colors.green,
+      child: OutlineButton(
+        padding: EdgeInsets.all(12.0),
+        onPressed: () {
+          setState(() {});
+        },
+        borderSide: BorderSide(color: Colors.cyanAccent),
+        shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(0.0)),
+        child: Text(
+          'Send',
+          style: TextStyle(
+            color: Colors.cyanAccent,
+            fontFamily: 'JetBrainsMono',
+            fontSize: 20.0,
+          ),
+        ),
       ),
     );
   }

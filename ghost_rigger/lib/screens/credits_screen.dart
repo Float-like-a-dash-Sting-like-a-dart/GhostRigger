@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:ghost_rigger/animation/console_animation.dart';
+import '../animation/console_animation.dart';
 
 class CreditScreen extends StatelessWidget {
   @override
