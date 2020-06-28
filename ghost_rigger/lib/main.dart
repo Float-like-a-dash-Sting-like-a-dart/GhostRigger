@@ -78,6 +78,7 @@ void main() async {
     'line_number_horizontal.png',
     'line_bent.png',
     'line_horizontal.png',
+    'line_border.png',
   ]);
 
   Audio.init();

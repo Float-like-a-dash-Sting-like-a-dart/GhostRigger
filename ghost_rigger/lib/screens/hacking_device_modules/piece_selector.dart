@@ -17,7 +17,7 @@ class PieceSelector extends DeviceModuleBase {
     sprite = Sprite('module_selection_area.png');
     pieces = [];
     scrollDirection = 0;
-    scroll = 0.0;
+    scroll = 0;
     maxScrollValue = 0;
   }
 
@@ -30,6 +30,7 @@ class PieceSelector extends DeviceModuleBase {
       });
       pieces.remove(piece);
       pieces.add(piece);
+      piece.isInPieceSelector = true;
       piece.positionInBoardRow = -1;
       piece.positionInBoardColumn = -1;
     }
@@ -47,7 +48,7 @@ class PieceSelector extends DeviceModuleBase {
     var pieceIndex = 0;
     var spacingBetweenPieces = hackingDevice.board.cellSize * 0.075;
     var pieceOffsetX = offsetX + ((width - hackingDevice.board.cellSize) / 2);
-    pieces.toList().where((piece) => piece != Piece.draggedPiece).forEach((piece) {
+    pieces.toList().forEach((piece) {
       var pieceOffsetY = offsetY +
           (pieceIndex * hackingDevice.board.cellSize) +
           (spacingBetweenPieces * (pieceIndex + 1));

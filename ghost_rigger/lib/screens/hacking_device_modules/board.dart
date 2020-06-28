@@ -77,6 +77,7 @@ class Board extends DeviceModuleBase {
                 boardPieces[pieceIndex] = null;
             });
             pieces[i][j] = piece;
+            piece.isInPieceSelector = false;
             piece.positionInBoardRow = i;
             piece.positionInBoardColumn = j;
             return;

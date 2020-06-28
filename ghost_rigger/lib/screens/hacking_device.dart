@@ -87,6 +87,7 @@ class HackingDevice extends Game
         .map((pieceModel) => Piece(this, pieceModel)).toList();
     piecesForPieceSelector.forEach((piece) {
       pieceSelector.pieces.add(piece);
+      piece.isInPieceSelector = true;
       deviceModules.add(piece);
     });
 
@@ -95,6 +96,7 @@ class HackingDevice extends Game
         .map((pieceModel) => Piece(this, pieceModel)).toList();
     piecesForBoard.forEach((piece) {
       board.pieces[piece.positionInBoardRow][piece.positionInBoardColumn] = piece;
+      piece.isInPieceSelector = false;
       deviceModules.add(piece);
     });
 
