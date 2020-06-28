@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:developer';
 
 class ConsoleAnimatedTextKit extends StatefulWidget {
   /// List of [String] that would be displayed subsequently in the animation.
@@ -122,8 +121,6 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
                 builder: (BuildContext context, Widget child) {
                   String visibleString = _lines.join('');
                   var cursorColor = Colors.transparent;
-                  log('${_consoleAnimation.value} ${cursorBlinking(_consoleAnimation.value)} $_lastAnimationValue $_blinkCursorCount');
-
                   if (_consoleAnimation.value == 0) {
                     visibleString = "";
                   } else if (cursorBlinking(_consoleAnimation.value)) {
@@ -161,26 +158,20 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
   bool cursorBlinking(int value) {
     var offset = 0;
     if (value < _lines[0].length + 1) {
-      log('the start');
       return false;
     }
     for (var line in _lines) {
       var minVal = offset + line.length;
       var maxVal = offset + line.length + _blinkTime;
       if (inRange(value, minVal, maxVal)) {
-        log('the middle with $line - $value ($minVal - $maxVal)');
         return true;
       }
-
-      log('skipped $line - $value ($minVal - $maxVal)');
       offset = offset + line.length + _blinkTime;
     }
 
     if (value > _endValue - _blinkTime - 1) {
-      log('end bit');
       return true;
     }
-    log('non of the above');
     return false;
   }
 
@@ -229,6 +220,7 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
     if (widget.displayFullTextOnTap) {
       _controller.stop();
       _setPause();
+      widget.onFinished?.call();
     }
   }
 }
