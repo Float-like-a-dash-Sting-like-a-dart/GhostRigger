@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import '../../hacking_device.dart';
+import '../../models/piece_model.dart';
+import '../../hacking_device_modules/pieces/piece.dart';
 import 'button_base.dart';
 
 class ButtonRun extends ButtonBase {
@@ -14,5 +16,10 @@ class ButtonRun extends ButtonBase {
     var offsetX = hackingDevice.gameWidth * 0.143;
     var offsetY = hackingDevice.gameHeight * 0.038;
     return Rect.fromLTWH(offsetX, offsetY, width, height);
+  }
+
+  @override
+  void onPressed() {
+    hackingDevice.solvePuzzle();
   }
 }

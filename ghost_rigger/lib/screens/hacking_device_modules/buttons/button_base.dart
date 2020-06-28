@@ -55,13 +55,17 @@ abstract class ButtonBase extends DeviceModuleBase {
   @override
   void onTapUp(double dX, double dY) {
     pressed = false;
-    if (area.contains(Offset(dX, dY)))
+    if (area.contains(Offset(dX, dY))) {
+      onPressed();
       _onPressed?.call();
+    }
   }
 
   @override
   void onTapCancel() {
     pressed = false;
   }
+
+  void onPressed() {}
 }
 

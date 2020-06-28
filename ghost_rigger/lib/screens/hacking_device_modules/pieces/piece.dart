@@ -201,7 +201,8 @@ class Piece extends DeviceModuleBase {
   void executeDragging(double dX, double dY, {bool updatePosition = true}) {
     if (hackingDevice.pieceSelector.scrollDirection != 0 ||
         (positionInBoardRow != -1 && !hackingDevice.board.validCells[positionInBoardRow][positionInBoardColumn]) ||
-        (draggedPiece != null && draggedPiece != this))
+        (draggedPiece != null && draggedPiece != this) ||
+        hackingDevice.puzzle.simulationRunning)
       return;
 
     if (draggedPiece == this || area?.contains(Offset(dX, dY)) == true) {

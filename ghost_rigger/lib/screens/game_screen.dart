@@ -25,11 +25,9 @@ class _GameScreenState extends State<GameScreen> {
       PieceModel(hastLeftCable: true, hastRightCable: true, arithmeticValue: 2, arithmeticOperation: ArithmeticOperation.multiply),
       PieceModel(hastLeftCable: true, hastTopCable: true),
     ];
-    var puzzle1 = PuzzleModel(validCellPositions, pieceModels, 8);
+    var puzzle = PuzzleModel(validCellPositions, pieceModels, 8);
 
-    Main.game = HackingDevice([
-      puzzle1,
-    ],() {
+    Main.game = HackingDevice(puzzle,() {
       Main.game = null;
       Audio.play(Song.MENU);
       Navigator.pop(context);

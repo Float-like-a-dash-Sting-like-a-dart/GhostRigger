@@ -15,4 +15,9 @@ class ButtonNextStep extends ButtonBase {
     var offsetY = hackingDevice.gameHeight * 0.038;
     return Rect.fromLTWH(offsetX, offsetY, width, height);
   }
+
+  @override
+  void onPressed() {
+    hackingDevice.solveNextStep();
+  }
 }

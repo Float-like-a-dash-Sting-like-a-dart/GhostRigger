@@ -22,6 +22,7 @@ import 'hacking_device_modules/light_animation.dart';
 import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
 import 'hacking_device_modules/pieces/piece.dart';
+import 'models/piece_model.dart';
 import 'models/puzzle_model.dart';
 
 class HackingDevice extends Game
@@ -31,21 +32,25 @@ class HackingDevice extends Game
   double gameWidth;
   Board board;
   PieceSelector pieceSelector;
-  List<PuzzleModel> puzzles;
+  ButtonRun buttonRun;
+  ButtonNextStep buttonNextStep;
+  PuzzleModel puzzle;
 
   List<DeviceModuleBase> deviceModules;
 
   void Function() _onExit;
 
-  HackingDevice(this.puzzles, this._onExit) {
+  HackingDevice(this.puzzle, this._onExit) {
     board = Board(this);
     pieceSelector = PieceSelector(this);
+    buttonRun = ButtonRun(this, null);
+    buttonNextStep = ButtonNextStep(this, null);
     deviceModules = [
       Background(this),
       DisplayStatus(this),
       ButtonInfo(this, null),
-      ButtonRun(this, null),
-      ButtonNextStep(this, null),
+      buttonRun,
+      buttonNextStep,
       ButtonRestart(this, null),
       ButtonDone(this, null),
       ButtonArrowUp(this, null),
@@ -58,30 +63,28 @@ class HackingDevice extends Game
       pieceSelector,
     ];
 
-    puzzles.forEach((puzzle) {
-      puzzle.validCellPositions.forEach((validPosition) {
-        board.validCells[validPosition[0]][validPosition[1]] = true;
-      });
-
-      var piecesForPieceSelector = puzzle.pieces
-          .where((piece) => piece.positionInBoardColumn == -1)
-          .map((pieceModel) => Piece(this, pieceModel)).toList();
-      piecesForPieceSelector.forEach((piece) {
-        pieceSelector.pieces.add(piece);
-        piece.isInPieceSelector = true;
-        deviceModules.add(piece);
-      });
-
-      var piecesForBoard = puzzle.pieces
-          .where((pieceModel) => pieceModel.positionInBoardRow != -1)
-          .map((pieceModel) => Piece(this, pieceModel)).toList();
-      piecesForBoard.forEach((piece) {
-        board.pieces[piece.positionInBoardRow][piece.positionInBoardColumn] = piece;
-        piece.isInPieceSelector = false;
-        deviceModules.add(piece);
-      });
+    puzzle.validCellPositions.forEach((validPosition) {
+      board.validCells[validPosition[0]][validPosition[1]] = true;
     });
-    
+
+    var piecesForPieceSelector = puzzle.pieces
+        .where((piece) => piece.positionInBoardColumn == -1)
+        .map((pieceModel) => Piece(this, pieceModel)).toList();
+    piecesForPieceSelector.forEach((piece) {
+      pieceSelector.pieces.add(piece);
+      piece.isInPieceSelector = true;
+      deviceModules.add(piece);
+    });
+
+    var piecesForBoard = puzzle.pieces
+        .where((pieceModel) => pieceModel.positionInBoardRow != -1)
+        .map((pieceModel) => Piece(this, pieceModel)).toList();
+    piecesForBoard.forEach((piece) {
+      board.pieces[piece.positionInBoardRow][piece.positionInBoardColumn] = piece;
+      piece.isInPieceSelector = false;
+      deviceModules.add(piece);
+    });
+
     deviceModules.add(DoorsAnimation(this));
   }
 
@@ -193,5 +196,47 @@ class HackingDevice extends Game
   void resize(Size size) {
     screenSize = size;
     super.resize(size);
+  }
+
+  void clearPuzzleSolution() {
+    buttonRun.enabled = true;
+    buttonNextStep.enabled = true;
+    puzzle.clearSolution();
+    board.pieces.forEach((piecesRow) { piecesRow.forEach((piece) { piece?.isLit = false; }); });
+  }
+
+  void solvePuzzle() {
+    buttonRun.enabled = false;
+    buttonNextStep.enabled = false;
+    var pieceModelRows = board.pieces.map((piecesRow) => piecesRow.map((piece) => _fromPieceToPieceModel(piece)).toList());
+    puzzle.solvePuzzle(pieceModelRows.toList());
+    puzzle.visitedPieces.forEach((visitedPiece) {
+      board.pieces[visitedPiece.positionInBoardRow][visitedPiece.positionInBoardColumn].isLit = true;
+    });
+  }
+
+  void solveNextStep() {
+    buttonRun.enabled = false;
+    var pieceModelRows = board.pieces.map((piecesRow) => piecesRow.map((piece) => _fromPieceToPieceModel(piece)).toList());
+    puzzle.solveNextStep(pieceModelRows.toList());
+    puzzle.visitedPieces.forEach((visitedPiece) {
+      board.pieces[visitedPiece.positionInBoardRow][visitedPiece.positionInBoardColumn].isLit = true;
+    });
+    buttonNextStep.enabled = !puzzle.simulationFinished;
+  }
+
+  PieceModel _fromPieceToPieceModel(Piece piece) {
+    return piece != null
+        ? PieceModel(
+        positionInBoardColumn: piece.positionInBoardColumn,
+        positionInBoardRow: piece.positionInBoardRow,
+        arithmeticValue: piece.arithmeticValue,
+        arithmeticOperation: piece.arithmeticOperation,
+        hastTopCable: piece.hastTopCable,
+        hastRightCable: piece.hastRightCable,
+        hastBottomCable: piece.hastBottomCable,
+        hastLeftCable: piece.hastLeftCable,
+        isInOrOut: piece.isInOrOut)
+        : null;
   }
 }
