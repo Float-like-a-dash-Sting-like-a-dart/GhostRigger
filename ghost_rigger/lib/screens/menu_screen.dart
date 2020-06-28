@@ -71,7 +71,7 @@ class MenuScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         Audio.playSfx("menu.aac");
-                        Navigator.of(context).pushNamed('/chat');
+                        Navigator.of(context).pushNamed('/newspaper');
                       },
                     ),
                     FlatButton(

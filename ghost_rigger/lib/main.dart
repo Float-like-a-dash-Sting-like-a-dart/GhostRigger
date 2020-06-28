@@ -2,6 +2,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:ghost_rigger/screens/newspaper_screen.dart';
 import 'audio.dart';
 import 'screens/chat_screen.dart';
 import 'screens/intro_screen.dart';
@@ -121,6 +122,10 @@ void main() async {
           ),
       '/chat': (BuildContext ctx) => Scaffold(
             body: ChatScreen(),
+            backgroundColor: Colors.black,
+          ),
+      '/newspaper': (BuildContext ctx) => Scaffold(
+            body: NewspaperScreen(),
             backgroundColor: Colors.black,
           ),
     },
