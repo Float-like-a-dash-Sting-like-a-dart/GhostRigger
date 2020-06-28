@@ -23,7 +23,12 @@ class PieceSelector extends DeviceModuleBase {
 
   void tryToAddPiece(Piece piece) {
     if (area.contains(piece.dragPosition) && !pieces.contains(piece)) {
-      hackingDevice.board.pieces.forEach((boardPieces) { boardPieces.remove(piece); });
+      hackingDevice.board.pieces.forEach((boardPieces) {
+        var pieceIndex = boardPieces.indexOf(piece);
+        if (pieceIndex != -1)
+          boardPieces[pieceIndex] = null;
+      });
+      pieces.remove(piece);
       pieces.add(piece);
       piece.positionInBoardRow = -1;
       piece.positionInBoardColumn = -1;

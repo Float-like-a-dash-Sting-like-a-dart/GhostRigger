@@ -16,8 +16,8 @@ class Board extends DeviceModuleBase {
   Board(HackingDevice hackingDevice) : super(hackingDevice) {
     boardBackgroundSprite = Sprite('board.png');
     blockedCellSprite = Sprite('blocked_cell.png');
-    pieces = List.generate(5, (i) => List.generate(8, (j) => null));
-    validCells = List.generate(5, (i) => List.generate(8, (j) => false));
+    pieces = List.generate(5, (i) => List.generate(8, (j) => null, growable: false), growable: false);
+    validCells = List.generate(5, (i) => List.generate(8, (j) => false, growable: false), growable: false);
   }
 
   @override
@@ -71,6 +71,11 @@ class Board extends DeviceModuleBase {
           var cellArea = Rect.fromLTWH(offsetX + (j * cellSize), offsetY + (i * cellSize), cellSize, cellSize);
           if (cellArea.contains(piece.dragPosition) && validCells[i][j] && (pieces[i][j] == null || pieces[i][j] == piece)) {
             hackingDevice.pieceSelector.pieces.remove(piece);
+            pieces.forEach((boardPieces) {
+              var pieceIndex = boardPieces.indexOf(piece);
+              if (pieceIndex != -1)
+                boardPieces[pieceIndex] = null;
+            });
             pieces[i][j] = piece;
             piece.positionInBoardRow = i;
             piece.positionInBoardColumn = j;
