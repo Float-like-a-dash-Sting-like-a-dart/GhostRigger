@@ -32,7 +32,7 @@ class LightAnimation extends DeviceModuleBase {
 
   @override
   void update(double t) {
-    if (hackingDevice.puzzle.simulationRunning)
+    if (hackingDevice.puzzle.simulationRunning || hackingDevice.isShowingInfo)
       return;
 
     accumulator += t;
