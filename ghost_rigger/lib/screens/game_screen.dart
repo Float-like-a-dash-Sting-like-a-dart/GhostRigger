@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ghost_rigger/screens/hacking_device.dart';
+import 'package:ghost_rigger/screens/models/level_model.dart';
 
 import '../audio.dart';
 import '../main.dart';
@@ -27,11 +28,18 @@ class _GameScreenState extends State<GameScreen> {
     ];
     var puzzle = PuzzleModel(validCellPositions, pieceModels, 8);
 
-    Main.game = HackingDevice(
+
+    var level = LevelModel(
         [
           puzzle,
           puzzle, // TODO Use a different puzzle
-        ], () {
+        ],
+        'Tuning in',
+        'It seems like your radio receptor isn\'t tuned correctly to intercept the messages sent by the NDI (Native Development Initiative). Try placing some modules on the board of this hacking device to get the desired output.');
+
+
+    Main.game = HackingDevice(
+        level, () {
           Main.game = null;
           Audio.play(Song.MENU);
           Navigator.pop(context);

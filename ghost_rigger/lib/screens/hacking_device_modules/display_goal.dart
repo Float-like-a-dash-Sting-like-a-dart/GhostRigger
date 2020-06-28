@@ -25,10 +25,10 @@ class DisplayGoal extends DeviceModuleBase {
   }
 
   void setText(Canvas canvas) {
-    var statusText = '${hackingDevice.puzzle.goal}';
+    var text = '${hackingDevice.puzzle.goal}';
     var textStyle = TextStyle(
         color: Colors.white, fontFamily: 'Rajdhani', fontSize: 25);
-    var textSpan = TextSpan(text: statusText, style: textStyle);
+    var textSpan = TextSpan(text: text, style: textStyle);
     var textPainter = TextPainter(
         text: textSpan, textDirection: TextDirection.ltr, textAlign: TextAlign.end);
     var offset = Offset(
