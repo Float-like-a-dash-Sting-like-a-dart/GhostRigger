@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 
 import '../../hacking_device.dart';
 import '../device_module_base.dart';
@@ -12,6 +13,11 @@ class Piece extends DeviceModuleBase {
   bool isDraggable;
   int positionInBoardColumn;
   int positionInBoardRow;
+  int arithmeticValue;
+  bool hastTopCable;
+  bool hastRightCable;
+  bool hastBottomCable;
+  bool hastLeftCable;
   Offset dragPosition;
   Offset offset;
   Rect boundaries;
@@ -22,15 +28,41 @@ class Piece extends DeviceModuleBase {
   static Piece draggedPiece;
 
   Piece(HackingDevice hackingDevice, PieceModel pieceModel) : super(hackingDevice) {
-    sprite = Sprite(pieceModel.spriteName);
-    borderSprite = Sprite('line_border.png');
     isDraggable = pieceModel.isDraggable;
     positionInBoardColumn = pieceModel.positionInBoardColumn;
     positionInBoardRow = pieceModel.positionInBoardRow;
+    arithmeticValue = pieceModel.arithmeticValue;
+    hastTopCable = pieceModel.hastTopCable;
+    hastRightCable = pieceModel.hastRightCable;
+    hastBottomCable = pieceModel.hastBottomCable;
+    hastLeftCable = pieceModel.hastLeftCable;
     dragPosition = null;
     isLit = false;
     isInPieceSelector = false;
     paint = Paint();
+    sprite = Sprite(getSpriteName());
+    borderSprite = Sprite('line_border.png');
+  }
+
+  String getSpriteName() {
+    var spriteName = '';
+    if (hastRightCable && hastBottomCable)
+      spriteName = 'bent';
+    else if (hastBottomCable && hastLeftCable)
+      spriteName = 'bent_2';
+    else if (hastLeftCable && hastTopCable)
+      spriteName = 'bent_3';
+    else if (hastTopCable && hastRightCable)
+      spriteName = 'bent_4';
+    else if (hastTopCable && hastBottomCable)
+      spriteName = 'vertical';
+    else
+      spriteName = 'horizontal';
+
+    if (arithmeticValue != 0)
+      return 'line_number_$spriteName.png';
+    else
+      return 'line_$spriteName.png';
   }
 
   @override
@@ -50,16 +82,24 @@ class Piece extends DeviceModuleBase {
     if (boundaries != null && draggedPiece != this) {
       canvas.save();
       canvas.clipRect(boundaries);
-
-      sprite.renderRect(canvas, area, overridePaint: paint);
-      if (draggedPiece == this || isInPieceSelector)
-        borderSprite.renderRect(canvas, area);
-
+      executeRender(canvas);
       canvas.restore();
-    } else {
-      sprite.renderRect(canvas, area, overridePaint: paint);
-      if (draggedPiece == this || isInPieceSelector)
-        borderSprite.renderRect(canvas, area);
+    } else
+      executeRender(canvas);
+  }
+
+  void executeRender(Canvas canvas) {
+    sprite.renderRect(canvas, area, overridePaint: paint);
+    if (draggedPiece == this || isInPieceSelector)
+      borderSprite.renderRect(canvas, area);
+
+    if (arithmeticValue != 0) {
+      var textStyle = TextStyle(color: Colors.white, fontFamily: 'Rajdhani', fontSize: 18);
+      var textSpan = TextSpan(text: '+5', style: textStyle);
+      var textPainter = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
+      var offset = Offset(area.left + (area.width * 0.32), area.top + (area.width * 0.32));
+      textPainter.layout(minWidth: area.width * 0.34, maxWidth: area.width * 0.34);
+      textPainter.paint(canvas, offset);
     }
   }
 

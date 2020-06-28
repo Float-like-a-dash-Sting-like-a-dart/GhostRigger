@@ -75,10 +75,19 @@ void main() async {
     'left_door.png',
     'right_door.png',
     'line_number_bent.png',
+    'line_number_bent_2.png',
+    'line_number_bent_3.png',
+    'line_number_bent_4.png',
     'line_number_horizontal.png',
+    'line_number_vertical.png',
     'line_bent.png',
+    'line_bent_2.png',
+    'line_bent_3.png',
+    'line_bent_4.png',
     'line_horizontal.png',
+    'line_vertical.png',
     'line_border.png',
+    'line_in_out.png',
   ]);
 
   Audio.init();

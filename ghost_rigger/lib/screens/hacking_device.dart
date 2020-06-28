@@ -59,16 +59,15 @@ class HackingDevice extends Game
 
     // TODO This will have to be provided from somewhere to set up the puzzle
     var pieceModels = [
-      PieceModel('line_number_bent.png'),
-      PieceModel('line_horizontal.png'),
-      PieceModel('line_number_bent.png'),
-      PieceModel('line_number_horizontal.png'),
-      PieceModel('line_number_bent.png'),
-      PieceModel('line_horizontal.png'),
-      PieceModel('line_bent.png'),
-      PieceModel('line_number_horizontal.png'),
-      PieceModel('line_number_bent.png', positionInBoardRow: 1, positionInBoardColumn: 3),
-      PieceModel('line_bent.png', positionInBoardRow: 3, positionInBoardColumn: 4),
+      PieceModel(hastLeftCable: true, hastTopCable: true),
+      PieceModel(hastRightCable: true, hastBottomCable: true),
+      PieceModel(hastTopCable: true, hastBottomCable: true),
+      PieceModel(hastLeftCable: true, hastRightCable: true),
+      PieceModel(hastLeftCable: true, hastTopCable: true, arithmeticValue: -5),
+      PieceModel(hastRightCable: true, hastBottomCable: true, arithmeticValue: 3),
+      PieceModel(hastTopCable: true, hastBottomCable: true, arithmeticValue: -2),
+      PieceModel(hastLeftCable: true, hastRightCable: true, arithmeticValue: 8),
+      PieceModel(hastLeftCable: true, hastTopCable: true, positionInBoardRow: 1, positionInBoardColumn: 3),
     ];
 
     // TODO This will have to be provided from somewhere to set up the puzzle

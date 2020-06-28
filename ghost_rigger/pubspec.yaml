@@ -45,7 +45,6 @@ flutter:
     - assets/audio/sfx/block.wav
     - assets/audio/sfx/menu.aac
 
-    
   fonts:
     - family: JetBrainsMono
       fonts:
@@ -54,3 +53,7 @@ flutter:
           style: italic
         - asset: assets/fonts/JetBrainsMono-Bold.ttf
           weight: 700
+
+    - family: Rajdhani
+      fonts:
+        - asset: assets/fonts/Rajdhani-SemiBold.ttf
