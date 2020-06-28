@@ -98,7 +98,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   ConsoleAnimatedTextKit(
-                    speed: Duration(milliseconds: 10),
+                    speed: Duration(milliseconds: 2),
+                    pause: Duration(milliseconds: 2000),
                     displayFullTextOnTap: true,
                     text: [
                       "> C1ph3r: Zer0 came back with some news, it seems like NDI are up to something.\n\n",
@@ -107,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       "> Mr. V1ruS: Sounds like a challenge...\n\n",
                       "> R00t: No offence, Mr. V1rus, but we'll need someone *actually* capable of hacking the mainframe.\n\n",
                       "> Mr. V1rus: LOL, none taken. In all fairness, only one of us has what this task takes...\n\n",
-                      "> R00t: You are absolutely right. Flutt3r, I know you are reading. Are you up for the challenge?\n\n",
+                      "> R00t: You are absolutely right. Flutt3r, I know you are reading. Are you up for the challenge?\n",
                     ],
                     onFinished: () => setState(
                       () {
