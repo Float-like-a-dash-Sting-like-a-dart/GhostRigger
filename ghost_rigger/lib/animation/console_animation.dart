@@ -83,12 +83,26 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
   @override
   void initState() {
     super.initState();
-
     _speed = widget.speed ?? const Duration(milliseconds: 120);
     _pause = widget.pause ?? const Duration(milliseconds: 2000);
     _lines = widget.text;
-
     _nextAnimation();
+  }
+
+  @override
+  void didUpdateWidget(ConsoleAnimatedTextKit oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    if (widget.text[0] != oldWidget.text[0]) {
+      _lines = widget.text;
+
+      _isCurrentlyPausing = false;
+      _isFirstRun = true;
+      _blinkTime = 20;
+      _lastAnimationValue = 0;
+      _blinkCursorCount = 0;
+      _nextAnimation();
+    }
   }
 
   @override
@@ -188,8 +202,6 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
     var duration = _lines.fold(
         Duration(), (prev, next) => (_speed * next.length) + _pause + prev);
 
-    if (mounted) setState(() {});
-
     _controller = AnimationController(
       duration: duration,
       vsync: this,
@@ -220,6 +232,8 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
     if (widget.displayFullTextOnTap) {
       _controller.stop();
       _setPause();
+
+      _isFirstRun = true;
       widget.onFinished?.call();
     }
   }

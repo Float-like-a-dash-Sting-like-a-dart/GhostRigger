@@ -23,7 +23,11 @@ class MenuScreen extends StatelessWidget {
             width: 120,
           ),
           FlatButton(
-            child: Image.asset('assets/images/menu_button_start.png'),
+            child: Image.asset(
+              'assets/images/menu_button_start.png',
+              height: 50,
+              fit: BoxFit.contain,
+            ),
             onPressed: () {
               Audio.playSfx("menu.aac");
               Navigator.of(context).pushNamed('/start');
@@ -47,7 +51,11 @@ class MenuScreen extends StatelessWidget {
             onPressed: () => Audio.flipMusicOnOff(),
           ),
           FlatButton(
-            child: Image.asset('assets/images/menu_button_about.png'),
+            child: Image.asset(
+              'assets/images/menu_button_about.png',
+              height: 50,
+              fit: BoxFit.contain,
+            ),
             onPressed: () {
               Audio.playSfx("menu.aac");
               Navigator.of(context).pushNamed('/credits');

@@ -1,4 +1,5 @@
 import 'package:flame/flame.dart';
+import 'package:flame/util.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'audio.dart';
@@ -10,7 +11,6 @@ import 'screens/hacking_device.dart';
 
 class Main {
   static HackingDevice game;
-  static Audio audio;
 }
 
 class _Handler extends WidgetsBindingObserver {
@@ -26,18 +26,10 @@ class _Handler extends WidgetsBindingObserver {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MaterialApp(
-    home: Scaffold(body: MenuScreen()),
-    routes: {
-      '/start': (BuildContext ctx) => Scaffold(body: IntroScreen()),
-      '/resume': (BuildContext ctx) => Scaffold(body: GameScreen()),
-      '/credits': (BuildContext ctx) => Scaffold(body: CreditScreen()),
-    },
-  ));
 
-  await Flame.init(
-      fullScreen: true, orientation: DeviceOrientation.landscapeLeft);
-
+  Util flameUtil = Util();
+  flameUtil.fullScreen();
+  flameUtil.setOrientation(DeviceOrientation.landscapeLeft);
   Flame.images.loadAll(<String>[
     'main.png',
     'left.png',
@@ -88,8 +80,26 @@ void main() async {
     'line_border.png',
     'line_in_out.png',
   ]);
+  Flame.audio.loadAll(<String>[
+    'bgm/menu.mp3',
+    'bgm/music.mp3',
+    'bgm/ingame.mp3',
+    'bgm/intro.mp3',
+    'sfx/block.wav',
+    'sfx/menu.aac',
+  ]);
 
-  Audio.init();
+  await Audio.init();
+
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(body: MenuScreen()),
+    routes: {
+      '/start': (BuildContext ctx) => Scaffold(body: IntroScreen()),
+      '/resume': (BuildContext ctx) => Scaffold(body: GameScreen()),
+      '/credits': (BuildContext ctx) => Scaffold(body: CreditScreen()),
+    },
+  ));
 
   WidgetsBinding.instance.addObserver(_Handler());
 }
