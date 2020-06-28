@@ -33,7 +33,6 @@ class CreditScreen extends StatelessWidget {
                 text: [
                   "Thanks for playing our game prototype until the end.\n\n",
                   "If you liked it, please give us your vote!\n\n",
-                  "Created by:\n\n",
                   "### Development ###\n\n",
                   "Iain Smith @b099l3 \n\n",
                   "Julio Ernesto Rodríguez Cabañas @ernestoyaquello\n\n",
