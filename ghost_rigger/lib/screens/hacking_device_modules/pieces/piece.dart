@@ -10,6 +10,7 @@ import 'piece_model.dart';
 class Piece extends DeviceModuleBase {
   Sprite sprite;
   Sprite borderSprite;
+  Sprite borderHighlightedSprite;
   bool isDraggable;
   int positionInBoardColumn;
   int positionInBoardRow;
@@ -20,7 +21,6 @@ class Piece extends DeviceModuleBase {
   bool hastLeftCable;
   Offset dragPosition;
   Offset offset;
-  Rect boundaries;
   bool isLit;
   bool isInPieceSelector;
   Paint paint;
@@ -42,6 +42,7 @@ class Piece extends DeviceModuleBase {
     paint = Paint();
     sprite = Sprite(getSpriteName());
     borderSprite = Sprite('line_border.png');
+    borderHighlightedSprite = Sprite('line_in_out.png');
   }
 
   String getSpriteName() {
@@ -79,9 +80,11 @@ class Piece extends DeviceModuleBase {
       paint.color = Color.fromRGBO(0, 0, 0, 0.6);
 
     area = Rect.fromLTWH(offsetX, offsetY, width, height);
-    if (boundaries != null && draggedPiece != this) {
+    var isInBoard = positionInBoardRow != -1;
+    var isBeingDragged = draggedPiece == this;
+    if (hackingDevice.pieceSelector.area != null && !isInBoard && !isBeingDragged) {
       canvas.save();
-      canvas.clipRect(boundaries);
+      canvas.clipRect(hackingDevice.pieceSelector.area);
       executeRender(canvas);
       canvas.restore();
     } else
@@ -90,8 +93,10 @@ class Piece extends DeviceModuleBase {
 
   void executeRender(Canvas canvas) {
     sprite.renderRect(canvas, area, overridePaint: paint);
-    if (draggedPiece == this || isInPieceSelector)
+    if (draggedPiece != this && isInPieceSelector)
       borderSprite.renderRect(canvas, area);
+    else if (draggedPiece == this)
+      borderHighlightedSprite.renderRect(canvas, area);
 
     if (arithmeticValue != 0) {
       var textStyle = TextStyle(color: Colors.white, fontFamily: 'Rajdhani', fontSize: 18);
@@ -114,6 +119,21 @@ class Piece extends DeviceModuleBase {
   }
 
   @override
+  void onTapCancel() {
+    stopDraggingIfNecessary();
+  }
+
+  @override
+  void onTapUp(double dX, double dY) {
+    stopDraggingIfNecessary();
+  }
+
+  @override
+  void onTap() {
+    stopDraggingIfNecessary();
+  }
+
+  @override
   void onDragUpdate(double dX, double dY) {
     executeDragging(dX, dY);
   }
@@ -129,10 +149,12 @@ class Piece extends DeviceModuleBase {
   }
 
   void executeDragging(double dX, double dY, {bool updatePosition = true}) {
-    if (!isDraggable || (draggedPiece != null && draggedPiece != this))
+    if (!isDraggable ||
+        hackingDevice.pieceSelector.scrollDirection != 0 ||
+        (draggedPiece != null && draggedPiece != this))
       return;
 
-    if (area?.contains(Offset(dX, dY)) == true) {
+    if (draggedPiece == this || area?.contains(Offset(dX, dY)) == true) {
       draggedPiece = this;
       if (updatePosition)
         dragPosition = Offset(dX, dY);
@@ -142,14 +164,16 @@ class Piece extends DeviceModuleBase {
   }
 
   void stopDraggingIfNecessary() {
-    if (!isDraggable || dragPosition == null)
+    if (!isDraggable || draggedPiece != this)
       return;
 
-    if (draggedPiece == this) {
-      hackingDevice.board.tryToAddPiece(this);
-      hackingDevice.pieceSelector.tryToAddPiece(this);
-      dragPosition = null;
-      draggedPiece = null;
+    // We need to keep the order of these calls to avoid a weird issue that blocks the UI
+    var previousDragPosition = dragPosition;
+    dragPosition = null;
+    draggedPiece = null;
+    if (previousDragPosition != null) {
+      hackingDevice.board.tryToAddPiece(this, previousDragPosition);
+      hackingDevice.pieceSelector.tryToAddPiece(this, previousDragPosition);
     }
   }
 }

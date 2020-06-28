@@ -44,7 +44,6 @@ class Board extends DeviceModuleBase {
     pieces.toList().forEach((piecesRow) {
       piecesRow.toList().where((piece) => piece != null).forEach((piece) {
         _setBoardPieceOffset(piece);
-        piece.boundaries = null;
       });
     });
   }
@@ -58,18 +57,18 @@ class Board extends DeviceModuleBase {
     piece.offset = Offset(cellArea.left, cellArea.top);
   }
 
-  void tryToAddPiece(Piece piece) {
+  void tryToAddPiece(Piece piece, Offset dragPosition) {
     var width = hackingDevice.gameWidth * 0.647;
     var height = hackingDevice.gameHeight * 0.71;
     var offsetX = area.left + (hackingDevice.gameWidth * 0.016);
     var offsetY = area.top + (hackingDevice.gameHeight * 0.028);
     var usableArea = Rect.fromLTWH(offsetX, offsetY, width, height);
-    if (usableArea.contains(piece.dragPosition)) {
+    if (usableArea.contains(dragPosition)) {
       cellSize = width / 8;
       for (int i = 0; i < 5; i++)
         for (int j = 0; j < 8; j++) {
           var cellArea = Rect.fromLTWH(offsetX + (j * cellSize), offsetY + (i * cellSize), cellSize, cellSize);
-          if (cellArea.contains(piece.dragPosition) && validCells[i][j] && (pieces[i][j] == null || pieces[i][j] == piece)) {
+          if (cellArea.contains(dragPosition) && validCells[i][j] && (pieces[i][j] == null || pieces[i][j] == piece)) {
             hackingDevice.pieceSelector.pieces.remove(piece);
             pieces.forEach((boardPieces) {
               var pieceIndex = boardPieces.indexOf(piece);

@@ -132,6 +132,8 @@ class HackingDevice extends Game
 
   @override
   void onTapUp(int pointerId, TapUpDetails details) {
+    print('onTapUp: ${details.globalPosition}');
+
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
@@ -142,6 +144,8 @@ class HackingDevice extends Game
 
   @override
   void onTapDown(int pointerId, TapDownDetails details) {
+    print('onTapDown: ${details.globalPosition}');
+
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
@@ -152,6 +156,8 @@ class HackingDevice extends Game
 
   @override
   void onTap(int pointerId) {
+    print('onTap');
+
     deviceModules.forEach((module) {
       module.onTap();
     });
@@ -159,6 +165,8 @@ class HackingDevice extends Game
 
   @override
   void onTapCancel(int pointerId) {
+    print('onTapCancel');
+
     deviceModules.forEach((module) {
       module.onTapCancel();
     });
@@ -172,6 +180,8 @@ class HackingDevice extends Game
   }
 
   void _onDragUpdated(DragUpdateDetails details) {
+    print('_onDragUpdated: ${details.globalPosition}');
+
     var mainOffsetX = (screenSize.width - gameWidth) / 2;
     var tapCorrectedX = details.globalPosition.dx - mainOffsetX;
     var tapCorrectedY = details.globalPosition.dy;
@@ -181,12 +191,16 @@ class HackingDevice extends Game
   }
 
   void _onDragEnded(DragEndDetails details) {
+    print('_onDragEnded: ${details.velocity}');
+
     deviceModules.forEach((module) {
       module.onDragEnd(details.velocity);
     });
   }
 
   void _onDragCancelled() {
+    print('_onDragCancelled');
+
     deviceModules.forEach((module) {
       module.onDragCancel();
     });

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import '../../hacking_device.dart';
+import '../pieces/piece.dart';
 import 'button_base.dart';
 
 class ButtonArrowDown extends ButtonBase {
@@ -19,7 +20,7 @@ class ButtonArrowDown extends ButtonBase {
   @override
   void onTapDown(double dX, double dY) {
     super.onTapDown(dX, dY);
-    if (pressed)
+    if (pressed && Piece.draggedPiece == null)
       hackingDevice.pieceSelector.scrollDirection = -1;
   }
 

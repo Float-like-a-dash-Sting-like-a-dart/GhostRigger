@@ -21,8 +21,8 @@ class PieceSelector extends DeviceModuleBase {
     maxScrollValue = 0;
   }
 
-  void tryToAddPiece(Piece piece) {
-    if (area.contains(piece.dragPosition) && !pieces.contains(piece)) {
+  void tryToAddPiece(Piece piece, Offset dragPosition) {
+    if (area.contains(dragPosition) && !pieces.contains(piece)) {
       hackingDevice.board.pieces.forEach((boardPieces) {
         var pieceIndex = boardPieces.indexOf(piece);
         if (pieceIndex != -1)
@@ -53,7 +53,6 @@ class PieceSelector extends DeviceModuleBase {
           (pieceIndex * hackingDevice.board.cellSize) +
           (spacingBetweenPieces * (pieceIndex + 1));
       piece.offset = Offset(pieceOffsetX, pieceOffsetY + scroll);
-      piece.boundaries = area;
       maxScrollValue = pieceOffsetY - offsetY - height + hackingDevice.board.cellSize + spacingBetweenPieces;
       pieceIndex++;
     });
@@ -61,24 +60,27 @@ class PieceSelector extends DeviceModuleBase {
 
   @override
   void update(double t) {
-    if (scrollDirection != 0) {
-      var newScroll = scroll + scrollDirection * t * 500;
-      if (_isScrollValid(newScroll))
+    var newScroll = scrollDirection != 0 ? (scroll + scrollDirection * t * 500) : null;
+    if (newScroll != null) {
+      var isNewScrollValid = maxScrollValue > 0 && newScroll <= 0 && newScroll >= -maxScrollValue;
+      if (!isNewScrollValid)
+        correctScroll(newScroll);
+      else
         scroll = newScroll;
     }
 
-    if (!_isScrollValid(scroll)) {
-      // Restart scroll when the number of pieces has changed
-      var distanceToZero = (0 - scroll).abs();
-      var distanceToMax = (maxScrollValue - scroll).abs();
-      if (distanceToZero > distanceToMax || maxScrollValue <= 0)
-        scroll = 0;
-      else
-        scroll = -maxScrollValue;
-    }
+    // We still have to check because we might need to correct the scroll after a piece has been removed
+    var isScrollValid = maxScrollValue > 0 && scroll <= 0 && scroll >= -maxScrollValue;
+    if (!isScrollValid)
+      correctScroll(scroll);
   }
 
-  bool _isScrollValid(double newScroll) {
-    return maxScrollValue > 0 && newScroll <= 0 && newScroll >= -maxScrollValue;
+  void correctScroll(double newScroll) {
+    var distanceToZero = newScroll.abs();
+    var distanceToMax = (-maxScrollValue - newScroll).abs();
+    if (distanceToZero < distanceToMax || maxScrollValue <= 0)
+      scroll = 0;
+    else
+      scroll = -maxScrollValue;
   }
 }
