@@ -11,3 +11,24 @@ Prototype of a cyberpunk-inspired puzzle game set in a distopian future:
 In this game, the player will become a ghost rigger, and they will have to solve puzzles to progress and reveal the story.
 
 **This repository has been created as a part of the Flutter hackahton [#Hack20](flutterhackathon.com).**
+
+### Screenshots
+
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/1_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/2_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/3_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/4_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/5_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/6_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/7_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/8_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/9_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/10_small.jpg)
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/11_small.jpg)
+
+### Contributors
+
+Game created an developed by:
+* [Iain Smith](https://iainsmith.me/) (development)
+* [Julio Ernesto Rodríguez Cabañas](https://julioernesto.me/) (development)
+* [Richard Kinsella](https://www.linkedin.com/in/rktypedesign/) (design)
