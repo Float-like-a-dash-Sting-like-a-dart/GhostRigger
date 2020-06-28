@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
+import 'package:ghost_rigger/screens/hacking_device_modules/doors_animation.dart';
 
 import 'hacking_device_modules/background.dart';
 import 'hacking_device_modules/board.dart';
@@ -96,6 +97,8 @@ class HackingDevice extends Game
       board.pieces[piece.positionInBoardRow][piece.positionInBoardColumn] = piece;
       deviceModules.add(piece);
     });
+
+    deviceModules.add(DoorsAnimation(this));
   }
 
   @override

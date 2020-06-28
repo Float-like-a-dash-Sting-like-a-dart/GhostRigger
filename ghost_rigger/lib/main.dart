@@ -72,6 +72,8 @@ void main() async {
     'empty_space_left_bottom_4.png',
     'empty_space_left_bottom_5.png',
     'empty_space_left_bottom_6.png',
+    'left_door.png',
+    'right_door.png',
     'cable_out.png',
   ]);
 
