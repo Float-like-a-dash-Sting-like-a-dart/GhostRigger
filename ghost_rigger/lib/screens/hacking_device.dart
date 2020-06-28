@@ -27,6 +27,7 @@ import 'models/puzzle_model.dart';
 
 class HackingDevice extends Game
     with MultiTouchTapDetector, MultiTouchDragDetector {
+
   Size screenSize;
   double gameHeight;
   double gameWidth;
@@ -34,13 +35,33 @@ class HackingDevice extends Game
   PieceSelector pieceSelector;
   ButtonRun buttonRun;
   ButtonNextStep buttonNextStep;
-  PuzzleModel puzzle;
-
   List<DeviceModuleBase> deviceModules;
 
-  void Function() _onExit;
+  List<PuzzleModel> puzzles;
+  PuzzleModel puzzle;
+  int puzzleNumber;
+  int numberOfPuzzles;
 
-  HackingDevice(this.puzzle, this._onExit) {
+  void Function() _onExit;
+  void Function() _onCompleted;
+
+  HackingDevice(this.puzzles, this._onExit, this._onCompleted) {
+    puzzleNumber = 0;
+    numberOfPuzzles = puzzles.length;
+    setUpPuzzle();
+  }
+
+  void setUpPuzzle() {
+    if (puzzles.isEmpty) {
+      _onCompleted.call();
+      return;
+    }
+
+    puzzleNumber++;
+
+    puzzle = puzzles.first;
+    puzzles.remove(puzzle);
+
     board = Board(this);
     pieceSelector = PieceSelector(this);
     buttonRun = ButtonRun(this, null);
@@ -85,7 +106,8 @@ class HackingDevice extends Game
       deviceModules.add(piece);
     });
 
-    deviceModules.add(DoorsAnimation(this));
+    if (puzzleNumber == 1)
+      deviceModules.add(DoorsAnimation(this));
   }
 
   @override

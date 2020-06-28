@@ -15,4 +15,15 @@ class ButtonDone extends ButtonBase {
     var offsetY = hackingDevice.gameHeight * 0.483;
     return Rect.fromLTWH(offsetX, offsetY, width, height);
   }
+
+  @override
+  void setAlphaFromStatus() {
+    var puzzle = hackingDevice.puzzle;
+    paint.color = Color.fromRGBO(0, 0, 0, puzzle.simulationFinished && puzzle.goal == puzzle.output ? 1.0 : 0.0);
+  }
+
+  @override
+  void onPressed() {
+    hackingDevice.setUpPuzzle();
+  }
 }
