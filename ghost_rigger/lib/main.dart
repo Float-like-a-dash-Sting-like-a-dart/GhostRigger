@@ -94,12 +94,27 @@ void main() async {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Scaffold(body: MenuScreen()),
+    home: Scaffold(
+      body: MenuScreen(),
+      backgroundColor: Colors.black,
+    ),
     routes: {
-      '/start': (BuildContext ctx) => Scaffold(body: IntroScreen()),
-      '/resume': (BuildContext ctx) => Scaffold(body: GameScreen()),
-      '/credits': (BuildContext ctx) => Scaffold(body: CreditScreen()),
-      '/chat': (BuildContext ctx) => Scaffold(body: ChatScreen()),
+      '/start': (BuildContext ctx) => Scaffold(
+            body: IntroScreen(),
+            backgroundColor: Colors.black,
+          ),
+      '/resume': (BuildContext ctx) => Scaffold(
+            body: GameScreen(),
+            backgroundColor: Colors.black,
+          ),
+      '/credits': (BuildContext ctx) => Scaffold(
+            body: CreditScreen(),
+            backgroundColor: Colors.black,
+          ),
+      '/chat': (BuildContext ctx) => Scaffold(
+            body: ChatScreen(),
+            backgroundColor: Colors.black,
+          ),
     },
   ));
 

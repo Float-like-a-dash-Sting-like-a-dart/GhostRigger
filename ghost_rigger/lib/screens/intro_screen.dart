@@ -9,88 +9,93 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   bool _showContinue = false;
-  int _introNumber = 0;
+  int _introNumber = 1;
 
   @override
   void initState() {
     super.initState();
     Audio.play(Song.INTRO);
+    _introNumber = 1;
+    _showContinue = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: new BoxDecoration(color: Colors.black),
+      constraints: BoxConstraints.expand(),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image:
+              AssetImage("assets/images/intro_image_screen$_introNumber.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 2,
+        children: <Widget>[
+          if (_introNumber == 2)
+            Expanded(
+              flex: 1,
+              child: Container(),
+            ),
+          Expanded(
+            flex: 1,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: _introNumber != 2
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.end,
               children: <Widget>[
-                Flexible(flex: 1, child: Container()),
+                Flexible(
+                  flex: 2,
+                  child: FlatButton(
+                    padding: EdgeInsets.all(20.0),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Audio.play(Song.MENU);
+                    },
+                    child: Image.asset(
+                      'assets/images/intro_icon_exit.png',
+                      height: 50,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
                 Flexible(
                   flex: 9,
-                  fit: FlexFit.tight,
+                  fit: FlexFit.loose,
                   child: Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: getContent(),
                   ),
                 ),
                 Flexible(
                   flex: 2,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      _showContinue
-                          ? FlatButton(
-                              padding: EdgeInsets.all(20.0),
-                              onPressed: () => setState(() {
-                                _introNumber = _introNumber + 1;
-                                _showContinue = false;
-                              }),
-                              child: Text(
-                                _introNumber < 2 ? 'Continue' : 'Start',
-                                style: TextStyle(
-                                  color: Colors.cyanAccent,
-                                  fontSize: 20.0,
-                                  fontFamily: 'JetBrainsMono',
-                                ),
-                              ),
-                            )
-                          : Container(),
-                      FlatButton(
-                        padding: EdgeInsets.all(20.0),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Audio.play(Song.MENU);
-                        },
-                        child: Text(
-                          'Exit',
-                          style: TextStyle(
-                            color: Colors.purpleAccent,
-                            fontSize: 20.0,
-                            fontFamily: 'JetBrainsMono',
+                  child: _showContinue
+                      ? FlatButton(
+                          onPressed: () => setState(() {
+                            if (_introNumber < 3) {
+                              _introNumber = _introNumber % 4 + 1;
+                              _showContinue = false;
+                            } else {
+                              Audio.playSfx("menu.aac");
+                              Navigator.of(context).pushNamed('/chat');
+                            }
+                          }),
+                          child: Image.asset(
+                            'assets/images/intro_button_continue.png',
+                            height: 50,
+                            fit: BoxFit.contain,
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
+                        )
+                      : Container(),
                 ),
               ],
             ),
           ),
-          if (_introNumber < 2)
-            Flexible(
+          if (_introNumber != 2)
+            Expanded(
               flex: 1,
-              child: Image.asset(
-                'assets/images/cyber_punk_1.png',
-                fit: BoxFit.contain,
-              ),
+              child: Container(),
             ),
         ],
       ),
@@ -99,24 +104,27 @@ class _IntroScreenState extends State<IntroScreen> {
 
   List<String> getText() {
     switch (_introNumber) {
-      case 1:
-        return [
-          "While they look for new evil ways to increase their margins and satisfy their never-ending greed,\n\n",
-          "a group of hackers are trying to stop them. \n\n",
-          "They call themselves Unanymous.",
-        ];
       case 2:
         return [
-          "Within them,\n\n",
-          "those who focus their efforts on fighting against NDI's injustices are known as *ghost riggers*.\n\n",
-          "You are the best one...\n\n",
+          "While they look for new evil ways to increase their margins and satisfy their never-ending greed,\n\n"
+              .toUpperCase(),
+          "a group of hackers are trying to stop them. \n\n".toUpperCase(),
+          "They call themselves Unanymous.".toUpperCase(),
         ];
-      case 0:
+      case 3:
+        return [
+          "Within them,\n\n".toUpperCase(),
+          "those who focus their efforts on fighting against NDI's injustices are known as *ghost riggers*.\n\n"
+              .toUpperCase(),
+          "You are the best one...\n\n".toUpperCase(),
+        ];
+      case 1:
       default:
         return [
-          "In the year 2078,\n\n",
-          "the mega-corporation Native Development Initiative, aka NDI,\n\n",
-          "rules the Earth...\n\n",
+          "In the year 2078,\n\n".toUpperCase(),
+          "the mega-corporation Native Development Initiative, aka NDI,\n\n"
+              .toUpperCase(),
+          "rules the Earth...\n\n".toUpperCase(),
         ];
     }
   }
@@ -133,8 +141,8 @@ class _IntroScreenState extends State<IntroScreen> {
         fontFamily: 'Rajdhani',
         fontWeight: FontWeight.w500,
       ),
-      textAlign: TextAlign.center,
-      alignment: Alignment.center,
+      textAlign: TextAlign.left,
+      alignment: Alignment.topCenter,
     );
 
     consoleAnimatedTextKit.createState();
