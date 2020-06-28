@@ -5,20 +5,21 @@ import 'package:flutter/material.dart';
 
 import '../../hacking_device.dart';
 import '../device_module_base.dart';
-import 'piece_model.dart';
+import '../../models/piece_model.dart';
 
 class Piece extends DeviceModuleBase {
   Sprite sprite;
   Sprite borderSprite;
   Sprite borderHighlightedSprite;
-  bool isDraggable;
   int positionInBoardColumn;
   int positionInBoardRow;
   int arithmeticValue;
+  ArithmeticOperation arithmeticOperation;
   bool hastTopCable;
   bool hastRightCable;
   bool hastBottomCable;
   bool hastLeftCable;
+  bool isInOrOut;
   Offset dragPosition;
   Offset offset;
   bool isLit;
@@ -28,14 +29,15 @@ class Piece extends DeviceModuleBase {
   static Piece draggedPiece;
 
   Piece(HackingDevice hackingDevice, PieceModel pieceModel) : super(hackingDevice) {
-    isDraggable = pieceModel.isDraggable;
     positionInBoardColumn = pieceModel.positionInBoardColumn;
     positionInBoardRow = pieceModel.positionInBoardRow;
     arithmeticValue = pieceModel.arithmeticValue;
-    hastTopCable = pieceModel.hastTopCable;
-    hastRightCable = pieceModel.hastRightCable;
-    hastBottomCable = pieceModel.hastBottomCable;
-    hastLeftCable = pieceModel.hastLeftCable;
+    arithmeticOperation = pieceModel.arithmeticOperation;
+    isInOrOut = pieceModel.isInOrOut;
+    hastTopCable = !isInOrOut ? pieceModel.hastTopCable : true;
+    hastRightCable = !isInOrOut ? pieceModel.hastRightCable : true;
+    hastBottomCable = !isInOrOut ? pieceModel.hastBottomCable : true;
+    hastLeftCable = !isInOrOut ? pieceModel.hastLeftCable : true;
     dragPosition = null;
     isLit = false;
     isInPieceSelector = false;
@@ -46,6 +48,9 @@ class Piece extends DeviceModuleBase {
   }
 
   String getSpriteName() {
+    if (isInOrOut)
+      return 'line_in_out.png';
+
     var spriteName = '';
     if (hastRightCable && hastBottomCable)
       spriteName = 'bent';
@@ -93,19 +98,62 @@ class Piece extends DeviceModuleBase {
 
   void executeRender(Canvas canvas) {
     sprite.renderRect(canvas, area, overridePaint: paint);
-    if (draggedPiece != this && isInPieceSelector)
-      borderSprite.renderRect(canvas, area);
-    else if (draggedPiece == this)
-      borderHighlightedSprite.renderRect(canvas, area);
 
-    if (arithmeticValue != 0) {
-      var text = arithmeticValue > 0 ? '+$arithmeticValue' : '-${-arithmeticValue}';
-      var textStyle = TextStyle(color: Colors.white, fontFamily: 'Rajdhani', fontSize: 18);
+    if (!isInOrOut) {
+      // Normal piece
+      if (draggedPiece != this && isInPieceSelector)
+        borderSprite.renderRect(canvas, area);
+      else if (draggedPiece == this)
+        borderHighlightedSprite.renderRect(canvas, area);
+      if (arithmeticValue != 0) {
+        arithmeticOperation = arithmeticOperation ?? ArithmeticOperation.add;
+        var symbol = '';
+        var extraOffsetX = 0.0;
+        switch (arithmeticOperation) {
+          case ArithmeticOperation.add:
+            symbol = '+';
+            extraOffsetX = 0;
+            break;
+          case ArithmeticOperation.subtract:
+            symbol = '-';
+            extraOffsetX = area.width * 0.05;
+            break;
+          case ArithmeticOperation.multiply:
+            symbol = 'x';
+            extraOffsetX = area.width * 0.055;
+            break;
+        }
+        var text = '$symbol$arithmeticValue';
+        var textStyle = TextStyle(
+            color: Colors.white, fontFamily: 'Rajdhani', fontSize: 18);
+        var textSpan = TextSpan(text: text, style: textStyle);
+        var textPainter = TextPainter(
+            text: textSpan, textDirection: TextDirection.ltr);
+        var offset = Offset(
+            area.left + (area.width * 0.32) + extraOffsetX,
+            area.top + (area.width * 0.32));
+        textPainter.layout(
+            minWidth: area.width * 0.34,
+            maxWidth: area.width * 0.34);
+        textPainter.paint(canvas, offset);
+      }
+    } else {
+      // Input or output piece
+      var text = arithmeticValue != 0
+          ? '$arithmeticValue'
+          : 'OUT';
+      var textStyle = TextStyle(
+          color: Colors.white, fontFamily: 'Rajdhani', fontSize: 18);
       var textSpan = TextSpan(text: text, style: textStyle);
-      var textPainter = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
-      var extraOffsetX = arithmeticValue < 0 ? area.width * 0.05 : 0;
-      var offset = Offset(area.left + (area.width * 0.32) + extraOffsetX, area.top + (area.width * 0.32));
-      textPainter.layout(minWidth: area.width * 0.34, maxWidth: area.width * 0.34);
+      var textPainter = TextPainter(
+          text: textSpan, textDirection: TextDirection.ltr);
+      var extraOffsetX = arithmeticValue != 0 ? area.width * 0.1 : -area.width * 0.05;
+      var offset = Offset(
+          area.left + (area.width * 0.32) + extraOffsetX,
+          area.top + (area.width * 0.31));
+      textPainter.layout(
+          minWidth: area.width,
+          maxWidth: area.width);
       textPainter.paint(canvas, offset);
     }
   }
@@ -151,8 +199,8 @@ class Piece extends DeviceModuleBase {
   }
 
   void executeDragging(double dX, double dY, {bool updatePosition = true}) {
-    if (!isDraggable ||
-        hackingDevice.pieceSelector.scrollDirection != 0 ||
+    if (hackingDevice.pieceSelector.scrollDirection != 0 ||
+        (positionInBoardRow != -1 && !hackingDevice.board.validCells[positionInBoardRow][positionInBoardColumn]) ||
         (draggedPiece != null && draggedPiece != this))
       return;
 
@@ -166,7 +214,7 @@ class Piece extends DeviceModuleBase {
   }
 
   void stopDraggingIfNecessary() {
-    if (!isDraggable || draggedPiece != this)
+    if (draggedPiece != this)
       return;
 
     // We need to keep the order of these calls to avoid a weird issue that blocks the UI

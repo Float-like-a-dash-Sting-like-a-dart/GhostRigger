@@ -22,7 +22,7 @@ import 'hacking_device_modules/light_animation.dart';
 import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
 import 'hacking_device_modules/pieces/piece.dart';
-import 'hacking_device_modules/pieces/piece_model.dart';
+import 'models/puzzle_model.dart';
 
 class HackingDevice extends Game
     with MultiTouchTapDetector, MultiTouchDragDetector {
@@ -31,12 +31,13 @@ class HackingDevice extends Game
   double gameWidth;
   Board board;
   PieceSelector pieceSelector;
+  List<PuzzleModel> puzzles;
 
   List<DeviceModuleBase> deviceModules;
 
   void Function() _onExit;
 
-  HackingDevice(this._onExit) {
+  HackingDevice(this.puzzles, this._onExit) {
     board = Board(this);
     pieceSelector = PieceSelector(this);
     deviceModules = [
@@ -57,31 +58,11 @@ class HackingDevice extends Game
       pieceSelector,
     ];
 
-    // TODO This will have to be provided from somewhere to set up the puzzle
-    var pieceModels = [
-      PieceModel(hastLeftCable: true, hastTopCable: true),
-      PieceModel(hastRightCable: true, hastBottomCable: true),
-      PieceModel(hastTopCable: true, hastBottomCable: true),
-      PieceModel(hastLeftCable: true, hastRightCable: true),
-      PieceModel(hastLeftCable: true, hastTopCable: true, arithmeticValue: -5),
-      PieceModel(hastRightCable: true, hastBottomCable: true, arithmeticValue: 3),
-      PieceModel(hastTopCable: true, hastBottomCable: true, arithmeticValue: -2),
-      PieceModel(hastLeftCable: true, hastRightCable: true, arithmeticValue: 8),
-      PieceModel(hastLeftCable: true, hastTopCable: true, positionInBoardRow: 1, positionInBoardColumn: 3),
-    ];
-
-    // TODO This will have to be provided from somewhere to set up the puzzle
-    var validPositions = [
-      [1, 1], [1, 2], [1, 3], [1, 4],
-      [2, 1], [2, 2], [2, 3], [2, 4],
-      [3, 1], [3, 2], [3, 3], [3, 4],
-    ];
-
-    validPositions.forEach((validPosition) {
+    puzzle.validCellPositions.forEach((validPosition) {
       board.validCells[validPosition[0]][validPosition[1]] = true;
     });
 
-    var piecesForPieceSelector = pieceModels
+    var piecesForPieceSelector = puzzle.pieces
         .where((piece) => piece.positionInBoardColumn == -1)
         .map((pieceModel) => Piece(this, pieceModel)).toList();
     piecesForPieceSelector.forEach((piece) {
@@ -90,7 +71,7 @@ class HackingDevice extends Game
       deviceModules.add(piece);
     });
 
-    var piecesForBoard = pieceModels
+    var piecesForBoard = puzzle.pieces
         .where((pieceModel) => pieceModel.positionInBoardRow != -1)
         .map((pieceModel) => Piece(this, pieceModel)).toList();
     piecesForBoard.forEach((piece) {
