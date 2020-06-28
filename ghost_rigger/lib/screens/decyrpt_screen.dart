@@ -73,6 +73,7 @@ class _DecryptScreenState extends State<DecryptScreen> {
       default:
         return [
           "DECRYPTING MESSAGE...\n\n",
+          "-- START OF MESSAGE --\n\n",
           "The first prototypes for the new Super Pollutant Power Plant™ are ready to start the tests.\n\n",
           "If they are successful, the plan to replace 5000 wind mills with these new oil-fired power plants will go ahead.\n\n",
           "-- END OF MESSAGE --",
