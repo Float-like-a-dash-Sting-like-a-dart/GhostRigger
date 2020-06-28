@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
 
 import 'hacking_device_modules/background.dart';
 import 'hacking_device_modules/board.dart';
@@ -16,6 +15,7 @@ import 'hacking_device_modules/button_run.dart';
 import 'hacking_device_modules/device_module_base.dart';
 import 'hacking_device_modules/display_goal.dart';
 import 'hacking_device_modules/display_output.dart';
+import 'hacking_device_modules/light_animation.dart';
 import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
 import 'hacking_device_modules/pieces/piece.dart';
@@ -47,6 +47,7 @@ class HackingDevice extends Game
       ButtonExit(this, _onExit),
       DisplayGoal(this),
       DisplayOutput(this),
+      LightAnimation(this),
       board,
       pieceSelector,
     ];
@@ -110,7 +111,9 @@ class HackingDevice extends Game
 
   @override
   void update(double t) {
-    // TODO: implement update
+    deviceModules.forEach((module) {
+      module.update(t);
+    });
   }
 
   @override

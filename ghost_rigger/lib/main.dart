@@ -62,6 +62,12 @@ void main() async {
     'display_steps_and_status.png',
     'module_selection_area.png',
     'blocked_cell.png',
+    'empty_space_left_bottom_1.png',
+    'empty_space_left_bottom_2.png',
+    'empty_space_left_bottom_3.png',
+    'empty_space_left_bottom_4.png',
+    'empty_space_left_bottom_5.png',
+    'empty_space_left_bottom_6.png',
     'cable_out.png',
   ]);
 
