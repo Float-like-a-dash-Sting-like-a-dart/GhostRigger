@@ -1,42 +1,91 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../animation/console_animation.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
+    Timer(
+      Duration(milliseconds: 500),
+      () => _controller.jumpTo(_controller.position.maxScrollExtent),
+    );
     return Container(
-      decoration: BoxDecoration(color: Colors.black),
+      decoration: BoxDecoration(
+          color: Colors.black, border: Border.all(color: Colors.cyanAccent)),
       child: Column(
         children: <Widget>[
-          Flexible(
-            flex: 1,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'User@Flutt3r',
-                  style: TextStyle(
-                    color: Colors.cyanAccent,
-                    fontFamily: 'JetBrainsMono',
-                    fontSize: 20.0,
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.black, border: Border.all(color: Colors.cyan)),
+            child: Flexible(
+              flex: 1,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: OutlineButton(
+                      padding: EdgeInsets.all(8.0),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      borderSide: BorderSide(color: Colors.cyanAccent),
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(0.0)),
+                      child: Text(
+                        'close',
+                        style: TextStyle(
+                          color: Colors.cyanAccent,
+                          fontFamily: 'JetBrainsMono',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                Text(
-                  'Encryption: Secure.',
-                  style: TextStyle(
-                    color: Colors.purpleAccent,
-                    fontFamily: 'JetBrainsMono',
-                    fontSize: 20.0,
+                  Expanded(
+                    flex: 4,
+                    child: Text(
+                      'User@Flutt3r',
+                      style: TextStyle(
+                        color: Colors.cyanAccent,
+                        fontFamily: 'JetBrainsMono',
+                        fontSize: 20.0,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  Flexible(
+                    flex: 3,
+                    child: Text(
+                      'Encryption: Secure',
+                      style: TextStyle(
+                        color: Colors.purpleAccent,
+                        fontFamily: 'JetBrainsMono',
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          Flexible(
+          Expanded(
             flex: 7,
             child: SingleChildScrollView(
+              padding: EdgeInsets.all(15.0),
+              controller: _controller,
               child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   ConsoleAnimatedTextKit(
                     displayFullTextOnTap: true,
@@ -58,6 +107,67 @@ class ChatScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.left,
                     alignment: Alignment.topLeft,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(color: Colors.cyanAccent)),
+            child: Flexible(
+              flex: 1,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'close',
+                        style: TextStyle(
+                          color: Colors.cyanAccent,
+                          fontFamily: 'JetBrainsMono',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Text(
+                      'User@Flutt3r',
+                      style: TextStyle(
+                        color: Colors.cyanAccent,
+                        fontFamily: 'JetBrainsMono',
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: OutlineButton(
+                      padding: EdgeInsets.all(8.0),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      borderSide: BorderSide(color: Colors.cyanAccent),
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(0.0)),
+                      child: Text(
+                        'Send',
+                        style: TextStyle(
+                          color: Colors.cyanAccent,
+                          fontFamily: 'JetBrainsMono',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -78,7 +78,8 @@ class _IntroScreenState extends State<IntroScreen> {
                               _showContinue = false;
                             } else {
                               Audio.playSfx("menu.aac");
-                              Navigator.of(context).pushNamed('/chat');
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/chat');
                             }
                           }),
                           child: Image.asset(

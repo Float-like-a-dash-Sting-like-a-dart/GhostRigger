@@ -83,7 +83,7 @@ class _ConsoleState extends State<ConsoleAnimatedTextKit>
   @override
   void initState() {
     super.initState();
-    _speed = widget.speed ?? const Duration(milliseconds: 120);
+    _speed = widget.speed ?? const Duration(milliseconds: 100);
     _pause = widget.pause ?? const Duration(milliseconds: 2000);
     _lines = widget.text;
     _nextAnimation();
