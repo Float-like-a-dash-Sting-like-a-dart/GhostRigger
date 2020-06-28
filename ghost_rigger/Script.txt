@@ -1,0 +1,126 @@
+[MENU SCREEN]
+[MUSIC: Funky music in the background to go with the cyber punk style of the menu]
+[Cool cyper punk background, and probably neon letters and shit like that]
+[The RESUME GAME button will not be present unless we have had extra time to be able to implement it]
+[To cut corners and save development time, the SOUND ON/OFF BUTTON might need to be ignored too]
+
+GHOST RIGGER
+
+- START NEW GAME
+- RESUME GAME (only enabled if there is an ongoing game saved)
+- SOUND ON/OFF
+
+---
+
+[SCREEN 1]
+[MUSIC: Suspense/kinda-funky music]
+[Text displayed with a typewriter effect (https://github.com/aagarwal1012/Animated-Text-Kit)]
+
+[First intro screen]
+[White text on a black background that has a cyber punk image, preferably one with some references to NDI]
+In the year 2078, the megacorporation *Native Development Initiative*, aka NDI, rules the Earth.
+
+[Second intro screen]
+[White text on a black background that has a cyber punk image, preferably one with some references to hacking]
+While they look for new evil ways to increase their margins and satisfy their never-ending greed, a group of hackers are trying to stop them. They call themselves *Unanymous*.
+
+[Third intro screen]
+[White text centred on a black background, no images]
+Within them, those who focus their efforts on fighting against NDI's injustices are known as *ghost riggers*. You are the best one.
+
+---
+
+[SCREEN 2]
+[MUSIC: No music]
+[The screen resembles an old-style IRC chat with the title #UNANYMOUS]
+[The text box to send a message has the name "Flutt3r" on it (because that's the name of the player)]
+[The messages appear one after another like they would in an actual chat]
+
+> C1ph3r: Zer0 came back with some news, it seems like NDI are up to something.
+> Mr. V1ruS: They always are! What is it this time?
+> C1ph3r: We still don't know, we haven't been able to decrypt their messages. They have improved their encryption mechanism.
+> Mr. V1ruS: Sounds like a challenge...
+> R00t: No offence, Mr. V1rus, but we'll need someone *actually* capable of hacking the mainframe.
+> Mr. V1rus: LOL, none taken. In all fairness, only one of us has what this task takes...
+> R00t: You are absolutely right. Flutt3r, I know you are reading. Are you up for the challenge?
+
+[The text "Leave it to me!" is automatically written in the text box]
+[The user's only option is to click "SEND" to send the message]
+[The message appears on the chat, then C1ph3r comments "Awesome!" and the screen fades to black or there is some other kind of transition]
+
+---
+
+[PUZZLE 1]
+[MUSIC: Hacking music: not super fast because there isn't a lot of action happening, but not super slow and boring because this isn't The Sims]
+[These two cases will be ridiculously easy because they are just a tutorial]
+
+TITLE: Tuning in
+DESCRIPTION: It seems like your radio receptor isn't tuned correctly to intercept the messages sent by the NDI (Native Development Initiative). Try placing some modules on the board of the hacking device to get the desired output.
+
+---
+
+[INFO SCREEN]
+[MUSIC: Victory music or maybe no music]
+
+Great! You have now intercepted the messages sent by NDI. But they seem to be encrypted, as expected. Nothing you cannot deal with...
+
+---
+
+[PUZZLE 2]
+[MUSIC: Hacking music again]
+
+TITLE: What's Going on?
+DESCRIPTION: The messages from NDI that you have intercepted have several layers of encryption, but you are determined to decrypt them. Time to do some more hacking...
+
+---
+
+[INFO SCREEN]
+[MUSIC: No music]
+[The text appears on the screen like in The Matrix: a black background with green text that is being decrypted character by character]
+
+DECRYPTING MESSAGE...
+
+The first prototypes for the new Super Pollutant Power Plant™ are ready to start the tests. If they are successful, the plan to replace 5000 wind mills with these new oil-fired power plants will go ahead.
+
+-- END OF MESSAGE --
+
+---
+
+[PUZZLE 3]
+[MUSIC: Hacking music again]
+
+TITLE: Not on my watch!
+DESCRIPTION: It seems like NDI are trying to replace their clean power plants with very pollutant ones. Wouldn't it be nice if you could hack those plants to render them unusable?
+
+---
+
+[LAST INFO SCREEN]
+[MUSIC: Dramatic victory music]
+[A newspaper shows an article about what the player has achieved]
+[The title has to be readable, but the content doesn't really matter too much because it is just nonsense]
+
+TITLE: Ghost rigger crushes NDI's plans to increase profits at the expense of the environment
+CONTENT: The secret plans of NDI to replace thousands of wind mills with oil-fired power plants won't be happening any time soon.
+
+Two days ago, the hacking organisation "Unanymous" intercepted a message where these confidential plans were outlined. Considering that revealing the information wouldn't be enough, they decided to act and launched an unprecedented attack on the new power plants.
+
+"The sofistication of this attack is something we have never seen before," a security expert told GGH News. "They overrode the instructions of the gas centrifuges, making them spin at such a pace that they all broke beyond the point of repair. They didn't hack just the computers, they physically destroyed these power plants."
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+---
+
+[CREDITS SCREEN]
+[MUSIC: Something happy and relaxed because all the drama is over]
+
+Thanks for playing our game prototype until the end.
+
+If you liked it, please give us your vote!
+
+
+
+Created by:
+
+Iain Smith (Development)
+Julio Ernesto Rodríguez Cabañas (Development)
+Richar Kinsella (Design)
