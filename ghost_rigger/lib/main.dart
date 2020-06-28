@@ -3,6 +3,7 @@ import 'package:flame/util.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'audio.dart';
+import 'screens/chat_screen.dart';
 import 'screens/intro_screen.dart';
 import 'screens/credits_screen.dart';
 import 'screens/game_screen.dart';
@@ -98,6 +99,7 @@ void main() async {
       '/start': (BuildContext ctx) => Scaffold(body: IntroScreen()),
       '/resume': (BuildContext ctx) => Scaffold(body: GameScreen()),
       '/credits': (BuildContext ctx) => Scaffold(body: CreditScreen()),
+      '/chat': (BuildContext ctx) => Scaffold(body: ChatScreen()),
     },
   ));
 
