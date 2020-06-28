@@ -48,14 +48,15 @@ class Board extends DeviceModuleBase {
     var usableArea = Rect.fromLTWH(offsetX, offsetY, width, height);
     if (usableArea.contains(piece.dragPosition)) {
       var cellSize = width / 8;
-      for (int i = 0; i <= 5; i++)
-        for (int j = 0; j <= 8; j++) {
+      for (int i = 0; i < 5; i++)
+        for (int j = 0; j < 8; j++) {
           var cellArea = Rect.fromLTWH(offsetX + (j * cellSize), offsetY + (i * cellSize), cellSize, cellSize);
           if (cellArea.contains(piece.dragPosition) && (pieces[i][j] == null || pieces[i][j] == piece)) {
             hackingDevice.pieceSelector.pieces.remove(piece);
             pieces[i][j] = piece;
             piece.positionInBoardRow = i;
             piece.positionInBoardColumn = j;
+            return;
           }
         }
     }
