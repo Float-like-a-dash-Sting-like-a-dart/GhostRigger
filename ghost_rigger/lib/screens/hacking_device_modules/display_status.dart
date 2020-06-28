@@ -28,7 +28,7 @@ class DisplayStatus extends DeviceModuleBase {
   void setCaseNumberText(Canvas canvas) {
     var caseText = '${hackingDevice.puzzleNumber}/${hackingDevice.numberOfPuzzles}';
     var textStyle = TextStyle(
-        color: Colors.white, fontFamily: 'Rajdhani', fontSize: 20);
+        color: Color.fromARGB(255, 40, 192, 252), fontFamily: 'Rajdhani', fontSize: 20);
     var textSpan = TextSpan(text: caseText, style: textStyle);
     var textPainter = TextPainter(
         text: textSpan, textDirection: TextDirection.ltr);
@@ -46,7 +46,7 @@ class DisplayStatus extends DeviceModuleBase {
     if (hackingDevice.puzzle.simulationFinished)
       statusText = hackingDevice.puzzle.output == hackingDevice.puzzle.goal ? "PASS" : "FAIL";
     var textStyle = TextStyle(
-        color: Colors.white, fontFamily: 'Rajdhani', fontSize: 17);
+        color: Color.fromARGB(255, 40, 192, 252), fontFamily: 'Rajdhani', fontSize: 17);
     var textSpan = TextSpan(text: statusText, style: textStyle);
     var textPainter = TextPainter(
         text: textSpan, textDirection: TextDirection.ltr);
