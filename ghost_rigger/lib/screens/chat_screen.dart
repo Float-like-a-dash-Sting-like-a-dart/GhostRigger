@@ -69,12 +69,21 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   Flexible(
                     flex: 3,
-                    child: Text(
-                      'Encryption: Secure',
-                      style: TextStyle(
-                        color: Colors.purpleAccent,
-                        fontFamily: 'JetBrainsMono',
-                        fontSize: 20.0,
+                    child: OutlineButton(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 15.0),
+                      onPressed: () => Navigator.pop(context),
+                      borderSide:
+                          BorderSide(color: Colors.purpleAccent, width: 2.0),
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(0.0)),
+                      child: Text(
+                        'Encryption: Secure',
+                        style: TextStyle(
+                          color: Colors.purpleAccent,
+                          fontFamily: 'JetBrainsMono',
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
                   ),
