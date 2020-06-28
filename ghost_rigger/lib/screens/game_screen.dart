@@ -20,7 +20,6 @@ class _GameScreenState extends State<GameScreen> {
     LevelModel level;
 
     switch (widget.level) {
-
       case 1:
         level = LevelModel([
           getPuzzle1(),
@@ -56,17 +55,17 @@ class _GameScreenState extends State<GameScreen> {
         case 1:
           Main.game = null;
           Audio.play(Song.INTRO);
-          Navigator.pushNamed(context, '/decrypt');
+          Navigator.of(context).pushReplacementNamed('/decrypt', arguments: 2);
           break;
         case 2:
           Main.game = null;
           Audio.play(Song.INTRO);
-          Navigator.pushNamed(context, '/decrypt');
+          Navigator.of(context).pushReplacementNamed('/decrypt', arguments: 3);
           break;
         case 3:
           Main.game = null;
           Audio.play(Song.GAME);
-          Navigator.pushNamed(context, '/newspaper');
+          Navigator.of(context).pushReplacementNamed('/newspaper');
           break;
         default:
           Main.game = null;
@@ -329,9 +328,7 @@ class _GameScreenState extends State<GameScreen> {
           positionInBoardRow: 2,
           positionInBoardColumn: 1),
       PieceModel(
-          isInOrOut: true,
-          positionInBoardRow: 2,
-          positionInBoardColumn: 6),
+          isInOrOut: true, positionInBoardRow: 2, positionInBoardColumn: 6),
       PieceModel(
           hastLeftCable: true,
           hastRightCable: true,
@@ -372,7 +369,6 @@ class _GameScreenState extends State<GameScreen> {
           hastRightCable: true,
           arithmeticValue: 5,
           arithmeticOperation: ArithmeticOperation.add),
-
     ];
     return PuzzleModel(validCellPositions, pieceModels, 5);
   }

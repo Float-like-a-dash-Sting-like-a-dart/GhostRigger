@@ -101,7 +101,7 @@ void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(
-      body: MenuScreen(),
+      body: MenuScreen(true), //TODO save music state
       backgroundColor: Colors.black,
     ),
     routes: {

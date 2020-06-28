@@ -194,7 +194,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: _showSendButton
                           ? BlinkingButton(
                               () {
-                                Navigator.pushNamed(context, '/level1');
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/level1');
                               },
                             )
                           : OutlineButton(
