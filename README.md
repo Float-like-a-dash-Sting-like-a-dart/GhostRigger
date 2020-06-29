@@ -1,7 +1,6 @@
-![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/1_small.jpg)
+![Featured image](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/featured-image.jpg)
 
 # Ghost Rigger [![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg)](https://flame-engine.org)
-
 
 Prototype of a cyberpunk-inspired puzzle game set in a distopian future:
 
@@ -17,6 +16,7 @@ In this game, the player will become a ghost rigger, and they will have to solve
 
 ### Screenshots
 
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/1_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/3_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/4_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/5_small.jpg)
@@ -27,9 +27,22 @@ In this game, the player will become a ghost rigger, and they will have to solve
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/10_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/11_small.jpg)
 
+### Implementation
+
+This app combines standard Flutter layouts with a game view created using [Flame](https://flame-engine.org). The typewriting effect on the text views is achieved using the [Animated Text Kit](https://github.com/aagarwal1012/Animated-Text-Kit/) library.
+
 ### Contributors
 
 Game created an developed by:
+
 * [Iain Smith](https://iainsmith.me/) (development)
 * [Julio Ernesto Rodríguez Cabañas](https://julioernesto.me/) (development)
 * [Richard Kinsella](https://www.linkedin.com/in/rktypedesign/) (design)
+
+### Resources
+
+* Original images from Shutterstock
+* Songs:
+  * Ryan Andersen - Synthwave
+  * Bensound - SciFi
+  * Bensound - Evolution
