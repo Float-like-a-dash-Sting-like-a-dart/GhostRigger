@@ -1,4 +1,7 @@
-# Ghost Rigger
+![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/1_small.jpg)
+
+# Ghost Rigger [![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg)](https://flame-engine.org)
+
 
 Prototype of a cyberpunk-inspired puzzle game set in a distopian future:
 
@@ -14,7 +17,6 @@ In this game, the player will become a ghost rigger, and they will have to solve
 
 ### Screenshots
 
-![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/1_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/3_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/4_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/5_small.jpg)
