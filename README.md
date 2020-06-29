@@ -15,7 +15,6 @@ In this game, the player will become a ghost rigger, and they will have to solve
 ### Screenshots
 
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/1_small.jpg)
-![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/2_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/3_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/4_small.jpg)
 ![Demo screenshot](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/screenshots/5_small.jpg)
