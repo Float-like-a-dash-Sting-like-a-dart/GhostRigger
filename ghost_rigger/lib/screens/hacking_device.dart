@@ -24,7 +24,7 @@ import 'hacking_device_modules/info.dart';
 import 'hacking_device_modules/light_animation.dart';
 import 'hacking_device_modules/piece_selector.dart';
 import 'hacking_device_modules/display_status.dart';
-import 'hacking_device_modules/pieces/piece.dart';
+import 'hacking_device_modules/piece.dart';
 import 'models/level_model.dart';
 import 'models/piece_model.dart';
 import 'models/puzzle_model.dart';

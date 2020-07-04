@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 
 import '../hacking_device.dart';
 import 'device_module_base.dart';
-import 'pieces/piece.dart';
+import 'piece.dart';
 
 class PieceSelector extends DeviceModuleBase {
   Sprite sprite;

@@ -3,9 +3,9 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../hacking_device.dart';
-import '../device_module_base.dart';
-import '../../models/piece_model.dart';
+import '../hacking_device.dart';
+import 'device_module_base.dart';
+import '../models/piece_model.dart';
 
 class Piece extends DeviceModuleBase {
   Sprite sprite;

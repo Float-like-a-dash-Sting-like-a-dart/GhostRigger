@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import '../../hacking_device.dart';
-import '../pieces/piece.dart';
+import '../piece.dart';
 import 'button_base.dart';
 
 class ButtonArrowDown extends ButtonBase {
