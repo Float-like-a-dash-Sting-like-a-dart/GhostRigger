@@ -2,7 +2,7 @@
 
 # Ghost Rigger [![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg)](https://flame-engine.org)
 
-Prototype of a cyberpunk-inspired puzzle game set in a distopian future:
+Prototype of a cyberpunk-inspired puzzle game set in a dystopian future:
 
 > In the year 2078, the megacorporation *Native Development Initiative*, aka NDI, rules the Earth.
 >
@@ -12,7 +12,7 @@ Prototype of a cyberpunk-inspired puzzle game set in a distopian future:
 
 In this game, the player will become a ghost rigger, and they will have to solve puzzles to progress and reveal the story.
 
-**This repository has been created as a part of the Flutter hackahton [#Hack20](https://flutterhackathon.com/).**
+**This repository has been created as a part of the Flutter hackathon [#Hack20](https://flutterhackathon.com/).**
 
 ### Screenshots
 
