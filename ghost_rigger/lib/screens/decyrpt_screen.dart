@@ -28,7 +28,7 @@ class _DecryptScreenState extends State<DecryptScreen> {
           flex: 1,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: Main.currentLevel == 2 ? CrossAxisAlignment.center : CrossAxisAlignment.start,
             children: <Widget>[
               Flexible(
                 flex: 9,
@@ -65,9 +65,9 @@ class _DecryptScreenState extends State<DecryptScreen> {
     switch (Main.currentLevel) {
       case 2:
         return [
-          "Great! You have now intercepted the messages sent by NDI.\n\n",
+          "\n\nGreat! You have now intercepted the messages sent by NDI.\n\n",
           "But they seem to be encrypted, as expected.\n\n",
-          "Nothing you cannot deal with...",
+          "Luckily, this isn't anything you cannot deal with...\n\n",
         ];
       case 3:
       default:
@@ -76,7 +76,7 @@ class _DecryptScreenState extends State<DecryptScreen> {
           "-- START OF MESSAGE --\n\n",
           "The first prototypes for the new Super Pollutant Power Plant™ are ready to start the tests.\n\n",
           "If they are successful, the plan to replace 5000 wind mills with these new oil-fired power plants will go ahead.\n\n",
-          "-- END OF MESSAGE --",
+          "-- END OF MESSAGE --\n",
         ];
     }
   }
@@ -93,7 +93,7 @@ class _DecryptScreenState extends State<DecryptScreen> {
         fontFamily: 'Rajdhani',
         fontWeight: FontWeight.w500,
       ),
-      textAlign: TextAlign.left,
+      textAlign: Main.currentLevel == 2 ? TextAlign.center : TextAlign.left,
       alignment: Alignment.topCenter,
     );
 

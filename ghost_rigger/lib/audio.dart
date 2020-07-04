@@ -4,7 +4,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/audio_pool.dart';
 
-enum Song { GAME, MENU, INTRO }
+enum Song { GAME, MENU, DRAMATIC }
 
 Future<AudioPool> loadSfx(String file) async {
   final audio =
@@ -17,7 +17,7 @@ class Audio {
   static AudioCache musicPlayer;
   static Song song;
   static bool isPaused = false;
-  static bool inited = false;
+  static bool initialised = false;
 
   static AudioPlayer _audioPlayer;
 
@@ -38,7 +38,7 @@ class Audio {
     });
     await Future.wait(ps);
 
-    inited = true;
+    initialised = true;
   }
 
   static void playSfx(String file) {
@@ -47,8 +47,10 @@ class Audio {
     }
   }
 
-  static void play(Song song) async {
+  static void play(Song song, { bool stopPrevious = true }) async {
     Audio.song = song;
+    if (stopPrevious)
+      stop();
     switch (song) {
       case Song.GAME:
         _audioPlayer = await musicPlayer.loop('ingame.mp3');
@@ -56,7 +58,7 @@ class Audio {
       case Song.MENU:
         _audioPlayer = await musicPlayer.loop('menu.mp3');
         break;
-      case Song.INTRO:
+      case Song.DRAMATIC:
         _audioPlayer = await musicPlayer.loop('intro.mp3');
         break;
     }
@@ -64,7 +66,7 @@ class Audio {
   }
 
   static void stop() {
-    _audioPlayer.stop();
+    _audioPlayer?.stop();
   }
 
   static void resume() {
@@ -86,7 +88,7 @@ class Audio {
   }
 
   static Future _updatePlayer() async {
-    if (!inited) {
+    if (!initialised) {
       return;
     }
 

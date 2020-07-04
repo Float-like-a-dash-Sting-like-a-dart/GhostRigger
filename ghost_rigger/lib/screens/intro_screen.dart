@@ -14,7 +14,7 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
     super.initState();
-    Audio.play(Song.INTRO);
+    Audio.play(Song.DRAMATIC);
     _introNumber = 1;
     _showContinue = false;
   }
@@ -109,15 +109,15 @@ class _IntroScreenState extends State<IntroScreen> {
         return [
           "While they look for new evil ways to increase their margins and satisfy their never-ending greed,\n\n"
               .toUpperCase(),
-          "a group of hackers are trying to stop them. \n\n".toUpperCase(),
-          "They call themselves Unanymous.".toUpperCase(),
+          "a group of hackers are trying to stop them.\n\n".toUpperCase(),
+          "They call themselves Unanymous.\n".toUpperCase(),
         ];
       case 3:
         return [
           "Within them,\n\n".toUpperCase(),
           "those who focus their efforts on fighting against NDI's injustices are known as *ghost riggers*.\n\n"
               .toUpperCase(),
-          "You are the best one...\n\n".toUpperCase(),
+          "You are the best one...\n".toUpperCase(),
         ];
       case 1:
       default:
@@ -125,7 +125,7 @@ class _IntroScreenState extends State<IntroScreen> {
           "In the year 2078,\n\n".toUpperCase(),
           "the mega-corporation Native Development Initiative, aka NDI...\n\n"
               .toUpperCase(),
-          "rules the Earth.\n\n".toUpperCase(),
+          "rules the Earth.\n".toUpperCase(),
         ];
     }
   }

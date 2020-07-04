@@ -23,7 +23,7 @@ class Background extends DeviceModuleBase {
     leftSprite.renderRect(canvas, Rect.fromLTWH(1 - leftWidth, 0, leftWidth, hackingDevice.gameHeight));
 
     var rightWidth = hackingDevice.gameHeight * 0.383;
-    leftSprite.renderRect(canvas, Rect.fromLTWH(hackingDevice.gameWidth - 1, 0, rightWidth, hackingDevice.gameHeight));
+    rightSprite.renderRect(canvas, Rect.fromLTWH(hackingDevice.gameWidth - 1, 0, rightWidth, hackingDevice.gameHeight));
   }
 
   @override

@@ -53,7 +53,7 @@ class DoorsAnimation extends DeviceModuleBase {
       var maxOffsetLeftDoor = (hackingDevice.gameWidth ?? 0) * 0.471;
       if (offsetRightDoor > maxOffsetLeftDoor) {
         offsetRightDoor = maxOffsetLeftDoor;
-        renderRight = true;
+        renderRight = false;
       }
     }
   }

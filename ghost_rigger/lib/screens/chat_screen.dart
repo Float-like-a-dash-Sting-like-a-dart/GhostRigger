@@ -36,12 +36,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: OutlineButton(
                       padding: EdgeInsets.symmetric(
                           vertical: 12.0, horizontal: 15.0),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.of(context)
+                          .pushReplacementNamed('/level1'),
                       borderSide: BorderSide(color: Colors.cyanAccent),
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(0.0)),
                       child: Text(
-                        'Close',
+                        'Skip',
                         style: TextStyle(
                           color: Colors.cyanAccent,
                           fontFamily: 'JetBrainsMono',
@@ -98,8 +99,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   ConsoleAnimatedTextKit(
-                    speed: Duration(milliseconds: 2),
-                    pause: Duration(milliseconds: 2000),
+                    speed: Duration(milliseconds: 3),
+                    pause: Duration(milliseconds: 2500),
                     displayFullTextOnTap: true,
                     text: [
                       "> C1ph3r: Zer0 came back with some news, it seems like NDI are up to something.\n\n",

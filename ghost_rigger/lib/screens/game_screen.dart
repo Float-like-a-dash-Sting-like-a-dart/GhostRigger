@@ -54,17 +54,17 @@ class _GameScreenState extends State<GameScreen> {
       switch (widget.level) {
         case 1:
           Main.game = null;
-          Audio.play(Song.INTRO);
+          Audio.play(Song.DRAMATIC);
           Navigator.of(context).pushReplacementNamed('/decrypt', arguments: 2);
           break;
         case 2:
           Main.game = null;
-          Audio.play(Song.INTRO);
+          Audio.play(Song.DRAMATIC);
           Navigator.of(context).pushReplacementNamed('/decrypt', arguments: 3);
           break;
         case 3:
           Main.game = null;
-          Audio.play(Song.GAME);
+          Audio.play(Song.DRAMATIC);
           Navigator.of(context).pushReplacementNamed('/newspaper');
           break;
         default:
