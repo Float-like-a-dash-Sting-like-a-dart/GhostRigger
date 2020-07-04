@@ -22,6 +22,7 @@ class Piece extends DeviceModuleBase {
   bool isInOrOut;
   Offset dragPosition;
   Offset offset;
+  Offset position;
   bool isLit;
   bool isInPieceSelector;
   Paint paint;
@@ -75,16 +76,13 @@ class Piece extends DeviceModuleBase {
   void render(Canvas canvas) {
     var width = hackingDevice.gameWidth * 0.082;
     var height = width;
-    var halfWidth = width * 0.5;
-    var offsetX = dragPosition == null ? offset.dx : dragPosition.dx - halfWidth;
-    var offsetY = dragPosition == null ? offset.dy : dragPosition.dy - halfWidth;
 
     if (isLit)
       paint.color = Color.fromRGBO(0, 0, 0, 1.0);
     else
       paint.color = Color.fromRGBO(0, 0, 0, 0.6);
 
-    area = Rect.fromLTWH(offsetX, offsetY, width, height);
+    area = Rect.fromLTWH(position.dx, position.dy, width, height);
     var isInBoard = positionInBoardRow != -1;
     var isBeingDragged = draggedPiece == this;
     if (hackingDevice.pieceSelector.area != null && !isInBoard && !isBeingDragged) {
@@ -160,7 +158,32 @@ class Piece extends DeviceModuleBase {
 
   @override
   void update(double t) {
-    // TODO: implement update
+    var width = hackingDevice.gameWidth * 0.082;
+    var halfWidth = width * 0.5;
+    var desiredPositionX = dragPosition == null ? offset.dx : dragPosition.dx - halfWidth;
+    var desiredPositionY = dragPosition == null ? offset.dy : dragPosition.dy - halfWidth;
+    if (position == null || dragPosition != null) {
+      position = Offset(desiredPositionX, desiredPositionY);
+      return;
+    }
+
+    // Instead of moving the piece directly to its final position, we move it closer to it to animate the movement
+    var distanceX = (position.dx - desiredPositionX).abs();
+    var distanceY = (position.dy - desiredPositionY).abs();
+    var deltaX = position.dx < desiredPositionX ? (1000 * t) : (-1000 * t);
+    var deltaY = position.dy < desiredPositionY ? (1000 * t) : (-1000 * t);
+
+    // We slow down the shortest path (either vertical or horizontal) to ensure the movement follows a straight line
+    var distanceRatio = distanceX / distanceY;
+    if (distanceRatio > 1)
+      deltaY *= 1.0 / distanceRatio;
+    else if (distanceRatio < 1)
+      deltaX *= distanceRatio;
+
+    // Finally, we apply the calculations to set the next position
+    var positionX = (distanceX <= deltaX.abs()) ? desiredPositionX : position.dx + deltaX;
+    var positionY = (distanceY <= deltaY.abs()) ? desiredPositionY : position.dy + deltaY;
+    position = Offset(positionX, positionY);
   }
 
   @override
