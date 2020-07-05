@@ -1,6 +1,10 @@
 ![Featured image](https://raw.githubusercontent.com/Float-like-a-dash-Sting-like-a-dart/GhostRigger/master/featured-image.jpg)
 
-# Ghost Rigger [![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg)](https://flame-engine.org)
+# Ghost Rigger 
+[![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg)](https://flame-engine.org) 
+<a href="https://github.com/Solido/awesome-flutter">
+   <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
+</a>
 
 Prototype of a cyberpunk-inspired puzzle game set in a dystopian future:
 
