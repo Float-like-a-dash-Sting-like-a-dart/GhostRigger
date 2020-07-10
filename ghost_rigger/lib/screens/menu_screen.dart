@@ -28,7 +28,7 @@ class _MenuScreenState extends State<MenuScreen> {
             flex: 1,
           ),
           Flexible(
-            flex: 5,
+            flex: 6,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
